@@ -1,74 +1,149 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import ApiMiddleware from '../../utils/ApiMiddleware';
-import Cookies from "js-cookie";
-
+import cookies from 'js-cookie';
 
 const initialState = {
     isLoading: false,
-    allData: null,
-    forgotModal: { isVisible: false },
-}
+    allData: {
+        token: {
+            access: cookies.get('crypt-access'),
+            refresh: cookies.get('crypt-refresh')
+        }
+    },
+    forgotModal: { email: null, isVisible: false, otpVerified: false },
+};
 
-export const loginFetchAPi = createAsyncThunk("/auth/login", async (values) => {
+export const loginFetchAPi = createAsyncThunk("/auth/login", async ({keepMeLogin, ...data}) => {
     try {
         const loginCredentials = await ApiMiddleware.post("/auth/login/", {
-            ...values,
+            ...data,
         });
         toast.success(loginCredentials?.data?.message);
-        return loginCredentials;
+        return {...loginCredentials.data, keepMeLogin};
     } catch (error) {
         toast.error(error?.response?.data?.message);
     }
 });
 
-export const forgotEmailAPi = createAsyncThunk("/auth/forgot", async (values, { rejectWithValue }) => {
+export const forgotOtpVerifyApi = createAsyncThunk("/auth/otp-verify", async (values, { rejectWithValue }) => {
+    try {
+        const response = await ApiMiddleware.post("/auth/password/reset/otp/", {
+            ...values,
+        });
+        return response.data;
+    } catch (error) {
+        if (!error.response) {
+            throw rejectWithValue(error);
+        }
+        throw rejectWithValue(error.response.data.message);
+    }
+});
+
+export const resetPasswordApi = createAsyncThunk("/auth/reset-password", async (values, { rejectWithValue }) => {
+    try {
+        const response = await ApiMiddleware.post("/auth/password/reset/", {
+            ...values,
+        });
+        return response.data;
+    } catch (error) {
+        if (!error.response) {
+            throw rejectWithValue(error);
+        }
+        throw rejectWithValue(error.response.data.message);
+    }
+});
+
+export const forgotEmailApi = createAsyncThunk("/auth/forgot", async (values, { rejectWithValue }) => {
     try {
         const response = await ApiMiddleware.post("/auth/password/reset/email/", {
             ...values,
         });
-        console.log(response)
-        toast.success(response?.data?.message);
-        return response;
+        return {...response.data, ...values};
     } catch (error) {
-        // console.log(error)
-        toast.error(error?.response?.data?.message);
-        rejectWithValue(error?.response?.data?.message);
+        if (!error.response) {
+            throw rejectWithValue(error);
+        }
+        throw rejectWithValue(error.response.data.message);
     }
 });
 
 const loginSlice = createSlice({
     name: 'loginPage',
     initialState,
-    reducers: {},
+    reducers: {
+        logOut: (state) => {
+            state.allData = {
+              token: {
+                access: null,
+                refresh: null,
+              },
+            };
+            cookies.remove('crypt-access');
+            cookies.remove('crypt-refresh');
+        }
+    },
     extraReducers: {
         [loginFetchAPi.pending]: (state, action) => {
             state.isLoading = true;
         },
-        [loginFetchAPi.fulfilled]: (state, action) => {
+        [loginFetchAPi.fulfilled]: (state, {payload}) => {
             state.isLoading = false;
-            state.allData = action.payload?.data;
+            state.allData = payload?.result[0];
+            if(payload.keepMeLogin) {
+                cookies.set('crypt-access', payload?.result[0]?.token?.access, { expires: 1 });
+                cookies.set('crypt-refresh', payload?.result[0]?.token?.refresh, { expires: 1 });
+            }else {
+                cookies.set('crypt-access', payload?.result[0]?.token?.access);
+                cookies.set('crypt-refresh', payload?.result[0]?.token?.refresh);
+            }
         },
         [loginFetchAPi.rejected]: (state, action) => {
             state.isLoading = false;
         },
-
-        [forgotEmailAPi.pending]: (state, action) => {
+        [forgotEmailApi.pending]: (state, action) => {
             state.isLoading = true;
         },
-        [forgotEmailAPi.fulfilled]: (state, action) => {
+        [forgotEmailApi.fulfilled]: (state, action) => {
             state.isLoading = false;
-            console.log(" visible", action);
-            state.forgotModal = { isVisible: action.payload?.data?.status_code === 200 };
-            // action.payload?.data?.status_code === 200 ? toast.success(action.payload?.data?.message) : toast.error(action.payload?.data?.message)
-
+            state.forgotModal = { 
+                ...state.forgotModal,
+                isVisible: true,
+                email: action.payload?.email || null
+            };
+            toast.success(action.payload?.message);
         },
-        [forgotEmailAPi.rejected]: (state, action) => {
-            console.log("error");
+        [forgotEmailApi.rejected]: (state, action) => {
             state.isLoading = false;
-            // toast.error(action.payload);
+            toast.error(action.payload);
+        },
+        [forgotOtpVerifyApi.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [forgotOtpVerifyApi.fulfilled]: (state, { payload }) => {
+            state.isLoading = false;
+            state.forgotModal = { ...state.forgotModal, isVisible: false, otpVerified : true };
+            toast.success(payload?.message);
+        },
+        [forgotOtpVerifyApi.rejected]: (state, { payload }) => {
+            state.isLoading = false;
+            toast.error(payload);
+        },
+        [resetPasswordApi.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [resetPasswordApi.fulfilled]: (state, { payload }) => {
+            state.isLoading = false;
+            state.forgotModal = { email: null, isVisible: false, otpVerified: false };
+            toast.success(payload?.message);
+        },
+        [resetPasswordApi.rejected]: (state, { payload }) => {
+            state.isLoading = false;
+            toast.error(payload);
         },
     }
 })
+
+export const { logOut } = loginSlice.actions;
 
 export default loginSlice.reducer

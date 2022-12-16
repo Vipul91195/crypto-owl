@@ -1,13 +1,13 @@
 import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ForgotValidationSchema, otpValidationSchema } from '../../utils/FormValidations'
 import CustomButton from '../forms/CustomButton'
 import { InputField } from '../forms/InputField'
 import VerifyOtpModal from '../VerifyOtpModal'
 import OtpInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
-import { forgotEmailAPi, loginFetchAPi } from '../../Redux/auth/loginSlice'
+import { forgotEmailApi, forgotOtpVerifyApi, loginFetchAPi } from '../../Redux/auth/loginSlice'
 
 
 
@@ -16,25 +16,34 @@ const Forgot = () => {
         isLoading: state.loginSlice.isLoading,
         forgotModal: state.loginSlice.forgotModal,
     }));
+    const initialValues = { email: "" };
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const [otp, setOtp] = useState("")
     const handleOtp = (otp) => setOtp(otp)
-
+    const handleForgotSubmit = (values) => {
+        dispatch(forgotEmailApi(values));
+    }
+    const handleOtpVerify = (e) => {
+        e.preventDefault();
+        dispatch(forgotOtpVerifyApi({ email: forgotModal?.email, otp}));
+        setOtp('');
+    }
+    useEffect(() => {
+        forgotModal.otpVerified && navigate('/reset-password');
+    }, [forgotModal.otpVerified, navigate]);
     return (
         <div className='bg-[#171717] flex flex-col items-center h-screen justify-center font-Sans w-screen px-5'>
             <Formik
-                initialValues={{ email: "" }}
+                initialValues={initialValues}
                 validationSchema={ForgotValidationSchema}
                 validateOnBlur={false}
                 validateOnChange={false}
-                onSubmit={(values) => {
-                    dispatch(forgotEmailAPi(values));
-                }}
+                onSubmit={handleForgotSubmit}
             >
-                {(formik) =>
+                {({handleSubmit}) =>
                 (<form
-                    onSubmit={formik.handleSubmit}
+                    onSubmit={handleSubmit}
                 >
                     <div className='max-w-[410px] '>
                         <div className='text-2xl leading-[45px] tracking-[-0.02em] sm:text-4xl text-pink-light sm:leading-[56px] sm:tracking-[-0.02em] font-bold text-left'>Forgot Password</div>
@@ -53,8 +62,7 @@ const Forgot = () => {
                             loaderSize={20}
                             showLoader={isLoading}
                             type='submit'
-                            buttonStyle="sm:w-[410px] mt-7 sm:mt-8 w-full py-[14px] sm:py-5 text-base sm:text-sm font-bold rounded-2xl text-pink-light bg-[#DD69AA]
-                            ">
+                            buttonStyle="sm:w-[410px] mt-7 sm:mt-8 w-full py-[14px] sm:py-5 text-base sm:text-sm font-bold rounded-2xl text-pink-light bg-[#DD69AA]">
                             Submit
                         </CustomButton >
                     </div>
@@ -64,10 +72,7 @@ const Forgot = () => {
                 <VerifyOtpModal modal={forgotModal} onClose={() => { }} >
                     <div className="p-[50px] flex flex-col gap-[40px] items-center bg-[#171717] border max-w-[500px] rounded-[10px]">
                         <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                alert(otp.length);
-                            }}
+                            onSubmit={handleOtpVerify}
                         >
                             <div className='flex flex-col items-center gap-10'>
                                 <div>
@@ -86,8 +91,9 @@ const Forgot = () => {
                                 />
                                 <CustomButton
                                     type='submit'
-                                    disabled={otp.length < 6}
-
+                                    loaderSize={15}
+                                    showLoader={isLoading}
+                                    disabled={otp.length < 6 || isLoading}
                                     buttonStyle="w-[90px] mt-[20px] h-[40px] text-sm font-bold rounded-2xl text-pink-light bg-[#DD69AA]">
                                     Submit
                                 </CustomButton >
