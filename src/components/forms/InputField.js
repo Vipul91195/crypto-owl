@@ -24,7 +24,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, lable, ...pro
                         : props.type
                 } />
             {props.type === "password" &&
-                <div className='absolute top-[24px] right-5'
+                <div className='absolute top-3 sm:top-[24px] right-5'
 
                     onClick={() => setShowPassword(!showPassword)}
                 >

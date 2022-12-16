@@ -20,7 +20,7 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/forgot' element={<Forgot />} />
               <Route path='verifyOtp' element={<VerifyOtp />} />
-              <Route path='resetPassword' element={<ResetPassword />} />
+              <Route path='/reset-password' element={<ResetPassword />} />
             </Routes>
           </div>
         </div >
