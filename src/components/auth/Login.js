@@ -90,9 +90,9 @@
 // export default Login
 
 import { Formik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import googleLogo from '../../assets/img/googleLogo.svg'
 import { loginFetchAPi } from '../../Redux/auth/loginSlice'
 import { LoginValidationSchema } from '../../utils/FormValidations'
@@ -100,25 +100,30 @@ import CustomButton from '../forms/CustomButton'
 import { InputField } from '../forms/InputField'
 
 const Login = () => {
-    const { isLoading } = useSelector((state) => ({
+    const { isLoading, token } = useSelector((state) => ({
         isLoading: state.loginSlice.isLoading,
+        token: state.loginSlice.allData?.token?.access,
     }));
+    const initialValues = { username: "", password: "", keepMeLogin: false };
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleLoginSubmit = (values) => {
+        dispatch(loginFetchAPi(values));
+    }
+    useEffect(() => {
+        token && navigate('/');
+    }, [navigate, token])
     return (
         <div className='bg-[#171717] flex flex-col items-center h-screen sm:min-h-[680px] lg:min-h-none justify-center font-Sans w-full'>
             <Formik
-                initialValues={{ username: "", password: "" }}
+                initialValues={initialValues}
                 validationSchema={LoginValidationSchema}
                 validateOnBlur={false}
                 validateOnChange={false}
-                onSubmit={(values) => {
-                    dispatch(loginFetchAPi(values));
-                }}
+                onSubmit={handleLoginSubmit}
             >
-                {(formik) =>
-                (<form
-                    onSubmit={formik.handleSubmit}
-                >
+                {({handleSubmit}) =>
+                (<form onSubmit={handleSubmit} >
                     <div className='max-w-[410px]'>
                         <div className='text-2xl leading-[45px] tracking-[-0.02em] sm:text-4xl text-pink-light sm:leading-[56px] sm:tracking-[-0.02em] font-bold text-left'>Sign In</div>
                         <div className='text-base leading-4 font-normal tracking-tight text-[#737373] text-left pb-6 sm:pt-2 sm:pb-9'>Enter your email and password to sign in!</div>
@@ -154,8 +159,8 @@ const Login = () => {
                                 <InputField
                                     inputstyle='h-[14px] w-[14px] sm:h-[18px] sm:w-[18px] rounded-sm outline-none'
                                     type='checkbox'
-                                    id='checkbox'
-                                    name='checkbox' />
+                                    id='keepMeLogin'
+                                    name='keepMeLogin' />
                                 <div className='text-xs sm:text-sm font-normal tracking-tight text-pink-light'>Keep me logged in</div>
                             </div>
                             <Link to="/forgot">
@@ -179,4 +184,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;

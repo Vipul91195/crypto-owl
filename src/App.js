@@ -16,17 +16,17 @@ function App() {
         <div className="App">
           <div>
             <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/forgot' element={<Forgot />} />
-              <Route path='verifyOtp' element={<VerifyOtp />} />
-              <Route path='/reset-password' element={<ResetPassword />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/forgot" element={<Forgot />} />
+              <Route path="verifyOtp" element={<VerifyOtp />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
             </Routes>
           </div>
-        </div >
+        </div>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
 export default App;
