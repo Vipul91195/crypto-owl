@@ -1,5 +1,5 @@
-// import { Formik } from 'formik'
-// import React from 'react'
+
+
 // import { useDispatch, useSelector } from 'react-redux'
 // import { Link } from 'react-router-dom'
 // import googleLogo from '../../assets/img/googleLogo.svg'
@@ -128,50 +128,50 @@ const Login = () => {
                                 Sign in with Google
                             </div>
                         </a>
-                        <div className='flex sm:py-6 items-center'>
+                        <div className='flex py-5 sm:py-6 items-center'>
                             <div className='border-b w-full border-[#FFFFFF]/[10%]'></div>
                             <div className='px-4 text-[#ADADAD] text-sm leading-5 tracking-tight font-medium'>or</div>
                             <div className='border-b w-full border-[#FFFFFF]/[10%]'></div>
                         </div>
-                        {/* <div className='text-sm font-medium tracking-tight text-pink-light pb-3'>Email<span className='text-[#DD69AA]'>*</span></div>
+                        <div className='text-base pb-1 sm:text-sm  font-medium tracking-tight text-pink-light sm:pb-3'>Email<span className='text-[#DD69AA]'>*</span></div>
                         <InputField
-                            inputstyle='w-full text-[#737373] text-sm outline-none py-[18px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent placeholder:text-sm placeholder:text-[#737373] pl-6'
-                            borderstyle='w-full text-[#737373] text-sm outline-none h-[50px] rounded-2xl border border-red-800 bg-transparent placeholder:text-sm placeholder:text-[#737373]  pl-6'
+                            inputstyle='w-full text-[#737373] text-xs sm:text-sm outline-none py-[14px] sm:py-[18px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent placeholder:text-xs sm:placeholder:text-sm placeholder:text-[#737373] pl-5 sm:pl-6'
+                            borderstyle='w-full text-[#737373] text-xs sm:text-sm outline-none py-[14px] sm:py-[18px] rounded-2xl border border-red-800 bg-transparent placeholder:text-xs sm:placeholder:text-sm placeholder:text-[#737373] pl-5 sm:pl-6'
                             type='text'
                             id='username'
                             name='username'
                             placeholder='mail@simmmple.com' />
-                        <div className='text-sm font-medium tracking-tight text-pink-light pt-6 pb-3'>Password<span className='text-[#DD69AA]'>*</span></div>
+                        <div className='text-sm font-medium tracking-tight text-pink-light pt-5 sm:pt-6 pb-1 sm:pb-3'>Password<span className='text-[#DD69AA]'>*</span></div>
                         <InputField
-                            inputstyle='w-full text-[#737373] outline-none py-[18px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent placeholder:text-sm placeholder:text-[#737373] pl-6'
-                            borderstyle='w-full text-[#737373] outline-none h-[50px] rounded-2xl border border-red-800  bg-transparent placeholder:text-sm placeholder:text-[#737373] pl-6'
+                            inputstyle='w-full text-[#737373] text-xs sm:text-sm outline-none py-[14px] sm:py-[18px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent placeholder:text-xs sm:placeholder:text-sm placeholder:text-[#737373] pl-5 sm:pl-6'
+                            borderstyle='w-full text-[#737373] text-xs sm:text-sm outline-none py-[14px] sm:py-[18px] rounded-2xl border border-red-800 bg-transparent placeholder:text-xs sm:placeholder:text-sm placeholder:text-[#737373] pl-5 sm:pl-6'
                             type='password'
                             id='password'
                             name='password'
                             placeholder='Min. 8 characters' />
-                        <div className='flex py-8 justify-between'>
-                            <div className='flex gap-3'>
+                        <div className='flex py-7 sm:py-8 justify-between'>
+                            <div className='flex gap-2 sm:gap-3'>
                                 <InputField
-                                    inputstyle='h-[18px] w-[18px] rounded-sm outline-none'
+                                    inputstyle='h-[14px] w-[14px] sm:h-[18px] sm:w-[18px] rounded-sm outline-none'
                                     type='checkbox'
                                     id='checkbox'
                                     name='checkbox' />
-                                <div className='text-sm  font-normal tracking-tight text-pink-light'>Keep me logged in</div>
+                                <div className='text-xs sm:text-sm font-normal tracking-tight text-pink-light'>Keep me logged in</div>
                             </div>
-                            <Link to="/Forgot">
-                                <div className='text-sm font-medium tracking-tight text-pink-light text-left'>Forget password?
+                            <Link to="/forgot">
+                                <div className='text-xs  sm:text-sm font-medium tracking-tight text-pink-light text-left'>Forget password?
                                 </div>
                             </Link>
                         </div>
                         <CustomButton
                             type='submit'
                             disabled={isLoading}
-                            buttonStyle="w-[410px] py-5 text-sm font-bold rounded-2xl text-pink-light bg-[#DD69AA]
-                           "
+                            buttonStyle="sm:w-[410px] w-full py-[14px] sm:py-5 text-base sm:text-sm font-bold rounded-2xl text-pink-light bg-[#DD69AA]
+                            "
                             loaderSize={20}
                             showLoader>
                             Sign in
-                        </CustomButton > */}
+                        </CustomButton >
                     </div>
                 </form>)}
             </Formik>
