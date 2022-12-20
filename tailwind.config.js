@@ -20,6 +20,10 @@ module.exports = {
         pink: {
           light: "#CDBEBE"
         }
+      },
+      backgroundImage: {
+        checkTrue: "url('../src/assets/img/checkTrue.svg')",
+        checkFalse: "url('../src/assets/img/checkFalse.svg')"
       }
     },
   },
