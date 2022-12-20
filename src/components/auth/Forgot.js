@@ -26,14 +26,14 @@ const Forgot = () => {
     }
     const handleOtpVerify = (e) => {
         e.preventDefault();
-        dispatch(forgotOtpVerifyApi({ email: forgotModal?.email, otp}));
+        dispatch(forgotOtpVerifyApi({ email: forgotModal?.email, otp }));
         setOtp('');
     }
     useEffect(() => {
         forgotModal.otpVerified && navigate('/reset-password');
     }, [forgotModal.otpVerified, navigate]);
     return (
-        <div className='bg-[#171717] flex flex-col items-center h-screen justify-center font-Sans w-screen px-5'>
+        <div className='bg-[#171717] flex flex-col items-center h-screen py-[100px] sm:justify-center font-Sans w-screen px-5'>
             <Formik
                 initialValues={initialValues}
                 validationSchema={ForgotValidationSchema}
@@ -41,13 +41,13 @@ const Forgot = () => {
                 validateOnChange={false}
                 onSubmit={handleForgotSubmit}
             >
-                {({handleSubmit}) =>
+                {({ handleSubmit }) =>
                 (<form
                     onSubmit={handleSubmit}
                 >
                     <div className='max-w-[410px] '>
                         <div className='text-2xl leading-[45px] tracking-[-0.02em] sm:text-4xl text-pink-light sm:leading-[56px] sm:tracking-[-0.02em] font-bold text-left'>Forgot Password</div>
-                        <div className='text-base leading-4 font-normal tracking-tight text-[#737373] text-left pb-6 sm:pt-2 sm:pb-9'>Enter your register email id here, we will send OTP on your register email id.</div>
+                        <div className='text-base leading-4 font-normal tracking-tight text-[#737373] text-left pb-6 sm:pt-2 sm:pb-9'>Enter your register email id here, We have sent an OTP on your register email id.</div>
 
                         <div className='text-sm font-medium tracking-tight text-pink-light pt-5 sm:pt-6 pb-1 sm:pb-3'>Email<span className='text-[#DD69AA]'>*</span></div>
                         <InputField
@@ -70,19 +70,19 @@ const Forgot = () => {
             </Formik>
             <div>
                 <VerifyOtpModal modal={forgotModal} onClose={() => { }} >
-                    <div className="p-[50px] flex flex-col gap-[40px] items-center bg-[#171717] border max-w-[500px] rounded-[10px]">
+                    <div className="p-[10px] sm:p-[50px] flex flex-col gap-[40px] items-center bg-[#171717] border max-w-[500px] rounded-[10px]">
                         <form
                             onSubmit={handleOtpVerify}
                         >
-                            <div className='flex flex-col items-center gap-10'>
+                            <div className='flex flex-col items-center gap-6 sm:gap-10'>
                                 <div>
-                                    <p className="text-center text-white text-xl font-normal leading-[21px] tracking-wide">
+                                    <p className="text-center text-white text-xs sm:text-xl font-normal leading-[21px] tracking-wide">
                                         Please check your email. We sent a OTP on your register email
                                         id.
                                     </p>
                                 </div>
                                 <OtpInput
-                                    inputStyle="text-xl !p-2 !w-[35px] rounded-[5px]"
+                                    inputStyle="text-xl sm:!p-2 sm:!w-[35px] rounded-[5px]"
                                     value={otp}
                                     isInputNum={true}
                                     onChange={handleOtp}

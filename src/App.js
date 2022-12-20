@@ -1,12 +1,14 @@
 
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// import AwardPoint from './admin/AwardPoint.js';
 import './App.css';
-import Forgot from './components/auth/Forgot';
-import Login from './components/auth/Login';
-import ResetPassword from './components/auth/ResetPassword';
-import { VerifyOtp } from './components/auth/VerifyOtp';
-import Home from './components/Home';
+// import Forgot from './components/auth/Forgot';
+// import Login from './components/auth/Login';
+// import ResetPassword from './components/auth/ResetPassword';
+// import { VerifyOtp } from './components/auth/VerifyOtp';
+// import Home from './components/Home';
+import { AdminLayout } from './components/layout/AdminLayout';
 
 function App() {
   return (
@@ -15,13 +17,15 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <div>
-            <Routes>
+            <AdminLayout />
+            {/* <AwardPoint /> */}
+            {/* <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forgot" element={<Forgot />} />
               <Route path="verifyOtp" element={<VerifyOtp />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-            </Routes>
+            </Routes> */}
           </div>
         </div>
       </BrowserRouter>

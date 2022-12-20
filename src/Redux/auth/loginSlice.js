@@ -14,13 +14,13 @@ const initialState = {
     forgotModal: { email: null, isVisible: false, otpVerified: false },
 };
 
-export const loginFetchAPi = createAsyncThunk("/auth/login", async ({keepMeLogin, ...data}) => {
+export const loginFetchAPi = createAsyncThunk("/auth/login", async ({ keepMeLogin, ...data }) => {
     try {
         const loginCredentials = await ApiMiddleware.post("/auth/login/", {
             ...data,
         });
         toast.success(loginCredentials?.data?.message);
-        return {...loginCredentials.data, keepMeLogin};
+        return { ...loginCredentials.data, keepMeLogin };
     } catch (error) {
         toast.error(error?.response?.data?.message);
     }
@@ -59,12 +59,12 @@ export const forgotEmailApi = createAsyncThunk("/auth/forgot", async (values, { 
         const response = await ApiMiddleware.post("/auth/password/reset/email/", {
             ...values,
         });
-        return {...response.data, ...values};
+        return { ...response.data, ...values };
     } catch (error) {
         if (!error.response) {
-            throw rejectWithValue(error);
+            return rejectWithValue(error);
         }
-        throw rejectWithValue(error.response.data.message);
+        return rejectWithValue(error.response.data.message);
     }
 });
 
@@ -74,10 +74,10 @@ const loginSlice = createSlice({
     reducers: {
         logOut: (state) => {
             state.allData = {
-              token: {
-                access: null,
-                refresh: null,
-              },
+                token: {
+                    access: null,
+                    refresh: null,
+                },
             };
             cookies.remove('crypt-access');
             cookies.remove('crypt-refresh');
@@ -87,26 +87,27 @@ const loginSlice = createSlice({
         [loginFetchAPi.pending]: (state, action) => {
             state.isLoading = true;
         },
-        [loginFetchAPi.fulfilled]: (state, {payload}) => {
+        [loginFetchAPi.fulfilled]: (state, { payload }) => {
             state.isLoading = false;
             state.allData = payload?.result[0];
-            if(payload.keepMeLogin) {
+            if (payload.keepMeLogin) {
                 cookies.set('crypt-access', payload?.result[0]?.token?.access, { expires: 1 });
                 cookies.set('crypt-refresh', payload?.result[0]?.token?.refresh, { expires: 1 });
-            }else {
+            } else {
                 cookies.set('crypt-access', payload?.result[0]?.token?.access);
                 cookies.set('crypt-refresh', payload?.result[0]?.token?.refresh);
             }
         },
-        [loginFetchAPi.rejected]: (state, action) => {
+        [loginFetchAPi.rejected]: (state, { payload }) => {
             state.isLoading = false;
+            toast.error(payload);
         },
         [forgotEmailApi.pending]: (state, action) => {
             state.isLoading = true;
         },
         [forgotEmailApi.fulfilled]: (state, action) => {
             state.isLoading = false;
-            state.forgotModal = { 
+            state.forgotModal = {
                 ...state.forgotModal,
                 isVisible: true,
                 email: action.payload?.email || null
@@ -122,7 +123,7 @@ const loginSlice = createSlice({
         },
         [forgotOtpVerifyApi.fulfilled]: (state, { payload }) => {
             state.isLoading = false;
-            state.forgotModal = { ...state.forgotModal, isVisible: false, otpVerified : true };
+            state.forgotModal = { ...state.forgotModal, isVisible: false, otpVerified: true };
             toast.success(payload?.message);
         },
         [forgotOtpVerifyApi.rejected]: (state, { payload }) => {

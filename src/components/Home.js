@@ -13,13 +13,13 @@ const Home = () => {
         <div className='flex flex-col'>
             {token ? (
                 <button className='border-none w-max' onClick={() => dispatch(logOut())}>
-                  logout
+                    logout
                 </button>
-              ) : (
-            <Link to='/login'>
-                <button>Login</button>
-            </Link>
-              )}
+            ) : (
+                <Link to='/login'>
+                    <button>Login</button>
+                </Link>
+            )}
             <Link to='/forgot'>
                 <button>Forgot</button>
             </Link>
