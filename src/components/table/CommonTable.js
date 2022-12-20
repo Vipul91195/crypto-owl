@@ -68,11 +68,6 @@ const CommonTable = ({
 
   return (
     <div className={containerClasses}>
-      <GlobalFilter
-        preGlobalFilteredRows={preGlobalFilteredRows}
-        globalFilter={state.globalFilter}
-        setGlobalFilter={setGlobalFilter}
-      />
       <table {...getTableProps()} className={tableClasses}>
         <thead className={HeaderClasses}>
           {headerGroups.map((headerGroup) => (
@@ -94,9 +89,7 @@ const CommonTable = ({
                       </PopOver>
                     </>
                   ) : (
-                    <div className="flex items-center w-full justify-center gap-1">
-                      {header.render("Header")}
-                    </div>
+                    header.render("Header")
                   )}
                 </th>
               ))}

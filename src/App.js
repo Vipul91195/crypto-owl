@@ -9,6 +9,7 @@ import './App.css';
 // import { VerifyOtp } from './components/auth/VerifyOtp';
 // import Home from './components/Home';
 import { AdminLayout } from './components/layout/AdminLayout';
+import Businesses from './components/pages/Businesses';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <div>
-            <AdminLayout />
+            <Businesses />
+            {/* <AdminLayout /> */}
             {/* <AwardPoint /> */}
             {/* <Routes>
               <Route path="/" element={<Home />} />

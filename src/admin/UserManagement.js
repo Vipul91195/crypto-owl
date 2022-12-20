@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserManagemant = () => {
+const UserManagement = () => {
     return (
         <div>
             <div className='text-white text-4xl whitespace-nowrap'>
@@ -10,4 +10,4 @@ const UserManagemant = () => {
     )
 }
 
-export default UserManagemant
+export default UserManagement
