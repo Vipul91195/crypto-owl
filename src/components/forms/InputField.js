@@ -9,7 +9,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, lable, ...pro
     const [field, meta] = useField(props);
 
     return (
-        <div className='relative'>
+        <div className='relative w-full'>
             <input
                 {...field}
                 {...props}
@@ -36,8 +36,8 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, lable, ...pro
                 </div>
             }
             {meta.touched && meta.error && (
-                <div className="error ml-5 mt-1">
-                    <p className="text-ms text-red-600">{meta.error}</p>
+                <div className="absolute error ml-5 mt-1">
+                    <p className="text-ms text-red-500">{meta.error}</p>
                 </div>
             )}
         </div>

@@ -30,3 +30,11 @@ export const ResetPasswordValidationSchema = Yup.object({
         .min(8, "Must be 8 char long")
         .required("Password is Required"),
 });
+
+
+export const AwardPointValidationSchema = Yup.object({
+    point: Yup.string()
+        .required("Points is required")
+        .matches(/^\d+$/, "Allow digits only"),
+    awardPoints: Yup.string().required("Point type is required").nullable(),
+});
