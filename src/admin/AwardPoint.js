@@ -23,7 +23,7 @@ const AwardPoint = () => {
                 {({ values, setFieldValue, handleSubmit }) =>
                 (<form onSubmit={handleSubmit} >
                     <div className='flex justify-between items-center'>
-                        <div className='w-full text-[32px] 2xl:gap-[77px] leading-5 font-normal tracking-tight text-[#A6A6A6]'>Points</div>
+                        <label className='w-full text-left text-[32px] 2xl:gap-[77px] leading-5 font-normal tracking-tight text-[#A6A6A6]'>Points</label>
                         <InputField
                             inputstyle='w-[304px] text-white text-2xl outline-none h-[48px] rounded-2xl bg-[#303030] pl-5'
                             borderstyle='w-[304px] text-[#A6A6A6] text-2xl outline-none h-[48px] rounded-2xl bg-[#303030] pl-5 border border-red-800'
@@ -32,9 +32,7 @@ const AwardPoint = () => {
                             name='point' />
                     </div>
                     <div className='flex justify-between 2xl:gap-[77px] items-center pt-[26px] pb-[30px]'>
-                        <div >
-                            <div className='text-[32px] leading-5 font-normal tracking-tight text-[#A6A6A6]'>Point type</div>
-                        </div>
+                        <label className='text-[32px] leading-5 font-normal tracking-tight text-[#A6A6A6]'>Point type</label>
                         <Dropdown
                             inputstyle='w-[304px] cursor-default bg-[#303030] h-[48px] rounded-2xl leading-5 font-normal tracking-tight text-white text-left pl-5'
                             id="awardPoints"

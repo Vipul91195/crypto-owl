@@ -5,6 +5,7 @@ import BusinessForm from './admin/BusinessForm';
 import CustomerForm from './admin/CustomerForm';
 // import AwardPoint from './admin/AwardPoint.js';
 import './App.css';
+import Businesses from './components/pages/Businesses';
 // import Forgot from './components/auth/Forgot';
 // import Login from './components/auth/Login';
 // import ResetPassword from './components/auth/ResetPassword';
@@ -20,9 +21,8 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <div>
-            <CustomerForm />
+            <Businesses />
             {/* <BusinessForm /> */}
-            {/* <Businesses /> */}
             {/* <AdminLayout /> */}
             {/* <AwardPoint /> */}
             {/* <Routes>

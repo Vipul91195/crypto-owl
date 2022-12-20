@@ -1,31 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CustomButton from '../forms/CustomButton'
 import UserManagement from '../../admin/UserManagement'
 import { AdminLayout } from '../layout/AdminLayout'
 import CommonTable from '../table/CommonTable';
 import PopOver from '../PopOver';
 import AwardPoint from '../../admin/AwardPoint';
+import classNames from 'classnames';
+import { InputField } from '../forms/InputField';
+import { Form, Formik } from 'formik';
+import { SearchIcon } from '../icons';
+import { openConfirmModal } from '../../Redux/modalSlice';
+import { useDispatch } from 'react-redux';
+import CustomModal from '../CustomModal';
+import BusinessForm from '../../admin/BusinessForm';
 
 const Businesses = () => {
+
+  const dispatch = useDispatch();
+  const [ modal, setModal ] = useState(false);
+
+  const showModal = (type) => setModal(type)
+  const hideModal = () => setModal(false)
+
   /**   temp code */
   function SelectColumnFilter({
     column: { filterValue, setFilter, preFilteredRows, id },
   }) {
+    console.log(preFilteredRows, " test");
     const options = React.useMemo(() => {
       const options = new Set();
       preFilteredRows.forEach((row) => {
-        options.add(row.values[id]);
-        // console.log(row.values, "  : options");
+        options.add(typeof row.values[id] === 'string' ? row.values[id] : row.values[id].props.children);
       });
       return [...options.values()];
     }, [id, preFilteredRows]);
+    console.log(options, " test");
     return (
-      // <div className='absolute top-[80%] -translate-x-1/2 left-1/2 bg-[#303030] px-[20px] py-[25px] rounded-[10px] text-white min-w-[240px]'>
       <div className="bg-[#303030] px-[20px] py-[25px] rounded-[10px] text-white min-w-[240px]">
         <p
           className="border-b w-full cursor-pointer border-solid pb-3 text-left border-[#545557] text-[20px]"
           onClick={() => {
-            setFilter("");
+            // api call ...
           }}
         >
           All
@@ -34,8 +49,7 @@ const Businesses = () => {
           <p
             key={i}
             onClick={(e) => {
-              console.log("id :", option);
-              setFilter(option || undefined);
+              // api call ...
             }}
             className="text-left py-3 cursor-pointer w-full last:pb-0 last:border-none border-b border-solid pb-3 text-[20px] border-[#545557]"
           >
@@ -111,19 +125,149 @@ const Businesses = () => {
       personalPoints: "1000",
       status: "Inactive",
     },
+    {
+      id: 1,
+      selected: false,
+      businessImage: "",
+      business: "Verizon",
+      ownerName: "maddison_c21",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "9821",
+      issueDate: "12/12/1212",
+      businessPoints: "1000",
+      personalPoints: "1000",
+      status: "Inactive",
+    },
+    {
+      id: 2,
+      selected: true,
+      businessImage: "",
+      business: "Vodafone",
+      ownerName: "karl.will02",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "7032",
+      issueDate: "12/12/1212",
+      businessPoints: "5500",
+      personalPoints: "5500",
+      status: "Active",
+    },
+    {
+      id: 3,
+      selected: true,
+      businessImage: "",
+      business: "HDFC",
+      ownerName: "andreea.1z",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "5204",
+      issueDate: "12/12/1212",
+      businessPoints: "10700",
+      personalPoints: "10700",
+      status: "Active",
+    },
+    {
+      id: 4,
+      selected: false,
+      businessImage: "",
+      business: "Verizon",
+      ownerName: "maddison_c21",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "9821",
+      issueDate: "12/12/1212",
+      businessPoints: "1000",
+      personalPoints: "1000",
+      status: "Inactive",
+    },
+    {
+      id: 5,
+      selected: false,
+      businessImage: "",
+      business: "Verizon",
+      ownerName: "maddison_c21",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "9821",
+      issueDate: "12/12/1212",
+      businessPoints: "1000",
+      personalPoints: "1000",
+      status: "Inactive",
+    },
+    {
+      id: 1,
+      selected: false,
+      businessImage: "",
+      business: "Verizon",
+      ownerName: "maddison_c21",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "9821",
+      issueDate: "12/12/1212",
+      businessPoints: "1000",
+      personalPoints: "1000",
+      status: "Inactive",
+    },
+    {
+      id: 2,
+      selected: true,
+      businessImage: "",
+      business: "Vodafone",
+      ownerName: "karl.will02",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "7032",
+      issueDate: "12/12/1212",
+      businessPoints: "5500",
+      personalPoints: "5500",
+      status: "Active",
+    },
+    {
+      id: 3,
+      selected: true,
+      businessImage: "",
+      business: "HDFC",
+      ownerName: "andreea.1z",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "5204",
+      issueDate: "12/12/1212",
+      businessPoints: "10700",
+      personalPoints: "10700",
+      status: "Active",
+    },
+    {
+      id: 4,
+      selected: false,
+      businessImage: "",
+      business: "Verizon",
+      ownerName: "maddison_c21",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "9821",
+      issueDate: "12/12/1212",
+      businessPoints: "1000",
+      personalPoints: "1000",
+      status: "Inactive",
+    },
+    {
+      id: 5,
+      selected: false,
+      businessImage: "",
+      business: "Verizon",
+      ownerName: "maddison_c21",
+      ownerEmail: "xyz@gmail.com",
+      memberId: "9821",
+      issueDate: "12/12/1212",
+      businessPoints: "1000",
+      personalPoints: "1000",
+      status: "Inactive",
+    },
   ]);
-
   const columns = React.useMemo(() => [
     {
       id: "selected",
       accessor: (row) => {
-        const { selected, id } = row;
+        const { id } = row;
         return (
           <input
             type="checkbox"
             className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
-            checked={selected}
-            onChange={() => console.log(id, " is changed")}
+            onChange={(e) => 
+              console.log(id, " is changed to : ", e.target.checked)
+            }
           />
         );
       },
@@ -175,11 +319,10 @@ const Businesses = () => {
     },
     {
       Header: "Status",
-      // accessor: (row) => {
-      // const { status } = row;
-      // return <p className={classNames({'text-[#DD69AA]': status === "Active", 'text-[#858383]': status === "Inactive"})}  >{status}</p>
-      // },
-      accessor: "status",
+      accessor: (row) => {
+        const { status } = row;
+        return <p className={classNames({'text-[#DD69AA]': status === "Active", 'text-[#858383]': status === "Inactive"})}  >{status}</p>
+        },
       Filter: SelectColumnFilter,
       filter: "includes",
     },
@@ -198,36 +341,33 @@ const Businesses = () => {
       <div className="pt-[72px] flex gap-14 justify-between">
         <UserManagement />
         <div className="flex gap-6">
-          {/* <input
-            className="h-[51px] rounded-2xl w-full max-w-[500px] px-[62px] bg-[#101010]"
-            type="search"
-          /> */}
+          <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
+            <Form>
+              <InputField
+                iconAfter={<SearchIcon className="h-[17px] w-[17px]" />}
+                type="text"
+                name="searchTerm"
+                placeholder="Search"
+                inputstyle="bg-[#101010] placeholder:text-[#A6A6A6] max-w-[300px] w-screen text-5 leading-5 text-[#A6A6A6] rounded-[15px] py-4 px-6"
+              />
+            </Form>
+          </Formik>
           <CustomButton
             type="submit"
+            onClick={() => dispatch(openConfirmModal({message: "User has been removed"}))}
             buttonStyle="w-full px-[62px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl  text-[#DD69AA]"
           >
             Remove
           </CustomButton>
-          <PopOver
-            showLabelIcon={false}
-            label="Award Point"
-            LabelClassName="w-full px-[43px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl text-[#DD69AA] whitespace-nowrap"
-          >
-            <AwardPoint />
-            {/* <p>test</p> */}
-          </PopOver>
-          {/* <CustomButton
-            type="submit"
+          <CustomButton
+          onClick={() => showModal("award")}
             buttonStyle="w-full px-[43px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl text-[#DD69AA] whitespace-nowrap"
           >
             Award Point
-          </CustomButton> */}
+          </CustomButton>
           <CustomButton
-            type="submit"
-            // disabled={isLoading}
+            onClick={() => showModal("business")}
             buttonStyle="w-full h-[51px] px-[36px] sm:text-sm font-medium rounded-2xl text-pink-light bg-[#DD69AA] whitespace-nowrap"
-          // loaderSize={20}
-          // showLoader
           >
             Add Business
           </CustomButton>
@@ -236,12 +376,13 @@ const Businesses = () => {
       <div className="mt-[56px]">
         <CommonTable
           columns={columns}
-          filteredColumns={["status"]}
+          filteredColumns={["Status"]}
           data={data}
           HeaderClasses="bg-[#040404] text-[#DD69AA]"
           HeadingClasses="relative pt-[34px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 pb-[28px] whitespace-nowrap text-[20px] font-[500] leading-[24px] -tracking-[0.02em]"
           tableClasses="w-full rounded-[20px] overflow-hidden"
           BodyClasses="text-white bg-[#101010]"
+          containerClasses="max-h-[75vh] h-screen overflow-auto"
           cellDefaultStyle="text-xl px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal leading-[36.33px] py-[22px] -tracking-[2%] text-center"
           headerClasses={{
             ownerName: { textAlign: "right" },
@@ -259,6 +400,10 @@ const Businesses = () => {
           }}
         />
       </div>
+      <CustomModal onClose={hideModal} modal={{isVisible: !!modal}} >
+        {modal === "business" && <BusinessForm/>}
+        {modal === "award" && <AwardPoint/>}
+      </CustomModal>
     </AdminLayout>
   );
 }
