@@ -23,7 +23,7 @@ const ResetPassword = () => {
     }, [forgotModal?.email, navigate])
     return (
         <>
-            <div className='bg-[#171717] flex flex-col items-center h-screen justify-center font-Sans w-screen px-5'>
+            <div className='bg-[#171717] flex flex-col items-center h-screen py-[100px] sm:justify-center font-Sans w-screen px-5'>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={ResetPasswordValidationSchema}
