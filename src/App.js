@@ -1,6 +1,8 @@
 
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import BusinessForm from './admin/BusinessForm';
+import CustomerForm from './admin/CustomerForm';
 // import AwardPoint from './admin/AwardPoint.js';
 import './App.css';
 // import Forgot from './components/auth/Forgot';
@@ -8,8 +10,8 @@ import './App.css';
 // import ResetPassword from './components/auth/ResetPassword';
 // import { VerifyOtp } from './components/auth/VerifyOtp';
 // import Home from './components/Home';
-import { AdminLayout } from './components/layout/AdminLayout';
-import Businesses from './components/pages/Businesses';
+// import { AdminLayout } from './components/layout/AdminLayout';
+// import Businesses from './components/pages/Businesses';
 
 function App() {
   return (
@@ -18,7 +20,9 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <div>
-            <Businesses />
+            <CustomerForm />
+            {/* <BusinessForm /> */}
+            {/* <Businesses /> */}
             {/* <AdminLayout /> */}
             {/* <AwardPoint /> */}
             {/* <Routes>

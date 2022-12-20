@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import showEye from '../../assets/img/showEye.svg'
 import hideEye from '../../assets/img/hideEye.svg'
 import { useField } from 'formik';
+import classNames from 'classnames';
 
 
-export const InputField = ({ inputstyle, placeholder, borderstyle, lable, ...props }) => {
+export const InputField = ({ inputstyle, placeholder, errorRight, borderstyle, lable, ...props }) => {
     const [showPassword, setShowPassword] = useState(true);
     const [field, meta] = useField(props);
 
@@ -36,7 +37,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, lable, ...pro
                 </div>
             }
             {meta.touched && meta.error && (
-                <div className="absolute error ml-5 mt-1">
+                <div className={classNames("absolute error ml-5 mt-1", { "right-0": errorRight })}>
                     <p className="text-ms text-red-500">{meta.error}</p>
                 </div>
             )}

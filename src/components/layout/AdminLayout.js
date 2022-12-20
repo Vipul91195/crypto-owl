@@ -2,17 +2,17 @@ import React, { Children } from 'react'
 import home from '../../assets/img/home.svg'
 import user from '../../assets/img/user.svg'
 import report from '../../assets/img/report.svg'
-
-
+import searchUser from '../../assets/img/searchUser.svg'
 
 const tabs = [
     { name: 'Admin Info', icon: home },
     { name: 'User Management', icon: user },
-    { name: 'Reports', icon: report }
+    { name: 'Reports', icon: report },
+    { name: 'Search User', icon: searchUser }
 ];
 
 
-export const AdminLayout = ({children}) => {
+export const AdminLayout = ({ children }) => {
     console.log(children)
     return (
         <div className='grid grid-cols-[290px,auto] font-Sans '>
