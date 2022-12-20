@@ -198,10 +198,10 @@ const Businesses = () => {
       <div className="pt-[72px] flex gap-14 justify-between">
         <UserManagement />
         <div className="flex gap-6">
-          <input
+          {/* <input
             className="h-[51px] rounded-2xl w-full max-w-[500px] px-[62px] bg-[#101010]"
             type="search"
-          />
+          /> */}
           <CustomButton
             type="submit"
             buttonStyle="w-full px-[62px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl  text-[#DD69AA]"
@@ -226,8 +226,8 @@ const Businesses = () => {
             type="submit"
             // disabled={isLoading}
             buttonStyle="w-full h-[51px] px-[36px] sm:text-sm font-medium rounded-2xl text-pink-light bg-[#DD69AA] whitespace-nowrap"
-            // loaderSize={20}
-            // showLoader
+          // loaderSize={20}
+          // showLoader
           >
             Add Business
           </CustomButton>
