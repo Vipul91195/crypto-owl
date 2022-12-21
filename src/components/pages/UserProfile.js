@@ -129,7 +129,6 @@ const hideModal = () => setModal(false)
   
     return (
       <AdminLayout>
-        <div className="text-white">user</div>
         <CommonTable
           columns={columns}
           filteredColumns={["transactionType"]}
