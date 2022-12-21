@@ -6,18 +6,18 @@ import searchUser from '../../assets/img/searchUser.svg'
 import ConfirmModal from '../ConfirmModal';
 
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const tabs = [
-    { name: 'Admin Info', icon: home, route: "/AdminInfo" },
-    { name: 'User Management', icon: user, route: "/Businesses" },
-    { name: 'Reports', icon: report, route: "/Reports" },
-    { name: 'Search User', icon: searchUser, route: "/Search-User" }
+    { name: 'Admin Info', icon: home, route: "/admin-info" },
+    { name: 'User Management', icon: user, route: "/businesses" },
+    { name: 'Reports', icon: report, route: "/reports" },
+    { name: 'Search User', icon: searchUser, route: "/search-user" }
 ];
-
 
 export const AdminLayout = ({ children }) => {
     const route = useLocation();
+    const navigate = useNavigate();
     return (
         <>
             <div className='grid grid-cols-[290px,auto] font-Sans '>
@@ -25,7 +25,7 @@ export const AdminLayout = ({ children }) => {
                     <div className='border-b border-[#FFFFFF]/[10%] pt-32'></div>
                     <div>
                         {tabs.map((tab, i) => (
-                            <a href={tab.route}>
+                            <a href="#!" onClick={() => navigate(tab.route)}>
                                 <div key={i} className='flex items-center gap-[14px] pt-9 pl-9 relative'>
                                     {tab.route === route.pathname &&
                                         <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>

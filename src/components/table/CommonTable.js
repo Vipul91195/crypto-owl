@@ -16,6 +16,10 @@ const CommonTable = ({
   cellClasses,
   headerClasses,
   HeadingClasses,
+  heightLightRow,
+  cellTextClassName,
+  heighLightCellPrefix,
+  heighLightCellPostfix,
   filteredColumns,
   ...props
 }) => {
@@ -39,6 +43,10 @@ const CommonTable = ({
     },
     useFilters
   )
+
+  const checkHighlight = (rowValues) => {
+    return heightLightRow && Object.values(heightLightRow).includes(rowValues[Object.keys(heightLightRow)[0]]);
+  }
 
   return (
     <div>
@@ -77,14 +85,39 @@ const CommonTable = ({
             {rows.map((row) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
+                <tr
+                  {...row.getRowProps()}
+                  className={classNames({
+                    "bg-[#20191D]": checkHighlight(row.values),
+                  })}
+                >
                   {row.cells.map((cell) => (
                     <td
                       {...cell.getCellProps()}
                       className={cellDefaultStyle}
                       style={cellClasses[cell.column.id]}
                     >
-                      {cell.render("Cell")}
+                      <span
+                        className={classNames(
+                          "flex items-center w-full justify-center"
+                        )}
+                        style={cellTextClassName[cell.column.id]}
+                      >
+                        {heighLightCellPrefix && checkHighlight(row.values) && (
+                          <span className="text-[#979998] ml-1">
+                            {heighLightCellPrefix[cell.column.id]}
+                          </span>
+                        )}
+                        <span className="text-center block w-max">
+                          {cell.render("Cell")}{" "}
+                        </span>
+                        {heighLightCellPostfix &&
+                          checkHighlight(row.values) && (
+                            <span className="text-[#979998] ml-1">
+                              {heighLightCellPostfix[cell.column.id]}
+                            </span>
+                          )}
+                      </span>
                     </td>
                   ))}
                 </tr>

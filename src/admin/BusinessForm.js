@@ -15,7 +15,7 @@ const BusinessForm = () => {
     const initialValues = { business: "", companyNumber: "", ownerName: "", ownerEmail: "", vatNumber: "", address: "" };
     return (
         <div className='2xl:min-w-[470px] w-full'>
-            <div className='bg-[#141414] h-[56px] text-xl leading-[56px] font-bold text-[#CDBEBE] tracking-tight pl-[30.95px] '>
+            <div className='bg-[#141414] h-[56px] text-left text-xl leading-[56px] font-bold text-[#CDBEBE] tracking-tight pl-[30.95px] '>
                 Add Business
             </div>
             <Formik
