@@ -1,24 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import ApiMiddleware from "../utils/ApiMiddleware";
+import {
+  addBusinessApi,
+  getBusinessApi,
+  getBusinessCustomersApi,
+  getBusinessesApi,
+} from "../utils/apis/businesses";
 
 const initialState = {
   isLoading: false,
   allBusinesses: null,
 }
 
-export const getBusinesses = createAsyncThunk('business/getAll', async (params, { rejectWithValue }) => {
-  try {
-    const response = await ApiMiddleware.get("/admin/all/business/", {
-      ...params,
-    });
-    return response.data;
-  } catch (error) {
-    if (!error.response) {
-      throw rejectWithValue(error);
-    }
-    throw rejectWithValue(error.response.data.message);
-  }
-})
+export const getBusinesses = createAsyncThunk('business/getAll', getBusinessesApi)
+export const getBusinessCustomers = createAsyncThunk('business/getCustomers', getBusinessCustomersApi)
+export const getBusiness = createAsyncThunk('business/get', getBusinessApi)
+export const addBusinesses = createAsyncThunk('business/add', addBusinessApi)
 
 const businessSlice = createSlice({
   name: "businessSlice",

@@ -6,6 +6,7 @@ import { InputField } from '../forms/InputField'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetPasswordApi } from '../../Redux/auth/loginSlice'
 import { useNavigate } from 'react-router-dom'
+import AuthMiddleware from '../AuthMiddleware'
 
 const ResetPassword = () => {
     const { isLoading, forgotModal } = useSelector((state) => ({
@@ -22,7 +23,7 @@ const ResetPassword = () => {
         !forgotModal?.email && navigate('/login');
     }, [forgotModal?.email, navigate])
     return (
-        <>
+        <AuthMiddleware >
             <div className='bg-[#171717] flex flex-col items-center h-screen py-[100px] sm:justify-center font-Sans w-screen px-5'>
                 <Formik
                     initialValues={initialValues}
@@ -66,7 +67,7 @@ const ResetPassword = () => {
                     </form>)}
                 </Formik>
             </div >
-        </>
+        </AuthMiddleware>
     )
 }
 

@@ -8,6 +8,7 @@ import VerifyOtpModal from '../VerifyOtpModal'
 import OtpInput from 'react-otp-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { forgotEmailApi, forgotOtpVerifyApi, loginFetchAPi } from '../../Redux/auth/loginSlice'
+import AuthMiddleware from '../AuthMiddleware';
 
 
 
@@ -33,6 +34,7 @@ const Forgot = () => {
         forgotModal.otpVerified && navigate('/reset-password');
     }, [forgotModal.otpVerified, navigate]);
     return (
+        <AuthMiddleware >
         <div className='bg-[#171717] flex flex-col items-center h-screen py-[100px] sm:justify-center font-Sans w-screen px-5'>
             <Formik
                 initialValues={initialValues}
@@ -103,6 +105,7 @@ const Forgot = () => {
                 </VerifyOtpModal>
             </div >
         </div >
+        </AuthMiddleware>
     )
 }
 export default Forgot

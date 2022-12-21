@@ -3,20 +3,23 @@ import { getAccessToken } from "./helper";
 
 const ApiMiddleware = axios.create({
     baseURL: process.env.REACT_APP_PUBLIC_baseURL,
-    headers: {
-        Accept: "application/json",
-    },
-    timeout: 10000,
+    // headers: {
+    //     Accept: "application/json",
+    // },
+    // timeout: 10000,
 });
 
 ApiMiddleware.interceptors.request.use(
     function (config) {
-        // const token = getAccessToken();
-        config.headers = {
-            Accept: "application/json",
-            // Authorization: `Bearer ${token}`,
-        };
-        axios.defaults.timeout = 35000;
+        const token = getAccessToken();
+        console.log(token);
+        if(token) {
+            config.headers = {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+            };
+        }
+        // axios.defaults.timeout = 35000;
         return config;
     },
     function (error) {
