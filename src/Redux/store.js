@@ -1,15 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import loginSlice from "./auth/loginSlice";
 import modalSlice from "./modalSlice";
+import businessSlice from "./businessSlice";
 
 const store = configureStore({
     reducer: {
         loginSlice,
         modalSlice,
-        // middleware: (getDefaultMiddleware) =>
-        //     getDefaultMiddleware({
-        //         serializableCheck: false,
-        //     }),
+        businessSlice,
         devTools: true,
     },
 })

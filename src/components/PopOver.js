@@ -27,9 +27,9 @@ export default function PopOver({label, showLabelIcon = true, LabelIcon, LabelIc
             as={Fragment}
             enter="transition ease-out duration-200"
             enterFrom="opacity-0 translate-y-1"
-            enterTo="opacity-100 translate-y-0 -translate-x-1/2"
+            enterTo="opacity-100 translate-y-0"
             leave="transition ease-in duration-150"
-            leaveFrom="opacity-100 translate-y-0 -translate-x-1/2"
+            leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
             <Popover.Panel className="absolute z-10 mt-3 w-max max-w-sm px-4 sm:px-0 lg:max-w-3xl">

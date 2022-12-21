@@ -59,7 +59,10 @@ const CommonTable = ({
                   <th
                     {...header.getHeaderProps()}
                     className={classNames("", HeadingClasses)}
-                    style={headerClasses[header.id]}
+                    style={
+                      Object.keys(headerClasses || {}).includes(header.id) ?
+                      headerClasses[header.id] : {}
+                    }
                   >
                     {filteredColumns.includes(header.id) ? (
                       <>
@@ -95,13 +98,21 @@ const CommonTable = ({
                     <td
                       {...cell.getCellProps()}
                       className={cellDefaultStyle}
-                      style={cellClasses[cell.column.id]}
+                      style={
+                        Object.keys(cellClasses || {}).includes(
+                          cell.column.id
+                        ) ? cellClasses[cell.column.id] : {}
+                      }
                     >
                       <span
                         className={classNames(
                           "flex items-center w-full justify-center"
                         )}
-                        style={cellTextClassName[cell.column.id]}
+                        style={
+                          Object.keys(cellTextClassName || {}).includes(
+                            cell.column.id
+                          ) ? cellTextClassName[cell.column.id] : {}
+                        }
                       >
                         {heighLightCellPrefix && checkHighlight(row.values) && (
                           <span className="text-[#979998] ml-1">
@@ -109,7 +120,7 @@ const CommonTable = ({
                           </span>
                         )}
                         <span className="text-center block w-max">
-                          {cell.render("Cell")}{" "}
+                          {cell.render("Cell")}
                         </span>
                         {heighLightCellPostfix &&
                           checkHighlight(row.values) && (
@@ -158,7 +169,9 @@ const CommonTable = ({
           renderOnZeroPageCount={1}
           nextLinkClassName="leading-none flex"
           previousLinkClassName="leading-none flex"
-          containerClassName={"flex py-8 justify-center items-center gap-x-3 leading-none"}
+          containerClassName={
+            "flex py-8 justify-center items-center gap-x-3 leading-none"
+          }
           pageClassName="cursor-pointer md:border md:border-solid md:border-white md:rounded-[10px] md:min-w-[40px] md:flex md:justify-center md:items-center "
           pageLinkClassName="font-normal md:px-2 md:py-1 h-full w-full text-center text-[14px] md:text-lg leading-[18.87px] text-[#979998] -tracking-tight after:content-[','] after:ml-1 after:text-[#979998] md:after:content-none "
           breakClassName="text-[#979998] tracking-[5px]"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomButton from '../forms/CustomButton'
 import UserManagement from '../../admin/UserManagement'
 import { AdminLayout } from '../layout/AdminLayout'
@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import CustomModal from '../CustomModal';
 import BusinessForm from '../../admin/BusinessForm';
 import { useNavigate } from 'react-router';
+import { getBusinesses } from '../../Redux/businessSlice';
 
 const Businesses = () => {
 
@@ -22,6 +23,11 @@ const Businesses = () => {
   const navigate = useNavigate();
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
+
+  useEffect(() => {
+    dispatch(getBusinesses());
+  }, [dispatch])
+  
 
   /**   temp code */
   function SelectColumnFilter({
