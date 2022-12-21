@@ -13,12 +13,13 @@ import { openConfirmModal } from '../../Redux/modalSlice';
 import { useDispatch } from 'react-redux';
 import CustomModal from '../CustomModal';
 import BusinessForm from '../../admin/BusinessForm';
+import { useNavigate } from 'react-router';
 
 const Businesses = () => {
 
   const dispatch = useDispatch();
   const [ modal, setModal ] = useState(false);
-
+  const navigate = useNavigate();
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
 
@@ -277,7 +278,7 @@ const Businesses = () => {
       accessor: (row) => {
         const { businessImage, business } = row;
         return (
-          <div className="flex gap-[16px] items-center">
+          <div onClick={() => navigate('/customers')} className="flex gap-[16px] items-center cursor-pointer">
             <div className="h-[45.42px] rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black w-[45.42px]">
               {businessImage && businessImage !== "" ? (
                 <img src={businessImage} alt="test" />
@@ -350,26 +351,28 @@ const Businesses = () => {
                 type="text"
                 name="searchTerm"
                 placeholder="Search"
-                inputstyle="bg-[#101010] placeholder:text-[#A6A6A6] max-w-[300px] w-screen text-5 leading-5 text-[#A6A6A6] rounded-[15px] py-4 px-6"
+                inputstyle="bg-[#101010] focus-visible:outline-none placeholder:text-[#A6A6A6] max-w-[300px] w-screen text-5 leading-5 text-[#A6A6A6] rounded-[15px] py-4 px-6"
               />
             </Form>
           </Formik>
           <CustomButton
             type="submit"
-            onClick={() => dispatch(openConfirmModal({message: "User has been removed"}))}
+            onClick={() =>
+              dispatch(openConfirmModal({ message: "User has been removed" }))
+            }
             buttonStyle="w-full px-[62px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl  text-[#DD69AA]"
           >
             Remove
           </CustomButton>
           <CustomButton
-          onClick={() => showModal("award")}
+            onClick={() => showModal("award")}
             buttonStyle="w-full px-[43px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl text-[#DD69AA] whitespace-nowrap"
           >
             Award Point
           </CustomButton>
           <CustomButton
             onClick={() => showModal("business")}
-            buttonStyle="w-full h-[51px] px-[36px] sm:text-sm font-medium rounded-2xl text-pink-light bg-[#DD69AA] whitespace-nowrap"
+            buttonStyle="w-full h-[51px] px-[36px] sm:text-sm font-medium rounded-2xl text-white bg-[#DD69AA] whitespace-nowrap"
           >
             Add Business
           </CustomButton>
@@ -389,6 +392,21 @@ const Businesses = () => {
           headerClasses={{
             ownerName: { textAlign: "right" },
             Business: { textAlign: "left" },
+            businessPoints: {
+              textAlign: "center",
+              whiteSpace: "pre-wrap",
+              maxWidth: "90px",
+            },
+            personalPoints: {
+              textAlign: "center",
+              whiteSpace: "pre-wrap",
+              maxWidth: "90px",
+            },
+          }}
+          cellTextClassName={{
+            Business: { justifyContent: "left", width: "100%" },
+            ownerEmail: { justifyContent: "center", width: "100%" },
+            ownerName: { justifyContent: "right", width: "100%" },
           }}
           cellClasses={{
             selected: { paddingInline: "16px 23px" },
@@ -397,14 +415,13 @@ const Businesses = () => {
               textAlign: "right",
               fontSize: "21px",
               fontWeight: "700",
-            },
-            ownerEmail: { textAlign: "center" },
+            }
           }}
         />
       </div>
-      <CustomModal onClose={hideModal} modal={{isVisible: !!modal}} >
-        {modal === "business" && <BusinessForm/>}
-        {modal === "award" && <AwardPoint/>}
+      <CustomModal onClose={hideModal} modal={{ isVisible: !!modal }}>
+        {modal === "business" && <BusinessForm />}
+        {modal === "award" && <AwardPoint />}
       </CustomModal>
     </AdminLayout>
   );

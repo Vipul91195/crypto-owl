@@ -14,8 +14,8 @@ const CustomerForm = () => {
     }
     const initialValues = { Name: "", Email: "", Phone: "", address: "" };
     return (
-        <div className='max-w-[470px] ml-[500px]'>
-            <div className='bg-[#141414] h-[56px] text-xl leading-[56px] font-bold text-[#CDBEBE] tracking-tight pl-[30.95px] '>
+        <div className='2xl:min-w-[470px] w-full'>
+            <div className='bg-[#141414] h-[56px] text-left text-xl leading-[56px] font-bold text-[#CDBEBE] tracking-tight pl-[30.95px] '>
                 Add Customer
             </div>
             <Formik
@@ -28,7 +28,7 @@ const CustomerForm = () => {
                 {({ values, setFieldValue, handleSubmit }) =>
                 (<form onSubmit={handleSubmit} >
                     <div className=' pt-7 pb-11 bg-black px-[31.5px]'>
-                        <div className='flex flex-col gap-[14px]'>
+                        <div className='flex text-left flex-col gap-[14px]'>
                             <div>
                                 <div className='text-sm font-medium tracking-tight text-pink-light pb-[13px]'>Name<span className='text-[#DD69AA]'>*</span></div>
                                 <InputField
@@ -76,16 +76,14 @@ const CustomerForm = () => {
                             </div>
                             <div className='flex gap-10 mt-[34px]'>
                                 <CustomButton
-                                    type="submit"
                                     buttonStyle="w-full h-[44.83px] text-sm leading-6 tracking-tight font-medium  text-[#DD69AA] border border-[#DD69AA] rounded-2xl"
                                 >
                                     Bulk Upload
                                 </CustomButton>
                                 <CustomButton
-                                    type="submit"
                                     buttonStyle="w-full h-[44.83px]  text-sm leading-6 tracking-tight font-medium  text-[#DD69AA] border border-[#DD69AA] rounded-2xl"
                                 >
-                                    Remove
+                                    Template
                                 </CustomButton>
                             </div>
                         </div>
