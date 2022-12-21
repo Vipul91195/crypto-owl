@@ -17,8 +17,8 @@ import CustomerForm from "../../admin/CustomerForm";
 import CustomModal from "../CustomModal";
 
 const Customers = () => {
-    const dispatch = useDispatch();
-  const [ modal, setModal ] = useState(false);
+  const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
   const navigate = useNavigate();
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
@@ -48,7 +48,7 @@ const Customers = () => {
             key={i}
             onClick={(e) => {
               console.log("id :", option);
-            // api ....
+              // api ....
             }}
             className="text-left py-3 cursor-pointer w-full last:pb-0 last:border-none border-b border-solid pb-3 text-[20px] border-[#545557]"
           >
@@ -79,23 +79,23 @@ const Customers = () => {
       personalPoints: "5500",
     },
     {
-        name: "@andreea.1z",
-        memberId: "5204",
-        issueDate: "12/12/1212",
-        emailId: "https//fsdvz",
-        status: "Active",
-        businessPoints: "10700",
-        personalPoints: "10700",
-      },
-      {
-        name: "@abraham47.y",
-        memberId: "4309",
-        issueDate: "12/12/1212",
-        emailId: "https//fsdvz",
-        status: "Active",
-        businessPoints: "2000",
-        personalPoints: "2000",
-      }
+      name: "@andreea.1z",
+      memberId: "5204",
+      issueDate: "12/12/1212",
+      emailId: "https//fsdvz",
+      status: "Active",
+      businessPoints: "10700",
+      personalPoints: "10700",
+    },
+    {
+      name: "@abraham47.y",
+      memberId: "4309",
+      issueDate: "12/12/1212",
+      emailId: "https//fsdvz",
+      status: "Active",
+      businessPoints: "2000",
+      personalPoints: "2000",
+    }
   ]);
 
   const columns = React.useMemo(() => [
@@ -155,14 +155,14 @@ const Customers = () => {
       accessor: "emailId",
     },
     {
-        Header: "Status",
-        accessor: (row) => {
-          const { status } = row;
-          return <p className={classNames({'text-[#DD69AA]': status === "Active", 'text-[#858383]': status === "Inactive"})}  >{status}</p>
-          },
-        Filter: SelectColumnFilter,
-        filter: "includes",
+      Header: "Status",
+      accessor: (row) => {
+        const { status } = row;
+        return <p className={classNames({ 'text-[#DD69AA]': status === "Active", 'text-[#858383]': status === "Inactive" })}  >{status}</p>
       },
+      Filter: SelectColumnFilter,
+      filter: "includes",
+    },
     {
       Header: "Business Points",
       accessor: "businessPoints",
@@ -180,7 +180,7 @@ const Customers = () => {
           User Management (Customers)
         </div>
         <div className="flex gap-6">
-          <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
+          <Formik initialValues={{ searchTerm: "" }} onSubmit={() => { }}>
             <Form>
               <InputField
                 iconAfter={<SearchIcon className="h-[17px] w-[17px]" />}
@@ -234,7 +234,7 @@ const Customers = () => {
               <p className="text-[#DD69AA]">32199965</p>
             </div>
             <div className="flex justify-between">
-              <p>Member IDr</p>
+              <p>Member ID</p>
               <p className="text-[#DD69AA]">MEM0001</p>
             </div>
           </div>
@@ -242,16 +242,16 @@ const Customers = () => {
           <div className="text-xl leading-9 font-normal text-[#979998] flex flex-col gap-[6px] justify-between grow">
             <div className="flex justify-between">
               <p className="text-xl leading-9 font-normal text-[#979998]">
-                Company No.
+                Owner
               </p>
-              <p className="text-[#DD69AA]">34689433</p>
+              <p className="text-[#DD69AA]">Kris Washington</p>
             </div>
             <div className="flex justify-between">
-              <p>VAT Number</p>
-              <p className="text-[#DD69AA]">32199965</p>
+              <p>Owner&apos;s Email ID</p>
+              <p className="text-[#DD69AA]">xyz@gmail.com</p>
             </div>
             <div className="flex justify-between">
-              <p>Member IDr</p>
+              <p>Address</p>
               <p className="text-[#DD69AA]">MEM0001</p>
             </div>
           </div>
@@ -303,7 +303,7 @@ const Customers = () => {
       </div>
       <CustomModal onClose={hideModal} modal={{ isVisible: !!modal }}>
         {modal === "customer" && <CustomerForm />}
-        {modal === "award" && <AwardPoint />}
+        {modal === "award" && <AwardPoint type={"customer"} />}
       </CustomModal>
     </AdminLayout>
   );
