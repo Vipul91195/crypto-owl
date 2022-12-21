@@ -49,19 +49,19 @@ export const BusinessFormValidationSchema = Yup.object({
     companyNumber: Yup.string()
         .trim()
         .max(10, "Maximum 10 char.")
-        .required("Company Number is required."),
+        .required("Company' Number required."),
     ownerName: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
         .max(20, "Maximum 20 char.")
-        .required("Owner Name is required."),
+        .required("Owner's Name required."),
     ownerEmail: Yup.string()
         .email("Invalid email address.")
         .required("E-mail is Required."),
     vatNumber: Yup.string()
         .trim()
         .max(20, "Maximum 9 char.")
-        .required("VAT Number is required.")
+        .required("VAT Number required.")
         .matches(/^\p{L}+$/u, "Special characters not allowed."),
     address: Yup.string()
         .trim()

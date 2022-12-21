@@ -10,9 +10,12 @@ import Businesses from './components/pages/Businesses';
 // import Login from './components/auth/Login';
 // import ResetPassword from './components/auth/ResetPassword';
 // import { VerifyOtp } from './components/auth/VerifyOtp';
-// import Home from './components/Home';
+import Home from './components/Home';
+import AdminInfo from './components/pages/AdminInfo';
 // import { AdminLayout } from './components/layout/AdminLayout';
-// import Businesses from './components/pages/Businesses';
+import Customers from './components/pages/Customers';
+import Reports from './components/pages/Reports';
+import SearchUser from './components/pages/SearchUser';
 
 function App() {
   return (
@@ -21,13 +24,22 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <div>
-            <Businesses />
+            {/* <CustomerForm /> */}
             {/* <BusinessForm /> */}
+            {/* <Businesses /> */}
+            {/* <Customers /> */}
             {/* <AdminLayout /> */}
             {/* <AwardPoint /> */}
-            {/* <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
+            <Routes>
+              <Route path="/" />
+              <Route path="/AdminInfo" element={<AdminInfo />} />
+              <Route path="/Businesses" element={<Businesses />} />
+              <Route path="/Reports" element={<Reports />} />
+              <Route path="/Search-User" element={<SearchUser />} />
+              SearchUser
+            </Routes>
+            {/* 
+            <Route path="/login" element={<Login />} />
               <Route path="/forgot" element={<Forgot />} />
               <Route path="verifyOtp" element={<VerifyOtp />} />
               <Route path="/reset-password" element={<ResetPassword />} />

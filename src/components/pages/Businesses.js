@@ -339,7 +339,9 @@ const Businesses = () => {
   return (
     <AdminLayout>
       <div className="pt-[72px] flex gap-14 justify-between">
-        <UserManagement />
+        <div className='text-white text-4xl whitespace-nowrap'>
+          User Management (Businesses)
+        </div>
         <div className="flex gap-6">
           <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
             <Form>

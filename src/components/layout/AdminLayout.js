@@ -6,16 +6,18 @@ import searchUser from '../../assets/img/searchUser.svg'
 import ConfirmModal from '../ConfirmModal';
 
 
+import { useLocation } from 'react-router-dom';
 
 const tabs = [
-    { name: 'Admin Info', icon: home },
-    { name: 'User Management', icon: user },
-    { name: 'Reports', icon: report },
-    { name: 'Search User', icon: searchUser }
+    { name: 'Admin Info', icon: home, route: "/AdminInfo" },
+    { name: 'User Management', icon: user, route: "/Businesses" },
+    { name: 'Reports', icon: report, route: "/Reports" },
+    { name: 'Search User', icon: searchUser, route: "/Search-User" }
 ];
 
 
-export const AdminLayout = ({children}) => {
+export const AdminLayout = ({ children }) => {
+    const route = useLocation();
     return (
         <>
             <div className='grid grid-cols-[290px,auto] font-Sans '>
@@ -23,10 +25,15 @@ export const AdminLayout = ({children}) => {
                     <div className='border-b border-[#FFFFFF]/[10%] pt-32'></div>
                     <div>
                         {tabs.map((tab, i) => (
-                            <div key={i} className='flex items-center gap-[14px] pt-9 pl-9'>
-                                <img src={tab.icon} alt="i" />
-                                <div className='text-base leading-7 text-[#DD69AA] font-bold whitespace-nowrap'>{tab.name}</div>
-                            </div>
+                            <a href={tab.route}>
+                                <div key={i} className='flex items-center gap-[14px] pt-9 pl-9 relative'>
+                                    {tab.route === route.pathname &&
+                                        <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>
+                                    }
+                                    <img src={tab.icon} alt="i" />
+                                    <div className='text-base leading-7 text-[#DD69AA] font-bold whitespace-nowrap'>{tab.name}</div>
+                                </div>
+                            </a>
                         ))}
                     </div>
                 </div>
