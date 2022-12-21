@@ -4,13 +4,8 @@ import vector from '../../assets/img/Vector.svg'
 import { useField } from 'formik'
 import classNames from 'classnames'
 
-const people = [
-    { name: 'Business Points' },
-    { name: 'Personal Points' },
-]
-
 const Dropdown = ({ setValues, ...props }) => {
-    const [selected, setSelected] = useState(null)
+    const [selected, setSelected] = useState(props.selected || null)
     const [field, meta] = useField(props.name);
     useEffect(() => {
         console.log(selected);
@@ -43,8 +38,8 @@ const Dropdown = ({ setValues, ...props }) => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-[10px] py-3 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bg-[#303030]">
-                            {people.map((person, personIdx) => (
+                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-[10px] py-3 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bg-[#101010]">
+                            {props.people.map((person, personIdx) => (
                                 <Listbox.Option
                                     key={personIdx}
                                     className={({ active }) =>
