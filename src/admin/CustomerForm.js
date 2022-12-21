@@ -80,11 +80,13 @@ const CustomerForm = () => {
                                 >
                                     Bulk Upload
                                 </CustomButton>
-                                <CustomButton
-                                    buttonStyle="w-full h-[44.83px]  text-sm leading-6 tracking-tight font-medium  text-[#DD69AA] border border-[#DD69AA] rounded-2xl"
-                                >
-                                    Template
-                                </CustomButton>
+                                <a href={`${process.env.REACT_APP_PUBLIC_baseURL}/admin/template/`} >
+                                    <CustomButton
+                                        buttonStyle="w-full h-[44.83px]  text-sm leading-6 tracking-tight font-medium  text-[#DD69AA] border border-[#DD69AA] rounded-2xl"
+                                    >
+                                        Template
+                                    </CustomButton>
+                                </a>
                             </div>
                         </div>
                         <div>

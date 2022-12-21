@@ -7,6 +7,7 @@ import ConfirmModal from '../ConfirmModal';
 
 
 import { useLocation, useNavigate } from 'react-router-dom';
+import RouteMiddleware from '../RouteMiddleware'
 
 const tabs = [
     { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -19,7 +20,7 @@ export const AdminLayout = ({ children }) => {
     const route = useLocation();
     const navigate = useNavigate();
     return (
-        <>
+        <RouteMiddleware>
             <div className='grid grid-cols-[290px,auto] font-Sans '>
                 <div className='max-w-[290px] bg-[#040404] min-h-screen'>
                     <div className='border-b border-[#FFFFFF]/[10%] pt-32'></div>
@@ -42,6 +43,6 @@ export const AdminLayout = ({ children }) => {
                 </div>
             </div >
             <ConfirmModal />
-        </>
+        </RouteMiddleware>
     )
 }
