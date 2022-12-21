@@ -27,7 +27,7 @@ const CustomerForm = () => {
             >
                 {({ values, setFieldValue, handleSubmit }) =>
                 (<form onSubmit={handleSubmit} >
-                    <div className=' pt-7 pb-11 bg-black px-[31.5px] '>
+                    <div className=' pt-7 pb-11 bg-black px-[31.5px]'>
                         <div className='flex flex-col gap-[14px]'>
                             <div>
                                 <div className='text-sm font-medium tracking-tight text-pink-light pb-[13px]'>Name<span className='text-[#DD69AA]'>*</span></div>
@@ -73,6 +73,20 @@ const CustomerForm = () => {
                                     id='address'
                                     name='address'
                                     placeholder='Address' />
+                            </div>
+                            <div className='flex gap-10 mt-[34px]'>
+                                <CustomButton
+                                    type="submit"
+                                    buttonStyle="w-full h-[44.83px] text-sm leading-6 tracking-tight font-medium  text-[#DD69AA] border border-[#DD69AA] rounded-2xl"
+                                >
+                                    Bulk Upload
+                                </CustomButton>
+                                <CustomButton
+                                    type="submit"
+                                    buttonStyle="w-full h-[44.83px]  text-sm leading-6 tracking-tight font-medium  text-[#DD69AA] border border-[#DD69AA] rounded-2xl"
+                                >
+                                    Remove
+                                </CustomButton>
                             </div>
                         </div>
                         <div>
