@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTable, useFilters } from 'react-table'
 import PopOver from '../PopOver';
 import ReactPaginate from 'react-paginate';
@@ -25,7 +25,10 @@ const CommonTable = ({
 }) => {
   const [currentPageLocal, setCurrentPageLocal] = useState(1);
   const [totalPages, setTotalPages] = useState(20);
-    
+  const [selectedIds, setSelectedIds] = useState({});
+  const [allSelected, setAllSelected] = useState(false);
+  const [allCheckSelected, setAllCheckSelected] = useState(false);
+
   const handlePageClick = () => {}
   const nextPage = () => {}
   const previousPage = () => {}
@@ -48,6 +51,10 @@ const CommonTable = ({
     return heightLightRow && Object.values(heightLightRow).includes(rowValues[Object.keys(heightLightRow)[0]]);
   }
 
+  useEffect(() => {
+    setSelectedIds(Object.fromEntries(data.map((d) => [d.memberId , allSelected])));
+  }, [allSelected]);
+
   return (
     <div>
       <div className={containerClasses}>
@@ -55,6 +62,18 @@ const CommonTable = ({
           <thead className={HeaderClasses}>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
+                <th >
+                  <div className='pl-[23px] w-max pr-[16px]'>
+                    <input
+                      type="checkbox"
+                      checked={allSelected}
+                      className="bg-checkFalse checked:bg-checkTrue appearance-none px-[23px_16px] h-[18px] w-[18px]"
+                      onChange={(e) => 
+                        setAllSelected(!allSelected && !allCheckSelected)
+                      }
+                    />
+                  </div>
+                </th>
                 {headerGroup.headers.map((header) => (
                   <th
                     {...header.getHeaderProps()}
@@ -76,7 +95,8 @@ const CommonTable = ({
                           </>
                         </PopOver>
                       </>
-                    ) : (
+                    ) : 
+                    (
                       header.render("Header")
                     )}
                   </th>
@@ -94,6 +114,20 @@ const CommonTable = ({
                     "bg-[#20191D]": checkHighlight(row.values),
                   })}
                 >
+                  <td>
+                  <div className='pl-[23px] w-max pr-[16px]'>
+                    <input
+                      type="checkbox"
+                      checked={selectedIds[row.values.memberId]}
+                      className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
+                      onChange={(e) => {
+                        setSelectedIds({...selectedIds, [row.values.memberId] : !selectedIds[row.values.memberId]})
+                        allSelected && selectedIds[row.values.memberId] && setAllCheckSelected(false)
+                      }
+                      }
+                    />
+                  </div>
+                  </td>
                   {row.cells.map((cell) => (
                     <td
                       {...cell.getCellProps()}
@@ -144,7 +178,6 @@ const CommonTable = ({
             <button
               className="disabled:opacity-60"
               onClick={() => nextPage()}
-              // disabled={!canNextPage}
             >
               <div className="bg-[#DD69AA] md:py-[14px] group rounded-[3px] px-4 py-1 hover:bg-pink-500">
                 <Arrow className="text-white group-hover:text-black rotate-180" />
@@ -159,7 +192,6 @@ const CommonTable = ({
             <button
               className="disabled:opacity-60"
               onClick={() => previousPage()}
-              // disabled={!canPreviousPage}
             >
               <div className="bg-[#DD69AA] md:py-[14px] group rounded-[3px] px-4 py-1 hover:bg-pink-500">
                 <Arrow className="text-white group-hover:text-black" />

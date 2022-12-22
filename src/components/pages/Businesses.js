@@ -24,9 +24,9 @@ const Businesses = () => {
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
 
-  useEffect(() => {
-    dispatch(getBusinesses());
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(getBusinesses());
+  // }, [dispatch])
   
 
   /**   temp code */
@@ -113,7 +113,7 @@ const Businesses = () => {
       business: "Verizon",
       ownerName: "maddison_c21",
       ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
+      memberId: "98201",
       issueDate: "12/12/1212",
       businessPoints: "1000",
       personalPoints: "1000",
@@ -126,159 +126,29 @@ const Businesses = () => {
       business: "Verizon",
       ownerName: "maddison_c21",
       ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
+      memberId: "98521",
       issueDate: "12/12/1212",
       businessPoints: "1000",
       personalPoints: "1000",
       status: "Inactive",
-    },
-    {
-      id: 1,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    },
-    {
-      id: 2,
-      selected: true,
-      businessImage: "",
-      business: "Vodafone",
-      ownerName: "karl.will02",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "7032",
-      issueDate: "12/12/1212",
-      businessPoints: "5500",
-      personalPoints: "5500",
-      status: "Active",
-    },
-    {
-      id: 3,
-      selected: true,
-      businessImage: "",
-      business: "HDFC",
-      ownerName: "andreea.1z",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "5204",
-      issueDate: "12/12/1212",
-      businessPoints: "10700",
-      personalPoints: "10700",
-      status: "Active",
-    },
-    {
-      id: 4,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    },
-    {
-      id: 5,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    },
-    {
-      id: 1,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    },
-    {
-      id: 2,
-      selected: true,
-      businessImage: "",
-      business: "Vodafone",
-      ownerName: "karl.will02",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "7032",
-      issueDate: "12/12/1212",
-      businessPoints: "5500",
-      personalPoints: "5500",
-      status: "Active",
-    },
-    {
-      id: 3,
-      selected: true,
-      businessImage: "",
-      business: "HDFC",
-      ownerName: "andreea.1z",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "5204",
-      issueDate: "12/12/1212",
-      businessPoints: "10700",
-      personalPoints: "10700",
-      status: "Active",
-    },
-    {
-      id: 4,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    },
-    {
-      id: 5,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    },
+    }
   ]);
   const columns = React.useMemo(() => [
-    {
-      id: "selected",
-      accessor: (row) => {
-        const { id } = row;
-        return (
-          <input
-            type="checkbox"
-            className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
-            onChange={(e) => 
-              console.log(id, " is changed to : ", e.target.checked)
-            }
-          />
-        );
-      },
-    },
+    // {
+    //   id: "selected",
+    //   accessor: (row) => {
+    //     const { id } = row;
+    //     return (
+    //       <input
+    //         type="checkbox"
+    //         className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
+    //         onChange={(e) => 
+    //           console.log(id, " is changed to : ", e.target.checked)
+    //         }
+    //       />
+    //     );
+    //   },
+    // },
     {
       Header: "Business",
       accessor: (row) => {
@@ -408,6 +278,7 @@ const Businesses = () => {
               whiteSpace: "pre-wrap",
               maxWidth: "90px",
             },
+            selected: { paddingInline: "16px 23px" },
           }}
           cellTextClassName={{
             Business: { justifyContent: "left", width: "100%" },

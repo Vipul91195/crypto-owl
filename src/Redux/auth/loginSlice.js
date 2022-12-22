@@ -100,7 +100,7 @@ const loginSlice = createSlice({
         },
         [loginFetchAPi.rejected]: (state, { payload }) => {
             state.isLoading = false;
-            toast.error(payload);
+            toast.error(payload === '' ? "Something went wrong!" : payload);
         },
         [forgotEmailApi.pending]: (state, action) => {
             state.isLoading = true;
@@ -114,9 +114,9 @@ const loginSlice = createSlice({
             };
             toast.success(action.payload?.message);
         },
-        [forgotEmailApi.rejected]: (state, action) => {
+        [forgotEmailApi.rejected]: (state, {payload}) => {
             state.isLoading = false;
-            toast.error(action.payload);
+            toast.error(payload === '' ? "Something went wrong!" : payload);
         },
         [forgotOtpVerifyApi.pending]: (state) => {
             state.isLoading = true;
@@ -128,7 +128,7 @@ const loginSlice = createSlice({
         },
         [forgotOtpVerifyApi.rejected]: (state, { payload }) => {
             state.isLoading = false;
-            toast.error(payload);
+            toast.error(payload === '' ? "Something went wrong!" : payload);
         },
         [resetPasswordApi.pending]: (state) => {
             state.isLoading = true;
@@ -140,7 +140,7 @@ const loginSlice = createSlice({
         },
         [resetPasswordApi.rejected]: (state, { payload }) => {
             state.isLoading = false;
-            toast.error(payload);
+            toast.error(payload === '' ? "Something went wrong!" : payload);
         },
     }
 })
