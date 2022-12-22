@@ -91,3 +91,17 @@ export const CustomerFormValidationSchema = Yup.object({
         .max(20, "Maximum 20 char.")
         .required("Address is required.")
 });
+
+export const MessageFormValidationSchema = Yup.object({
+    subject: Yup.string()
+        .trim()
+        .min(2, "Must be 2 char long.")
+        .max(20, "Maximum 20 char.")
+        .required("Subject is required."),
+    message: Yup.string()
+        .trim()
+        .min(2, "Must be 2 char long.")
+        .max(20, "Maximum 20 char.")
+        .required("Message is required.")
+});
+

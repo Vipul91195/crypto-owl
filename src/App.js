@@ -17,6 +17,8 @@ import Customers from './components/pages/Customers';
 import Reports from './components/pages/Reports';
 import SearchUser from './components/pages/SearchUser';
 import UserProfile from './components/pages/UserProfile';
+import MessageForm from './admin/MessageForm';
+
 
 function App() {
   return (
