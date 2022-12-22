@@ -30,9 +30,9 @@ const CommonTable = ({
   const [allSelected, setAllSelected] = useState(false);
   const [allCheckSelected, setAllCheckSelected] = useState(false);
 
-  const handlePageClick = () => {}
-  const nextPage = () => {}
-  const previousPage = () => {}
+  const handlePageClick = () => { }
+  const nextPage = () => { }
+  const previousPage = () => { }
 
   const {
     getTableProps,
@@ -53,7 +53,7 @@ const CommonTable = ({
   }
 
   useEffect(() => {
-    setSelectedIds(Object.fromEntries(data.map((d) => [d.memberId , allSelected])));
+    setSelectedIds(Object.fromEntries(data.map((d) => [d.memberId, allSelected])));
   }, [allSelected]);
 
   return (
@@ -63,14 +63,14 @@ const CommonTable = ({
           <thead className={HeaderClasses}>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {showSelectCheck && 
+                {showSelectCheck &&
                   <th >
-                    <div className='pl-[23px] w-max pr-[16px]'>
+                    <div className='pl-[23px] w-max'>
                       <input
                         type="checkbox"
                         checked={allSelected}
                         className="bg-checkFalse checked:bg-checkTrue appearance-none px-[23px_16px] h-[18px] w-[18px]"
-                        onChange={(e) => 
+                        onChange={(e) =>
                           setAllSelected(!allSelected && !allCheckSelected)
                         }
                       />
@@ -83,7 +83,7 @@ const CommonTable = ({
                     className={classNames("", HeadingClasses)}
                     style={
                       Object.keys(headerClasses || {}).includes(header.id) ?
-                      headerClasses[header.id] : {}
+                        headerClasses[header.id] : {}
                     }
                   >
                     {filteredColumns.includes(header.id) ? (
@@ -98,10 +98,10 @@ const CommonTable = ({
                           </>
                         </PopOver>
                       </>
-                    ) : 
-                    (
-                      header.render("Header")
-                    )}
+                    ) :
+                      (
+                        header.render("Header")
+                      )}
                   </th>
                 ))}
               </tr>
@@ -119,7 +119,7 @@ const CommonTable = ({
                 >
                   {showSelectCheck && (
                     <td>
-                      <div className="pl-[23px] w-max pr-[16px]">
+                      <div className="pl-[23px] w-max">
                         <input
                           type="checkbox"
                           checked={selectedIds[row.values.memberId]}

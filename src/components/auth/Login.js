@@ -28,7 +28,7 @@ const Login = () => {
             <div className='bg-[#171717] flex flex-col items-center h-screen sm:min-h-[680px] lg:min-h-none justify-center font-Sans w-full'>
                 <Formik
                     initialValues={initialValues}
-                    // validationSchema={LoginValidationSchema}
+                    validationSchema={LoginValidationSchema}
                     validateOnBlur={false}
                     validateOnChange={false}
                     onSubmit={handleLoginSubmit}

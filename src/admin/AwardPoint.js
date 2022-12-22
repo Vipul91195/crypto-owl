@@ -41,7 +41,8 @@ const AwardPoint = ({ type }) => {
                         <Dropdown
                             inputstyle='w-[304px] cursor-default bg-[#101010] h-[48px] rounded-2xl leading-5 font-normal tracking-tight text-white text-left pl-5'
                             people={people}
-                            selected={type === "customer" ? { name: 'Personal Points' } : null}
+                            disabled={type === "customer" || type === "user"}
+                            selected={type === "customer" || type === "user" ? { name: 'Personal Points' } : null}
                             id="awardPoints"
                             setValues={setFieldValue}
                             name="awardPoints"

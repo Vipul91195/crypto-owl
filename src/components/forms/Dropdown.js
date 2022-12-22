@@ -4,7 +4,7 @@ import vector from '../../assets/img/Vector.svg'
 import { useField } from 'formik'
 import classNames from 'classnames'
 
-const Dropdown = ({ setValues, ...props }) => {
+const Dropdown = ({ setValues, cursorNotAllowed, ...props }) => {
     const [selected, setSelected] = useState(props.selected || null)
     const [field, meta] = useField(props.name);
     useEffect(() => {
@@ -15,21 +15,22 @@ const Dropdown = ({ setValues, ...props }) => {
     return (
 
         <div className="" onClick={(e) => e.stopPropagation()}>
-            <Listbox value={selected} onChange={setSelected}>
+            <Listbox value={selected} onChange={setSelected} disabled={props?.disabled || false}>
                 <div className="relative mt-1">
-                    <Listbox.Button className={classNames("relative shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 text-sm",
+                    <Listbox.Button className={classNames("relative shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 text-sm ",
+                        props?.disabled && "cursor-not-allowed",
                         props.inputstyle,
                         meta.touched && meta.error && " border border-red-800",
                         meta.touched && meta.error && " text-red-500 "
                     )}>
-                        <span className="block truncate text-2xl">{selected?.name}</span>
+                        <span className={classNames("block truncate text-2xl", { 'text-gray-500': props?.disabled || false })}>{selected?.name}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
                             <img src={vector} alt="v" />
                         </span>
                     </Listbox.Button>
                     {meta.touched && meta.error && (
                         <div className="absolute error ml-5 mt-1">
-                            <p className="text-ms text-red-400">{meta.error}</p>
+                            <p className="text-ms text-red-500">{meta.error}</p>
                         </div>
                     )}
                     <Transition
