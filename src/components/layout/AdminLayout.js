@@ -1,13 +1,14 @@
-import React, { Children } from 'react'
+import React, { Children, useState } from 'react'
 import home from '../../assets/img/home.svg'
 import user from '../../assets/img/user.svg'
 import report from '../../assets/img/report.svg'
 import searchUser from '../../assets/img/searchUser.svg'
 import ConfirmModal from '../ConfirmModal';
-
+import closelineicon from '../../assets/img/closelineicon.svg'
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import RouteMiddleware from '../RouteMiddleware'
+import classNames from 'classnames'
 
 const tabs = [
     { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -17,12 +18,21 @@ const tabs = [
 ];
 
 export const AdminLayout = ({ children }) => {
+    const [show, setShow] = useState(false);
+    const sidebar = () => {
+        setShow(!show);
+    };
+
+
     const route = useLocation();
     const navigate = useNavigate();
     return (
         <RouteMiddleware>
             <div className='grid grid-cols-[290px,auto] font-Sans '>
                 <div className='max-w-[290px] bg-[#040404] min-h-screen'>
+                    {/* <div className={classNames('absolute w-screen max-w-none z-index: 99 lg:max-w-[290px] bg-[#040404] min-h-screen',
+                    { "right-[100%]": show })}> */}
+                    {/* <div onClick={sidebar} className='lg:hidden '><img src={closelineicon} alt='' /></div> */}
                     <div className='border-b border-[#FFFFFF]/[10%] pt-32'></div>
                     <div>
                         {tabs.map((tab, i) => (
