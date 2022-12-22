@@ -19,7 +19,7 @@ import { getBusinesses } from '../../Redux/businessSlice';
 const Businesses = () => {
 
   const dispatch = useDispatch();
-  const [ modal, setModal ] = useState(false);
+  const [modal, setModal] = useState(false);
   const navigate = useNavigate();
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
@@ -27,7 +27,7 @@ const Businesses = () => {
   // useEffect(() => {
   //   dispatch(getBusinesses());
   // }, [dispatch])
-  
+
 
   /**   temp code */
   function SelectColumnFilter({
@@ -198,8 +198,8 @@ const Businesses = () => {
       Header: "Status",
       accessor: (row) => {
         const { status } = row;
-        return <p className={classNames({'text-[#DD69AA]': status === "Active", 'text-[#858383]': status === "Inactive"})}  >{status}</p>
-        },
+        return <p className={classNames({ 'text-[#DD69AA]': status === "Active", 'text-[#858383]': status === "Inactive" })}  >{status}</p>
+      },
       Filter: SelectColumnFilter,
       filter: "includes",
     },
@@ -220,7 +220,7 @@ const Businesses = () => {
           User Management (Businesses)
         </div>
         <div className="flex gap-6">
-          <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
+          <Formik initialValues={{ searchTerm: "" }} onSubmit={() => { }}>
             <Form>
               <InputField
                 iconAfter={<SearchIcon className="h-[17px] w-[17px]" />}
@@ -264,7 +264,7 @@ const Businesses = () => {
           HeadingClasses="relative pt-[34px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 pb-[28px] whitespace-nowrap text-[20px] font-[500] leading-[24px] -tracking-[0.02em]"
           tableClasses="w-full rounded-[20px] overflow-hidden"
           BodyClasses="text-white bg-[#101010]"
-          containerClasses="max-h-[75vh] h-screen overflow-auto"
+          containerClasses="max-h-[75vh] h-max overflow-auto"
           cellDefaultStyle="text-xl px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal leading-[36.33px] py-[22px] -tracking-[2%] text-center"
           headerClasses={{
             ownerName: { textAlign: "right" },
