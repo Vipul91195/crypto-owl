@@ -99,20 +99,20 @@ const Customers = () => {
   ]);
 
   const columns = React.useMemo(() => [
-    {
-      id: "selected",
-      accessor: (row) => {
-        const { selected, id } = row;
-        return (
-          <input
-            type="checkbox"
-            className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
-            checked={selected}
-            onChange={() => console.log(id, " is changed")}
-          />
-        );
-      },
-    },
+    // {
+    //   id: "selected",
+    //   accessor: (row) => {
+    //     const { selected, id } = row;
+    //     return (
+    //       <input
+    //         type="checkbox"
+    //         className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
+    //         checked={selected}
+    //         onChange={() => console.log(id, " is changed")}
+    //       />
+    //     );
+    //   },
+    // },
     {
       Header: "Name",
       accessor: (row) => {
@@ -259,6 +259,7 @@ const Customers = () => {
       </div>
       <div className="mt-[38px]">
         <CommonTable
+          showSelectCheck
           columns={columns}
           filteredColumns={["Status"]}
           data={data}

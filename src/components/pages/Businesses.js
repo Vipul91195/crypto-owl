@@ -257,6 +257,7 @@ const Businesses = () => {
       <div className="mt-[56px]">
         <CommonTable
           columns={columns}
+          showSelectCheck
           filteredColumns={["Status"]}
           data={data}
           HeaderClasses="bg-[#040404] text-[#DD69AA]"
