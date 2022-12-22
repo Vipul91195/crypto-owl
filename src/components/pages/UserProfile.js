@@ -158,8 +158,15 @@ const UserProfile = () => {
                                     <p className='text-[21.1953px] leading-9 font-bold tracking-tight text-pink-light pl-[10px] whitespace-nowrap pr-[23px]'>Send Message</p>
                                 </div>
                                 <div className='flex'>
-                                    <div><img src={roundedblock} alt="b" /></div>
-                                    <p className='text-[21.1953px] leading-9 font-bold tracking-tight text-pink-light pl-[14px] whitespace-nowrap'>Block User</p>
+                                    {/* <div><img src={roundedblock} alt="b" /></div>
+                                    <p className='text-[21.1953px] leading-9 font-bold tracking-tight text-pink-light pl-[14px] whitespace-nowrap'>Block User</p> */}
+                                    <CustomButton
+                                        onClick={() => showModal("award")}
+                                        buttonStyle="px-[43px] py-[8px] text-sm leading-6 tracking-tight font-medium border border-[#DD69AA] 
+                                    text-[#DD69AA] whitespace-nowrap"
+                                    >
+                                        Award Point
+                                    </CustomButton>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +192,7 @@ const UserProfile = () => {
                                 <p className="text-[21.1953px] leading-9 font-bold tracking-tight text-[#DD69AA]"> Khandala, behind hanging garden, India</p>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-end">
+                        {/* <div className="flex flex-col justify-end">
                             <CustomButton
                                 onClick={() => showModal("award")}
                                 buttonStyle="px-[43px] py-[8px] text-sm leading-6 tracking-tight font-medium border border-[#DD69AA] 
@@ -193,14 +200,14 @@ const UserProfile = () => {
                             >
                                 Award Point
                             </CustomButton>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className='flex items-end gap-2 mt-[22px]'>
                     <p className='text-2xl leading-[21px] font-bold tracking-tight text-[#DD69AA]'>Details</p>
                     <div className='h-[2.7px] bg-[#DD69AA] w-full'></div>
                 </div>
-                <div className='flex w-full gap-[68px]'>
+                <div className='grid grid-cols-[1fr,1fr,1fr] gap-[68px]'>
                     <div className='flex pt-[25px] items-center justify-between grow'>
                         <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
                             <p>Member ID</p>
@@ -213,68 +220,72 @@ const UserProfile = () => {
                     </div>
                     <div className='flex pt-[25px] items-center justify-between grow'>
                         <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
-                            <p>Member ID</p>
-                            <p>Issue Date</p>
+                            <p>Is Business owner</p>
+                            <p>Is Customer</p>
                         </div>
                         <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
-                            <p>MEM001</p>
-                            <p>20-01-1920</p>
+                            <p>Yes (Verizon)</p>
+                            <p>Yes</p>
                         </div>
                     </div>
                     <div className='flex pt-[25px] items-center justify-between grow'>
                         <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
-                            <p>Member ID</p>
-                            <p>Issue Date</p>
+                            <p>Current Status</p>
+                            <p>Redemption Platform</p>
                         </div>
                         <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
-                            <p>MEM001</p>
-                            <p>20-01-1920</p>
+                            <p>Active</p>
+                            <p className='text-[#DD69AA]'>https;//gdhcbc</p>
                         </div>
                     </div>
                 </div>
                 <div className='flex gap-[68px] mt-[41px]'>
-                    <div className='flex items-end gap-2 w-full'>
-                        <p className='text-2xl leading-[21px] font-bold tracking-tight text-[#DD69AA]'>Awarded</p>
-                        <div className='h-[2.7px] bg-[#DD69AA] w-full'></div>
-                    </div>
-                    <div className='flex items-end gap-2  w-full'>
-                        <p className='text-2xl leading-[21px] font-bold tracking-tight text-[#DD69AA]'>Redeemed</p>
-                        <div className='h-[2.7px] bg-[#DD69AA] w-full'></div>
-                    </div>
-                    <div className='flex items-end gap-2  w-full'>
-                        <p className='text-2xl leading-[21px] font-bold tracking-tight text-[#DD69AA]'>Available</p>
-                        <div className='h-[2.7px] bg-[#DD69AA] w-full'></div>
-                    </div>
-                </div>
-                <div className='flex w-full gap-[68px]'>
-                    <div className='flex pt-[21px] items-center justify-between grow'>
-                        <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
-                            <p>Business Points</p>
-                            <p>Personal Points</p>
+                    <div className='w-full'>
+                        <div className='flex items-end gap-2 w-full'>
+                            <p className='text-2xl leading-[21px] font-bold tracking-tight text-[#DD69AA]'>Awarded</p>
+                            <div className='h-[2.7px] bg-[#DD69AA] w-full'></div>
                         </div>
-                        <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
-                            <p>10000</p>
-                            <p>4000</p>
+                        <div className='flex pt-[21px] items-center justify-between grow'>
+                            <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
+                                <p>Business Points</p>
+                                <p>Personal Points</p>
+                            </div>
+                            <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
+                                <p>10000</p>
+                                <p>4000</p>
+                            </div>
                         </div>
                     </div>
-                    <div className='flex pt-[25px] items-center justify-between grow'>
-                        <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
-                            <p>Business Points</p>
-                            <p>Personal Points</p>
+                    <div className='w-full'>
+                        <div className='flex items-end gap-2  w-full'>
+                            <p className='text-2xl leading-[21px] font-bold tracking-tight text-[#DD69AA]'>Redeemed</p>
+                            <div className='h-[2.7px] bg-[#DD69AA] w-full'></div>
                         </div>
-                        <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
-                            <p>10000</p>
-                            <p>4000</p>
+                        <div className='flex pt-[25px] items-center justify-between grow'>
+                            <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
+                                <p>Business Points</p>
+                                <p>Personal Points</p>
+                            </div>
+                            <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
+                                <p>10000</p>
+                                <p>4000</p>
+                            </div>
                         </div>
                     </div>
-                    <div className='flex pt-[25px] items-center justify-between grow'>
-                        <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
-                            <p>Member ID</p>
-                            <p>Issue Date</p>
+                    <div className='w-full'>
+                        <div className='flex items-end gap-2  w-full'>
+                            <p className='text-2xl leading-[21px] font-bold tracking-tight text-[#DD69AA]'>Available</p>
+                            <div className='h-[2.7px] bg-[#DD69AA] w-full'></div>
                         </div>
-                        <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
-                            <p>MEM001</p>
-                            <p>20-01-1920</p>
+                        <div className='flex pt-[25px] items-center justify-between grow'>
+                            <div className='flex flex-col gap-7 text-xl leading-[21px] font-normal tracking-tight text-[#979998]'>
+                                <p>Business Points</p>
+                                <p>Personal Points</p>
+                            </div>
+                            <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
+                                <p>10000</p>
+                                <p>4000</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -311,7 +322,7 @@ const UserProfile = () => {
             />
             <CustomModal onClose={hideModal} modal={{ isVisible: !!modal }}>
                 {modal === "message" && <MessageForm />}
-                {modal === "award" && <AwardPoint />}
+                {modal === "award" && <AwardPoint type={"user"} />}
             </CustomModal>
         </AdminLayout>
     );

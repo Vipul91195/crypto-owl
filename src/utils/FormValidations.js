@@ -2,7 +2,8 @@ import * as Yup from "yup";
 
 export const LoginValidationSchema = Yup.object({
     username: Yup.string()
-        .email("Invalid email address.")
+        // .email("Invalid email address.")
+        .min(3, "Must be 3 char long.")
         .required("E-mail is Required."),
     password: Yup.string()
         .trim()

@@ -14,15 +14,17 @@ const initialState = {
     forgotModal: { email: null, isVisible: false, otpVerified: false },
 };
 
-export const loginFetchAPi = createAsyncThunk("/auth/login", async ({ keepMeLogin, ...data }) => {
+export const loginFetchAPi = createAsyncThunk("/auth/login", async ({ keepMeLogin, ...data }, { rejectWithValue }) => {
     try {
         const loginCredentials = await ApiMiddleware.post("/auth/login/", {
             ...data,
         });
-        toast.success(loginCredentials?.data?.message);
         return { ...loginCredentials.data, keepMeLogin };
     } catch (error) {
-        toast.error(error?.response?.data?.message);
+        if (!error.response) {
+            throw rejectWithValue(error);
+        }
+        throw rejectWithValue(error.response.data.message);
     }
 });
 
@@ -97,6 +99,7 @@ const loginSlice = createSlice({
                 cookies.set('crypt-access', payload?.result[0]?.token?.access);
                 cookies.set('crypt-refresh', payload?.result[0]?.token?.refresh);
             }
+            toast.success(payload?.message);
         },
         [loginFetchAPi.rejected]: (state, { payload }) => {
             state.isLoading = false;
@@ -114,7 +117,7 @@ const loginSlice = createSlice({
             };
             toast.success(action.payload?.message);
         },
-        [forgotEmailApi.rejected]: (state, {payload}) => {
+        [forgotEmailApi.rejected]: (state, { payload }) => {
             state.isLoading = false;
             toast.error(payload === '' ? "Something went wrong!" : payload);
         },

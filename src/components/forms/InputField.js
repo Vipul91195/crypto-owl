@@ -14,13 +14,13 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, errorRight, i
                 <div className='absolute cursor-pointer top-1/2 h-max -translate-y-1/2 left-5 text-white'>
                     <>{iconBefore} </>
                 </div>
-            : null}
+                : null}
             <input
                 {...field}
                 {...props}
                 placeholder={placeholder}
                 // className={meta.touched && meta.error ? borderstyle : inputstyle}
-                className={classNames({"pl-[50px]": iconBefore}, inputstyle, {[borderstyle]: meta.touched && meta.error })}
+                className={classNames({ "pl-[50px]": iconBefore }, inputstyle, { [borderstyle]: meta.touched && meta.error })}
                 autoComplete="off"
                 type={
                     props?.type === "password"
@@ -30,7 +30,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, errorRight, i
                         : (props.type || "text")
                 } />
             {props.type === "password" ?
-                <div className='absolute top-4 sm:top-[24px] right-5'
+                <div className='absolute top-4 sm:top-[24px] right-5 cursor-pointer'
 
                     onClick={() => setShowPassword(!showPassword)}
                 >
@@ -45,7 +45,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, errorRight, i
                     <div className='absolute cursor-pointer top-1/2 h-max -translate-y-1/2 right-5 text-white'>
                         <>{iconAfter} </>
                     </div>
-                : null
+                    : null
             }
             {meta.touched && meta.error && (
                 <div className={classNames("absolute error ml-5 mt-1", { "right-0": errorRight })}>

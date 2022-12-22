@@ -11,7 +11,7 @@ const MessageForm = () => {
     return (
         <div className='2xl:min-w-[470px] w-full'>
             <div className='bg-[#141414] text-left text-xl leading-[56px] font-bold text-[#CDBEBE] tracking-tight pl-[34px] '>
-                Add Business
+                Message
             </div>
             <Formik
                 initialValues={initialValues}
