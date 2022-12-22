@@ -19,6 +19,7 @@ const CommonTable = ({
   heightLightRow,
   cellTextClassName,
   heighLightCellPrefix,
+  showSelectCheck = false,
   heighLightCellPostfix,
   filteredColumns,
   ...props
@@ -62,18 +63,20 @@ const CommonTable = ({
           <thead className={HeaderClasses}>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                <th >
-                  <div className='pl-[23px] w-max pr-[16px]'>
-                    <input
-                      type="checkbox"
-                      checked={allSelected}
-                      className="bg-checkFalse checked:bg-checkTrue appearance-none px-[23px_16px] h-[18px] w-[18px]"
-                      onChange={(e) => 
-                        setAllSelected(!allSelected && !allCheckSelected)
-                      }
-                    />
-                  </div>
-                </th>
+                {showSelectCheck && 
+                  <th >
+                    <div className='pl-[23px] w-max pr-[16px]'>
+                      <input
+                        type="checkbox"
+                        checked={allSelected}
+                        className="bg-checkFalse checked:bg-checkTrue appearance-none px-[23px_16px] h-[18px] w-[18px]"
+                        onChange={(e) => 
+                          setAllSelected(!allSelected && !allCheckSelected)
+                        }
+                      />
+                    </div>
+                  </th>
+                }
                 {headerGroup.headers.map((header) => (
                   <th
                     {...header.getHeaderProps()}
@@ -114,28 +117,35 @@ const CommonTable = ({
                     "bg-[#20191D]": checkHighlight(row.values),
                   })}
                 >
-                  <td>
-                  <div className='pl-[23px] w-max pr-[16px]'>
-                    <input
-                      type="checkbox"
-                      checked={selectedIds[row.values.memberId]}
-                      className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
-                      onChange={(e) => {
-                        setSelectedIds({...selectedIds, [row.values.memberId] : !selectedIds[row.values.memberId]})
-                        allSelected && selectedIds[row.values.memberId] && setAllCheckSelected(false)
-                      }
-                      }
-                    />
-                  </div>
-                  </td>
+                  {showSelectCheck && (
+                    <td>
+                      <div className="pl-[23px] w-max pr-[16px]">
+                        <input
+                          type="checkbox"
+                          checked={selectedIds[row.values.memberId]}
+                          className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
+                          onChange={(e) => {
+                            setSelectedIds({
+                              ...selectedIds,
+                              [row.values.memberId]:
+                                !selectedIds[row.values.memberId],
+                            });
+                            allSelected &&
+                              selectedIds[row.values.memberId] &&
+                              setAllCheckSelected(false);
+                          }}
+                        />
+                      </div>
+                    </td>
+                  )}
                   {row.cells.map((cell) => (
                     <td
                       {...cell.getCellProps()}
                       className={cellDefaultStyle}
                       style={
-                        Object.keys(cellClasses || {}).includes(
-                          cell.column.id
-                        ) ? cellClasses[cell.column.id] : {}
+                        Object.keys(cellClasses || {}).includes(cell.column.id)
+                          ? cellClasses[cell.column.id]
+                          : {}
                       }
                     >
                       <span
@@ -145,7 +155,9 @@ const CommonTable = ({
                         style={
                           Object.keys(cellTextClassName || {}).includes(
                             cell.column.id
-                          ) ? cellTextClassName[cell.column.id] : {}
+                          )
+                            ? cellTextClassName[cell.column.id]
+                            : {}
                         }
                       >
                         {heighLightCellPrefix && checkHighlight(row.values) && (
