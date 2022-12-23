@@ -6,6 +6,7 @@ import {
   getBusinessesApi,
 } from "../utils/apis/businesses";
 import { addRewardPointsApi } from "../utils/apis/admin";
+import toast from 'react-hot-toast';
 
 const initialState = {
   isLoading: false,
@@ -15,7 +16,7 @@ const initialState = {
 export const getBusinesses = createAsyncThunk('business/getAll', getBusinessesApi)
 export const getBusinessCustomers = createAsyncThunk('business/getCustomers', getBusinessCustomersApi)
 export const getBusiness = createAsyncThunk('business/get', getBusinessApi)
-export const addBusinesses = createAsyncThunk('business/add', addBusinessApi)
+
 
 
 const businessSlice = createSlice({
@@ -28,24 +29,14 @@ const businessSlice = createSlice({
     [getBusinesses.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.allBusinesses = payload.result[0];
-      // console.log(payload);
+      state.test = "telskjadsf";
+      console.log(payload);
+      console.log("Asfasdlfjaslkdfjlkj");
     },
     [getBusinesses.rejected]: (state, { payload }) => {
       state.isLoading = false;
       // console.log(payload);
-    },
-    [addBusinesses.pending]: (state, { payload }) => {
-      state.isLoading = true;
-    },
-    [addBusinesses.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      // state.allBusinesses = payload.result[0];
-      console.log(payload);
-    },
-    [addBusinesses.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      console.log(payload);
-    },
+    }
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React, { Children, useState } from 'react'
 import home from '../../assets/img/home.svg'
 import user from '../../assets/img/user.svg'
 import report from '../../assets/img/report.svg'
@@ -10,7 +10,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import RouteMiddleware from '../RouteMiddleware'
 import { Form, Formik } from 'formik'
 import { InputField } from '../forms/InputField'
-import { MobMenu, SearchIcon } from '../icons'
+import { CloseFilled, MobMenu, SearchIcon } from '../icons'
+import classNames from 'classnames'
 
 const tabs = [
     // { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -22,15 +23,22 @@ const tabs = [
 export const AdminLayout = ({ children }) => {
     const route = useLocation();
     const navigate = useNavigate();
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const handleMobileMenu = () => {
+        setShowMobileMenu(!showMobileMenu);
+    }
     return (
         <RouteMiddleware>
-            <div className='md:grid md:grid-cols-[200px,auto] 2xl:grid-cols-[290px,auto] font-Sans'>
-                <div className='max-w-[290px] bg-[#040404] min-h-screen pb-14 lg:pb-0 absolute md:relative md:translate-x-0 z-50 right-0 translate-x-full'>
+            <div className='md:grid md:grid-cols-[200px,auto] 2xl:grid-cols-[290px,auto] font-Sans overflow-hidden relative'>
+                <div className={classNames('max-w-[290px] bg-[#040404] min-h-screen pb-14 lg:pb-0 absolute md:relative md:translate-x-0 z-50 right-0 translate-x-full transition-all duration-200', {'translate-x-0': showMobileMenu})} >
+                    <div className='absolute top-7 md:hidden right-7 cursor-pointer' onClick={handleMobileMenu}>
+                        <CloseFilled className="text-[#DD69AA] h-7 w-7" />
+                    </div>
                     <div className='border-b border-[#FFFFFF]/[10%] pt-32'></div>
                     <div className='pt-7'>
                         {tabs.map((tab, i) => (
                             <a key={i} href="#!" onClick={() => navigate(tab.route)}>
-                                <div className='flex items-center gap-[14px] py-3 pl-3 pr-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
+                                <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
                                     {tab.route === route.pathname &&
                                         <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>
                                     }
@@ -56,7 +64,7 @@ export const AdminLayout = ({ children }) => {
                                 </div>
                             </Form>
                         </Formik>
-                        <div>
+                        <div className='cursor-pointer' onClick={handleMobileMenu}>
                             <MobMenu className="text-[#DD69AA]" />
                         </div>
                     </div>
