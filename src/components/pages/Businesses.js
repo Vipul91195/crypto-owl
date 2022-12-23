@@ -10,152 +10,36 @@ import { InputField } from '../forms/InputField';
 import { Form, Formik } from 'formik';
 import { SearchIcon } from '../icons';
 import { openConfirmModal } from '../../Redux/modalSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomModal from '../CustomModal';
 import BusinessForm from '../../admin/BusinessForm';
 import { useNavigate } from 'react-router';
 import { getBusinesses } from '../../Redux/businessSlice';
+import AdminHeader from '../layout/AdminHeader';
+import { SelectColumnFilter } from '../../utils/helper';
 
 const Businesses = () => {
 
+  const { isLoading, allBusinesses} = useSelector(state => state.businessSlice)
+  const [selectedIds, setSelectedIds] = useState(null);
   const dispatch = useDispatch();
-  const [modal, setModal] = useState(false);
   const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
 
-  // useEffect(() => {
-  //   dispatch(getBusinesses());
-  // }, [dispatch])
-
-
-  /**   temp code */
-  function SelectColumnFilter({
-    column: { filterValue, setFilter, preFilteredRows, id },
-  }) {
-    console.log(preFilteredRows, " test");
-    const options = React.useMemo(() => {
-      const options = new Set();
-      preFilteredRows.forEach((row) => {
-        options.add(typeof row.values[id] === 'string' ? row.values[id] : row.values[id].props.children);
-      });
-      return [...options.values()];
-    }, [id, preFilteredRows]);
-    console.log(options, " test");
-    return (
-      <div className="bg-[#303030] px-[20px] py-[25px] rounded-[10px] text-white min-w-[240px]">
-        <p
-          className="border-b w-full cursor-pointer border-solid pb-3 text-left border-[#545557] text-[20px]"
-          onClick={() => {
-            // api call ...
-          }}
-        >
-          All
-        </p>
-        {options.map((option, i) => (
-          <p
-            key={i}
-            onClick={(e) => {
-              // api call ...
-            }}
-            className="text-left py-3 cursor-pointer w-full last:pb-0 last:border-none border-b border-solid pb-3 text-[20px] border-[#545557]"
-          >
-            {option}
-          </p>
-        ))}
-      </div>
-    );
-  }
-  const data = React.useMemo(() => [
-    {
-      id: 1,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "9821",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    },
-    {
-      id: 2,
-      selected: true,
-      businessImage: "",
-      business: "Vodafone",
-      ownerName: "karl.will02",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "7032",
-      issueDate: "12/12/1212",
-      businessPoints: "5500",
-      personalPoints: "5500",
-      status: "Active",
-    },
-    {
-      id: 3,
-      selected: true,
-      businessImage: "",
-      business: "HDFC",
-      ownerName: "andreea.1z",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "5204",
-      issueDate: "12/12/1212",
-      businessPoints: "10700",
-      personalPoints: "10700",
-      status: "Active",
-    },
-    {
-      id: 4,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "98201",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    },
-    {
-      id: 5,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      ownerName: "maddison_c21",
-      ownerEmail: "xyz@gmail.com",
-      memberId: "98521",
-      issueDate: "12/12/1212",
-      businessPoints: "1000",
-      personalPoints: "1000",
-      status: "Inactive",
-    }
-  ]);
+  useEffect(() => {
+    dispatch(getBusinesses());
+  }, [dispatch])
+  
   const columns = React.useMemo(() => [
-    // {
-    //   id: "selected",
-    //   accessor: (row) => {
-    //     const { id } = row;
-    //     return (
-    //       <input
-    //         type="checkbox"
-    //         className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
-    //         onChange={(e) => 
-    //           console.log(id, " is changed to : ", e.target.checked)
-    //         }
-    //       />
-    //     );
-    //   },
-    // },
     {
       Header: "Business",
       accessor: (row) => {
         const { businessImage, business } = row;
         return (
           <div onClick={() => navigate('/customers')} className="flex gap-[16px] items-center cursor-pointer">
-            <div className="h-[45.42px] rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black w-[45.42px]">
+            <div className="w-[30px] h-[30px] 2xl:w-[45.42px] 2xl:h-[45.42px] rounded-[10px] 2xl:rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black ">
               {businessImage && businessImage !== "" ? (
                 <img src={businessImage} alt="test" />
               ) : (
@@ -180,19 +64,19 @@ const Businesses = () => {
     },
     {
       Header: "Owner’s Name",
-      accessor: "ownerName",
+      accessor: "owner_name",
     },
     {
       Header: "Owners Email ID",
-      accessor: "ownerEmail",
+      accessor: "owner_email",
     },
     {
       Header: "Member ID",
-      accessor: "memberId",
+      accessor: "member_id",
     },
     {
       Header: "Issue Date",
-      accessor: "issueDate",
+      accessor: "issue_date",
     },
     {
       Header: "Status",
@@ -205,103 +89,67 @@ const Businesses = () => {
     },
     {
       Header: "Business Points",
-      accessor: "businessPoints",
+      accessor: "business_points",
     },
     {
       Header: "Personal Points",
-      accessor: "personalPoints",
+      accessor: "personal_points",
     },
   ]);
-  /**   temp code */
+
   return (
     <AdminLayout>
-      <div className="pt-[72px] flex gap-14 justify-between">
-        <div className='text-white text-4xl whitespace-nowrap'>
-          User Management (Businesses)
-        </div>
-        <div className="flex gap-6">
-          <Formik initialValues={{ searchTerm: "" }} onSubmit={() => { }}>
-            <Form>
-              <InputField
-                iconAfter={<SearchIcon className="h-[17px] w-[17px]" />}
-                type="text"
-                name="searchTerm"
-                placeholder="Search"
-                inputstyle="bg-[#101010] focus-visible:outline-none placeholder:text-[#A6A6A6] max-w-[300px] w-screen text-5 leading-5 text-[#A6A6A6] rounded-[15px] py-4 px-6"
-              />
-            </Form>
-          </Formik>
-          <CustomButton
-            type="submit"
-            onClick={() =>
-              dispatch(openConfirmModal({ message: "User has been removed" }))
-            }
-            buttonStyle="w-full px-[62px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl  text-[#DD69AA]"
-          >
-            Remove
-          </CustomButton>
-          <CustomButton
-            onClick={() => showModal("award")}
-            buttonStyle="w-full px-[43px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl text-[#DD69AA] whitespace-nowrap"
-          >
-            Award Point
-          </CustomButton>
-          <CustomButton
-            onClick={() => showModal("business")}
-            buttonStyle="w-full h-[51px] px-[36px] sm:text-sm font-medium rounded-2xl text-white bg-[#DD69AA] whitespace-nowrap"
-          >
-            Add Business
-          </CustomButton>
-        </div>
-      </div>
-      <div className="mt-[56px]">
+      <AdminHeader type="business" title="User Management (Businesses)" />
+      <div className="md:mt-[36px] lg:mt-[56px]">
         <CommonTable
-          columns={columns}
           showSelectCheck
+          selectionColumn="member_id"
+          columns={columns}
+          data={allBusinesses}
           filteredColumns={["Status"]}
-          data={data}
           HeaderClasses="bg-[#040404] text-[#DD69AA]"
-          HeadingClasses="relative pt-[34px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 pb-[28px] whitespace-nowrap text-[20px] font-[500] leading-[24px] -tracking-[0.02em]"
+          HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
           tableClasses="w-full rounded-[20px] overflow-hidden"
           BodyClasses="text-white bg-[#101010]"
-          containerClasses="max-h-[75vh] h-max overflow-auto"
-          cellDefaultStyle="text-xl px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal leading-[36.33px] py-[22px] -tracking-[2%] text-center"
+          containerClasses="min-h-[20vh] h-max overflow-x-auto"
+          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
           headerClasses={{
-            ownerName: { textAlign: "right" },
+            owner_name: { textAlign: "right" },
             Business: { textAlign: "left" },
-            businessPoints: {
+            business_points: {
               textAlign: "center",
               whiteSpace: "pre-wrap",
               maxWidth: "90px",
             },
-            personalPoints: {
+            personal_points: {
               textAlign: "center",
               whiteSpace: "pre-wrap",
               maxWidth: "90px",
             },
-            selected: { paddingInline: "16px 23px" },
           }}
           cellTextClassName={{
             Business: { justifyContent: "left", width: "100%" },
-            ownerEmail: { justifyContent: "center", width: "100%" },
-            ownerName: { justifyContent: "right", width: "100%" },
+            owner_email: { justifyContent: "center", width: "100%" },
+            owner_name: { justifyContent: "right", width: "100%" },
           }}
           cellClasses={{
-            selected: { paddingInline: "16px 23px" },
             Business: { textAlign: "left" },
-            ownerName: {
+            owner_name: {
               textAlign: "right",
-              fontSize: "21px",
+              fontSize: "16px",
               fontWeight: "700",
-            }
+              lineHeight: "16px",
+              "@media (max-width: 1536px)": {
+                fontSize: "21px",
+                lineHeight: "24px",
+              },
+            },
           }}
+          handleRowSelect={setSelectedIds}
         />
       </div>
-      <CustomModal onClose={hideModal} modal={{ isVisible: !!modal }}>
-        {modal === "business" && <BusinessForm />}
-        {modal === "award" && <AwardPoint />}
-      </CustomModal>
     </AdminLayout>
   );
 }
+
 export default Businesses;

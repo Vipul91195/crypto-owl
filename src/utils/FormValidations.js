@@ -34,32 +34,31 @@ export const ResetPasswordValidationSchema = Yup.object({
 
 
 export const AwardPointValidationSchema = Yup.object({
-    point: Yup.string()
-        .required("Points is required.")
-        .matches(/^\d+$/, "Allow digits only."),
-    awardPoints: Yup.string().required("Point type is required.").nullable(),
+    amount: Yup.number()
+        .required("Points is required."),
+    reward_type: Yup.string().required("Point type is required.").nullable(),
 });
 
 export const BusinessFormValidationSchema = Yup.object({
-    business: Yup.string()
+    business_name: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
         .max(20, "Maximum 20 char.")
         .required("Name of the company is required.")
         .matches(/^\p{L}+$/u, "Special characters not allowed."),
-    companyNumber: Yup.string()
+        company_no: Yup.string()
         .trim()
         .max(10, "Maximum 10 char.")
         .required("Company' Number required."),
-    ownerName: Yup.string()
+        owner_name: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
         .max(20, "Maximum 20 char.")
         .required("Owner's Name required."),
-    ownerEmail: Yup.string()
+        owner_email: Yup.string()
         .email("Invalid email address.")
         .required("E-mail is Required."),
-    vatNumber: Yup.string()
+        vat_no: Yup.string()
         .trim()
         .max(20, "Maximum 9 char.")
         .required("VAT Number required.")

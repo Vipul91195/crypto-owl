@@ -12,7 +12,6 @@ const ApiMiddleware = axios.create({
 ApiMiddleware.interceptors.request.use(
     function (config) {
         const token = getAccessToken();
-        console.log(token);
         if(token) {
             config.headers = {
                 Accept: "application/json",

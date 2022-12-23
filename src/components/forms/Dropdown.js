@@ -7,9 +7,10 @@ import classNames from 'classnames'
 const Dropdown = ({ setValues, cursorNotAllowed, ...props }) => {
     const [selected, setSelected] = useState(props.selected || null)
     const [field, meta] = useField(props.name);
+
     useEffect(() => {
         console.log(selected);
-        setValues(props.name, selected?.name || null);
+        setValues(props.name, selected?.value || null);
     }, [selected])
 
     return (

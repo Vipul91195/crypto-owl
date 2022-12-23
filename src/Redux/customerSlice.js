@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   allBusinesses: null,
 }
+// export const getBusinesses = createAsyncThunk('business/getAll', getCustomersApi)
 
 // export const getCSVTemplate = createAsyncThunk('customer/template', async ({ rejectWithValue }) => {
 //   try {

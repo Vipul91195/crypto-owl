@@ -11,6 +11,7 @@ import roundedblock from "../../assets/img/roundedblock.svg";
 import profilepic from "../../assets/img/profilepic.svg";
 import MessageForm from '../../admin/MessageForm';
 import AwardPoint from '../../admin/AwardPoint';
+import AdminHeader from '../layout/AdminHeader';
 
 const UserProfile = () => {
     const dispatch = useDispatch();
@@ -136,9 +137,9 @@ const UserProfile = () => {
 
     return (
         <AdminLayout>
-            <div className='pt-[87px]'>
-                <h1 className='text-[34px] leading-[42px] tracking-tight font-bold text-pink-light'>User Profile</h1>
-                <div className="pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
+            <AdminHeader type="user-profile" title="User Profile" showControls={false} />
+            <div className=''>
+                <div className="pt-8 2xl:pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
                     <div className="absolute pt-10 pl-[42px]">
                         <img src={profilepic} alt="businessIcon" />
                     </div>
@@ -296,14 +297,17 @@ const UserProfile = () => {
             </div >
             <CommonTable
                 columns={columns}
+                // handleRowSelect= {() => {}}
                 filteredColumns={["transactionType"]}
                 data={data}
                 HeaderClasses="bg-[#040404] text-[#DD69AA]"
-                HeadingClasses="relative pt-[34px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 pb-[28px] whitespace-nowrap text-[20px] font-[500] leading-[24px] -tracking-[0.02em]"
+                // HeadingClasses="relative pt-[34px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 pb-[28px] whitespace-nowrap text-[20px] font-[500] leading-[24px] -tracking-[0.02em]"
+                // cellDefaultStyle="text-xl px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal leading-[36.33px] py-[22px] -tracking-[2%] text-center"
+                HeadingClasses="relative pt-[22px] pb-[16px] md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+                cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal py-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
                 tableClasses="w-full rounded-[20px] overflow-hidden"
                 BodyClasses="text-[#979998] bg-[#101010]"
                 containerClasses="max-h-[44vh]  h-max overflow-auto"
-                cellDefaultStyle="text-xl px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal leading-[36.33px] py-[22px] -tracking-[2%] text-center"
                 headerClasses={{
                     fromTo: { textAlign: "left" },
                     emailId: { textAlign: "right" },

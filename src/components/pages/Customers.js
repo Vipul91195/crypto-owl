@@ -12,52 +12,25 @@ import { Form, Formik } from "formik";
 import { InputField } from "../forms/InputField";
 import { SearchIcon } from "../icons";
 import { openConfirmModal } from "../../Redux/modalSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CustomerForm from "../../admin/CustomerForm";
 import CustomModal from "../CustomModal";
+import AdminHeader from "../layout/AdminHeader";
+import { SelectColumnFilter } from "../../utils/helper";
 
 const Customers = () => {
   const dispatch = useDispatch();
+  const { isLoading, allBusinesses} = useSelector(state => ({
+    isLoading: state.businessSlice.isLoading,
+    customerData: state.businessSlice.customerData
+  }))
   const [modal, setModal] = useState(false);
+  const [selectedIds, setSelectedIds] = useState(null);
   const navigate = useNavigate();
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
+  
   /**   temp code */
-  function SelectColumnFilter({
-    column: { filterValue, setFilter, preFilteredRows, id },
-  }) {
-    const options = React.useMemo(() => {
-      const options = new Set();
-      preFilteredRows.forEach((row) => {
-        options.add(typeof row.values[id] === 'string' ? row.values[id] : row.values[id].props.children);
-      });
-      return [...options.values()];
-    }, [id, preFilteredRows]);
-    return (
-      <div className="bg-[#303030] px-[20px] py-[25px] rounded-[10px] text-white min-w-[240px]">
-        <p
-          className="border-b w-full cursor-pointer border-solid pb-3 text-left border-[#545557] text-[20px]"
-          onClick={() => {
-            // api ....
-          }}
-        >
-          All
-        </p>
-        {options.map((option, i) => (
-          <p
-            key={i}
-            onClick={(e) => {
-              console.log("id :", option);
-              // api ....
-            }}
-            className="text-left py-3 cursor-pointer w-full last:pb-0 last:border-none border-b border-solid pb-3 text-[20px] border-[#545557]"
-          >
-            {option}
-          </p>
-        ))}
-      </div>
-    );
-  }
   const data = React.useMemo(() => [
     {
       name: "@KrisWashington",
@@ -97,7 +70,6 @@ const Customers = () => {
       personalPoints: "2000",
     }
   ]);
-
   const columns = React.useMemo(() => [
     // {
     //   id: "selected",
@@ -119,7 +91,7 @@ const Customers = () => {
         const { customerImage, name } = row;
         return (
           <div onClick={() => navigate('/user-profile')} className="flex gap-[16px] items-center cursor-pointer">
-            <div className="h-[45.42px] rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black w-[45.42px]">
+            <div className="w-[30px] h-[30px] 2xl:w-[45.42px] 2xl:h-[45.42px] rounded-[10px] 2xl:rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black">
               {customerImage && customerImage !== "" ? (
                 <img src={customerImage} alt="test" />
               ) : (
@@ -175,45 +147,7 @@ const Customers = () => {
   /**   temp code */
   return (
     <AdminLayout>
-      <div className="pt-[72px] flex gap-14 justify-between">
-        <div className="text-white text-4xl whitespace-nowrap">
-          User Management (Customers)
-        </div>
-        <div className="flex gap-6">
-          <Formik initialValues={{ searchTerm: "" }} onSubmit={() => { }}>
-            <Form>
-              <InputField
-                iconAfter={<SearchIcon className="h-[17px] w-[17px]" />}
-                type="text"
-                name="searchTerm"
-                placeholder="Search"
-                inputstyle="bg-[#101010] focus-visible:outline-none placeholder:text-[#A6A6A6] max-w-[300px] w-screen text-5 leading-5 text-[#A6A6A6] rounded-[15px] py-4 px-6"
-              />
-            </Form>
-          </Formik>
-          <CustomButton
-            type="submit"
-            onClick={() =>
-              dispatch(openConfirmModal({ message: "User has been removed" }))
-            }
-            buttonStyle="w-full px-[62px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl  text-[#DD69AA]"
-          >
-            Remove
-          </CustomButton>
-          <CustomButton
-            onClick={() => showModal("award")}
-            buttonStyle="w-full px-[43px] h-[51px] sm:text-sm  border border-[#DD69AA] leading-6 font-medium rounded-2xl text-[#DD69AA] whitespace-nowrap"
-          >
-            Award Point
-          </CustomButton>
-          <CustomButton
-            onClick={() => showModal("customer")}
-            buttonStyle="w-full h-[51px] px-[36px] sm:text-sm font-medium rounded-2xl text-white bg-[#DD69AA] whitespace-nowrap"
-          >
-            Add Customer
-          </CustomButton>
-        </div>
-      </div>
+      <AdminHeader type="customer" title="User Management (Customers)" />
       <div className="pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
         <div className="absolute pt-10 pl-[65px]">
           <img src={businessIcon} alt="businessIcon" />
@@ -257,20 +191,21 @@ const Customers = () => {
           </div>
         </div>
       </div>
-      <div className="mt-[38px]">
+      <div className="mt-[20px] md:mt-[38px]">
         <CommonTable
           showSelectCheck
           columns={columns}
+          selectionColumn="member_id"
           filteredColumns={["Status"]}
           data={data}
           heightLightRow={{ memberId: "MEM0001" }}
           heighLightCellPostfix={{ name: "(owner)" }}
           HeaderClasses="bg-[#040404] text-[#DD69AA]"
-          HeadingClasses="relative pt-[34px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 pb-[28px] whitespace-nowrap text-[20px] font-[500] leading-[24px] -tracking-[0.02em]"
+          HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
           tableClasses="w-full rounded-[20px] overflow-hidden"
           BodyClasses="text-white bg-[#101010]"
-          containerClasses="max-h-[50vh] h-max overflow-auto"
-          cellDefaultStyle="text-xl px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal leading-[36.33px] py-[22px] -tracking-[2%] text-center"
+          containerClasses="min-h-[20vh] h-max overflow-auto"
           headerClasses={{
             selected: { padding: "0" },
             Name: { textAlign: "left", maxWidth: "399px" },
@@ -294,18 +229,21 @@ const Customers = () => {
             selected: { paddingInline: "22px 15px", width: "18px" },
             Name: {
               textAlign: "left",
-              fontSize: "21px",
+              fontSize: "16px",
               fontWeight: "700",
-              maxWidth: "369px"
+              maxWidth: "280px",
+              lineHeight: "1px",
+              '@media (max-width: 1536px)': {
+                fontSize: "21px",
+                maxWidth: "369px",
+                lineHeight: "24px",
+              },
             },
             emailId: { textAlign: "center", color: "#DD69AA" },
           }}
+          handleRowSelect={setSelectedIds}
         />
       </div>
-      <CustomModal onClose={hideModal} modal={{ isVisible: !!modal }}>
-        {modal === "customer" && <CustomerForm />}
-        {modal === "award" && <AwardPoint type={"customer"} />}
-      </CustomModal>
     </AdminLayout>
   );
 };

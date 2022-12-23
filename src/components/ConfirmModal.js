@@ -13,7 +13,7 @@ const ConfirmModal = () => {
         <div className='flex items-center border-b-[0.5px] justify-between p-[8.75px] border-solid border-[#545557]'>
           <p className='text-white' >{ConfirmModal.title}</p>
           <button className='block' onClick={() => dispatch(closeConfirmModal())}>
-            <CloseFilled />
+            <CloseFilled className="text-[#737373]" />
           </button>
         </div>
         <div className='px-[60px] py-[22px] text-center'>
