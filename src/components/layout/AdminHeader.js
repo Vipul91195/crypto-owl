@@ -84,11 +84,11 @@ const AdminHeader = ({type, title, showControls = true}) => {
             {/* </div> */}
           </div>
         }
-        {/* <CustomModal onClose={hideModal} modal={{ isVisible: !!modal }}>
+        <CustomModal onClose={hideModal} modal={{ isVisible: !!modal }}>
           {modal === "business" && <BusinessForm />}
           {modal === "customer" && <CustomerForm />}
           {modal === "award" && <AwardPoint type={type} memberId={selectedIds} />}
-        </CustomModal> */}
+        </CustomModal>
       </div>
   )
 }

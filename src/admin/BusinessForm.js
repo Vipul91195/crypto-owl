@@ -23,6 +23,7 @@ const BusinessForm = () => {
         formData.append('owner_email', values.owner_email);
         formData.append('vat_no', values.vat_no);
         formData.append('address', values.address);
+        values?.business_logo && 
         formData.append('business_logo', values.business_logo);
         dispatch(addBusinesses(formData));
     }
@@ -41,8 +42,8 @@ const BusinessForm = () => {
             >
                 {({ values, setFieldValue, handleSubmit }) =>
                 (<form onSubmit={handleSubmit} 
-                // encType="multipart/form-data"
-                encType="multipart/form"
+                encType="multipart/form-data"
+                // encType="multipart/form"
                 >
                     <div className='pt-7 pb-11 bg-black px-[31.5px] '>
                         <div className='flex text-left flex-col gap-[14px]'>

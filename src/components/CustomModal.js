@@ -22,7 +22,7 @@ const CustomModal = ({ children, modal, setModal, onClose }) => {
             className="fixed inset-0 bg-[#0009] overflow-y-auto"
             onClick={(e) => {
               e.stopPropagation();
-              onClose();
+              onClose && onClose();
             }}
           >
             <div className="flex min-h-full items-center justify-center text-center">
