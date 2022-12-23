@@ -62,7 +62,7 @@ export const BusinessFormValidationSchema = Yup.object({
         .trim()
         .max(20, "Maximum 9 char.")
         .required("VAT Number required.")
-        .matches(/^\p{L}+$/u, "Special characters not allowed."),
+        .matches(/^\w+$/u, "Special characters not allowed."),
     address: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")

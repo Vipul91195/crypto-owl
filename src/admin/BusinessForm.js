@@ -4,7 +4,7 @@ import CustomButton from '../components/forms/CustomButton';
 import { InputField } from '../components/forms/InputField'
 import { BusinessFormValidationSchema } from '../utils/FormValidations';
 import { useDispatch } from 'react-redux';
-import { addBusinesses } from '../Redux/businessSlice';
+import { addBusinesses } from '../Redux/modalSlice';
 
 const BusinessForm = () => {
     const dispatch = useDispatch();
@@ -23,8 +23,7 @@ const BusinessForm = () => {
         formData.append('owner_email', values.owner_email);
         formData.append('vat_no', values.vat_no);
         formData.append('address', values.address);
-        values?.business_logo && 
-        formData.append('business_logo', values.business_logo);
+        formData.append('business_logo', values.business_logo || '');
         dispatch(addBusinesses(formData));
     }
     const initialValues = {business_logo: null, business_name: "", company_no: "", owner_name: "", owner_email: "", vat_no: "", address: "" };

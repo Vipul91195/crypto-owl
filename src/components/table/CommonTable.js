@@ -4,6 +4,8 @@ import { useTable, useFilters } from 'react-table'
 import PopOver from '../PopOver';
 import ReactPaginate from 'react-paginate';
 import { Arrow } from '../icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedIds } from '../../Redux/modalSlice';
 
 const CommonTable = ({
   columns,
@@ -26,11 +28,21 @@ const CommonTable = ({
   filteredColumns,
   ...props
 }) => {
+
+  // console.log(data, "      data from table");
+
+  const dispatch = useDispatch();
+
   const [currentPageLocal, setCurrentPageLocal] = useState(1);
   const [totalPages, setTotalPages] = useState(20);
-  const [selectedIds, setSelectedIds] = useState({});
+  // const [selectedIds, setSelectedIds] = useState({});
   const [allSelected, setAllSelected] = useState(false);
   const [allCheckSelected, setAllCheckSelected] = useState(false);
+
+  const { selectedIds, modal } = useSelector(state => ({
+    selectedIds : state.modalSlice.tableData.selectedIds,
+    modal : state.modalSlice.modal
+  }));
 
   const handlePageClick = () => { }
   const nextPage = () => { }
@@ -68,7 +80,8 @@ const CommonTable = ({
   }
 
   useEffect(() => {
-    data && setSelectedIds(Object.fromEntries(data.map((d) => [d[selectionColumn] , allSelected])));
+    // data && setSelectedIds(Object.fromEntries(data.map((d) => [d[selectionColumn] , allSelected])));
+    data && dispatch(setSelectedIds(Object.fromEntries(data.map((d) => [d[selectionColumn] , allSelected]))));
   }, [allSelected]);
 
   useEffect(() => {
@@ -92,7 +105,7 @@ const CommonTable = ({
                       <input
                         type="checkbox"
                         checked={allSelected}
-                        className="bg-checkFalse 2xl:mt-[6px] bg-no-repeat bg-contain checked:bg-checkTrue appearance-none pl-[23px] h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px]"
+                        className="bg-checkFalse mt-2 2xl:mt-[6px] bg-no-repeat bg-contain checked:bg-checkTrue appearance-none pl-[23px] h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px]"
                         onChange={(e) => 
                           setAllSelected(!allSelected && !allCheckSelected)
                         }
@@ -150,11 +163,11 @@ const CommonTable = ({
                           checked={selectedIds[row.values[selectionColumn]]}
                           className={classNames("bg-checkFalse bg-no-repeat bg-contain checked:bg-checkTrue appearance-none h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px] group-last:mb-5")}
                           onChange={(e) => {
-                            setSelectedIds({
+                            dispatch(setSelectedIds({
                               ...selectedIds,
                               [row.values[selectionColumn]]:
                                 !selectedIds[row.values[selectionColumn]],
-                            });
+                            }));
                             allSelected &&
                               selectedIds[row.values[selectionColumn]] &&
                               setAllCheckSelected(false);

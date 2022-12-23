@@ -30,7 +30,7 @@ const Businesses = () => {
 
   useEffect(() => {
     dispatch(getBusinesses());
-  }, [dispatch])
+  }, [])
   
   const columns = React.useMemo(() => [
     {
@@ -97,15 +97,21 @@ const Businesses = () => {
     },
   ]);
 
+  useEffect(() => {
+    console.log(allBusinesses)
+  },[allBusinesses]);
+
+
   return (
     <AdminLayout>
       <AdminHeader type="business" title="User Management (Businesses)" />
       <div className="md:mt-[36px] lg:mt-[56px]">
+      {/* {allBusinesses && */}
         <CommonTable
-          showSelectCheck
+          showSelectCheck={allBusinesses}
           selectionColumn="member_id"
-          columns={columns}
-          data={allBusinesses}
+          columns={allBusinesses ? columns: [{Header: "", accessor: "no_data" }]}
+          data={allBusinesses || [{no_data: "No Data"}] }
           filteredColumns={["Status"]}
           HeaderClasses="bg-[#040404] text-[#DD69AA]"
           HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
@@ -147,6 +153,7 @@ const Businesses = () => {
           }}
           handleRowSelect={setSelectedIds}
         />
+      {/* } */}
       </div>
     </AdminLayout>
   );

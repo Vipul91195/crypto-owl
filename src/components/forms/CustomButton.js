@@ -8,12 +8,12 @@ const CustomButton = ({ buttonStyle, children, loaderSize, showLoader, disabled,
         <button
             {...props}
             disabled={disabled || false}
-            className={classNames("flex justify-center items-center gap-2", { "bg-gray-500": disabled }, buttonStyle)}>
+            className={classNames("flex justify-center items-center gap-2", { "bg-gray-500 !text-white !border-none": disabled }, buttonStyle)}>
             {showLoader && disabled ?
                 <Oval
                     color="#FFFFFF"
-                    height={loaderSize}
-                    width={loaderSize}
+                    height={loaderSize || 10}
+                    width={loaderSize || 10}
                     secondaryColor="#FAFAFA"
                     strokeWidth={2}
                     strokeWidthSecondary={2}

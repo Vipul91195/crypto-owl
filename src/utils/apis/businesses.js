@@ -3,7 +3,7 @@ import ApiMiddleware from "../ApiMiddleware";
 export const getBusinessesApi = async (params, { rejectWithValue }) => {
   try {
     // ?search=${params?.search}
-    const response = await ApiMiddleware.get(`/admin/get/business/`);
+    const response = await ApiMiddleware.get(`/admin/get/business/${params?.search ? '?search='+params?.search : ''}`);
     return response.data;
   } catch (error) {
     if (!error.response) {
@@ -37,7 +37,7 @@ export const getBusinessCustomersApi = async (params, { rejectWithValue }) => {
   }
 }
 
-export const addBusinessApi = async (params, { rejectWithValue }) => {
+export const addBusinessApi = async (params, { rejectWithValue, dispatch }) => {
   console.log(params);
   try {
     const response = await ApiMiddleware.post("/admin/add/business/", params, {
