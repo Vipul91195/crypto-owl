@@ -12,6 +12,7 @@ module.exports = {
         ...defaultTheme.screens,
         // ms: { min: "0px", max: "575px" },
         ms: "375px",
+        "4xl": "1921px",
       },
       fontFamily: {
         Sans: ["DM Sans", "sans-serif"],

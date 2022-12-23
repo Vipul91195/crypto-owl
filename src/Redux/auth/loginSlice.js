@@ -14,7 +14,7 @@ const initialState = {
     forgotModal: { email: null, isVisible: false, otpVerified: false },
 };
 
-export const loginFetchAPi = createAsyncThunk("/auth/login", async ({ keepMeLogin, ...data }, { rejectWithValue }) => {
+export const loginFetchAPi = createAsyncThunk("/auth/login", async ({ keepMeLogin, ...data }, {rejectWithValue}) => {
     try {
         const loginCredentials = await ApiMiddleware.post("/auth/login/", {
             ...data,

@@ -5,6 +5,7 @@ import {
   getBusinessCustomersApi,
   getBusinessesApi,
 } from "../utils/apis/businesses";
+import { addRewardPointsApi } from "../utils/apis/admin";
 
 const initialState = {
   isLoading: false,
@@ -16,6 +17,7 @@ export const getBusinessCustomers = createAsyncThunk('business/getCustomers', ge
 export const getBusiness = createAsyncThunk('business/get', getBusinessApi)
 export const addBusinesses = createAsyncThunk('business/add', addBusinessApi)
 
+
 const businessSlice = createSlice({
   name: "businessSlice",
   initialState,
@@ -25,9 +27,22 @@ const businessSlice = createSlice({
     },
     [getBusinesses.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log(payload);
+      state.allBusinesses = payload.result[0];
+      // console.log(payload);
     },
     [getBusinesses.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      // console.log(payload);
+    },
+    [addBusinesses.pending]: (state, { payload }) => {
+      state.isLoading = true;
+    },
+    [addBusinesses.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      // state.allBusinesses = payload.result[0];
+      console.log(payload);
+    },
+    [addBusinesses.rejected]: (state, { payload }) => {
       state.isLoading = false;
       console.log(payload);
     },

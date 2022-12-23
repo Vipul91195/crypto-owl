@@ -38,9 +38,12 @@ export const getBusinessCustomersApi = async (params, { rejectWithValue }) => {
 }
 
 export const addBusinessApi = async (params, { rejectWithValue }) => {
+  console.log(params);
   try {
-    const response = await ApiMiddleware.post("/admin/add/business/", {
-      ...params,
+    const response = await ApiMiddleware.post("/admin/add/business/", params, {
+      headers: {
+        "Content-Type":'multipart/form-data'
+      }
     });
     return response.data;
   } catch (error) {

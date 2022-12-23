@@ -21,6 +21,8 @@ const CommonTable = ({
   heighLightCellPrefix,
   showSelectCheck = false,
   heighLightCellPostfix,
+  handleRowSelect,
+  selectionColumn,
   filteredColumns,
   ...props
 }) => {
@@ -34,6 +36,14 @@ const CommonTable = ({
   const nextPage = () => { }
   const previousPage = () => { }
 
+  const [tableColumns, setTableColumns] = useState([{
+    Headers: "Header",
+    accessor: "noData"
+  }]);
+  const [tableData, setTableData] = useState([{
+    noData: "No Date"
+  }]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -42,35 +52,48 @@ const CommonTable = ({
     prepareRow
   } = useTable(
     {
-      columns,
-      data
+      columns : tableColumns,
+      data: tableData
     },
     useFilters
-  )
+  );
+
+  useEffect(() => {
+    data && setTableData(data);
+    columns && setTableColumns(columns);
+  }, [data, columns]);
 
   const checkHighlight = (rowValues) => {
     return heightLightRow && Object.values(heightLightRow).includes(rowValues[Object.keys(heightLightRow)[0]]);
   }
 
   useEffect(() => {
-    setSelectedIds(Object.fromEntries(data.map((d) => [d.memberId, allSelected])));
+    data && setSelectedIds(Object.fromEntries(data.map((d) => [d[selectionColumn] , allSelected])));
   }, [allSelected]);
+
+  useEffect(() => {
+    showSelectCheck && selectedIds && handleRowSelect(Object.keys(selectedIds).filter(selectedId => selectedIds[selectedId]))
+  }, [selectedIds]);
+
+  if (showSelectCheck && !selectionColumn) {
+    return <p className='text-white text-xl text-center' >'selectionColumn' is required if 'showSelectCheck' is enabled </p>
+  }
 
   return (
     <div>
-      <div className={containerClasses}>
-        <table {...getTableProps()} className={tableClasses}>
+      <div className={classNames(containerClasses, "max-w-[100vw] rounded-[20px]")}>
+        <table {...getTableProps()} className={tableClasses+" min-h-[130px]"}>
           <thead className={HeaderClasses}>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {showSelectCheck &&
                   <th >
-                    <div className='pl-[23px] w-max'>
+                    <div className='pl-[10px] md:pl-[23px] w-max h-[14px] 2xl:h-[20px]'>
                       <input
                         type="checkbox"
                         checked={allSelected}
-                        className="bg-checkFalse checked:bg-checkTrue appearance-none px-[23px_16px] h-[18px] w-[18px]"
-                        onChange={(e) =>
+                        className="bg-checkFalse 2xl:mt-[6px] bg-no-repeat bg-contain checked:bg-checkTrue appearance-none pl-[23px] h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px]"
+                        onChange={(e) => 
                           setAllSelected(!allSelected && !allCheckSelected)
                         }
                       />
@@ -90,7 +113,7 @@ const CommonTable = ({
                       <>
                         <PopOver
                           LabelIconClassName="text-[#DD69AA] pl-1 pt-1"
-                          LabelClassName="text-[20px] font-[500] leading-[24px] -tracking-[0.02em] text-[#DD69AA]"
+                          LabelClassName="text-[16px] 2xl:text-[20px] font-[500] leading-[24px] -tracking-[0.02em] text-[#DD69AA]"
                           label={header.render("Header")}
                         >
                           <>
@@ -115,23 +138,25 @@ const CommonTable = ({
                   {...row.getRowProps()}
                   className={classNames({
                     "bg-[#20191D]": checkHighlight(row.values),
-                  })}
+                  },
+                  "group"
+                  )}
                 >
                   {showSelectCheck && (
                     <td>
-                      <div className="pl-[23px] w-max">
+                      <div className="pl-[10px] md:pl-[23px] w-max h-[14px] 2xl:h-[20px]">
                         <input
                           type="checkbox"
-                          checked={selectedIds[row.values.memberId]}
-                          className="bg-checkFalse checked:bg-checkTrue appearance-none h-[18px] w-[18px]"
+                          checked={selectedIds[row.values[selectionColumn]]}
+                          className={classNames("bg-checkFalse bg-no-repeat bg-contain checked:bg-checkTrue appearance-none h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px] group-last:mb-5")}
                           onChange={(e) => {
                             setSelectedIds({
                               ...selectedIds,
-                              [row.values.memberId]:
-                                !selectedIds[row.values.memberId],
+                              [row.values[selectionColumn]]:
+                                !selectedIds[row.values[selectionColumn]],
                             });
                             allSelected &&
-                              selectedIds[row.values.memberId] &&
+                              selectedIds[row.values[selectionColumn]] &&
                               setAllCheckSelected(false);
                           }}
                         />
@@ -141,7 +166,7 @@ const CommonTable = ({
                   {row.cells.map((cell) => (
                     <td
                       {...cell.getCellProps()}
-                      className={cellDefaultStyle}
+                      className={classNames(cellDefaultStyle, "group-last:pb-5")}
                       style={
                         Object.keys(cellClasses || {}).includes(cell.column.id)
                           ? cellClasses[cell.column.id]
@@ -183,7 +208,7 @@ const CommonTable = ({
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center h-max items-center gap-12">
+      <div className="flex justify-center md:justify-end h-max items-center gap-12">
         <ReactPaginate
           breakLabel=".........."
           nextLabel={
@@ -191,7 +216,7 @@ const CommonTable = ({
               className="disabled:opacity-60"
               onClick={() => nextPage()}
             >
-              <div className="bg-[#DD69AA] md:py-[14px] group rounded-[3px] px-4 py-1 hover:bg-pink-500">
+              <div className="bg-[#DD69AA] md:py-[9px] px-3 md:h-[30px] py-1 group rounded-[3px] ml-2 md:ml-1 md:rounded-[10px] hover:bg-pink-500">
                 <Arrow className="text-white group-hover:text-black rotate-180" />
               </div>
             </button>
@@ -200,12 +225,13 @@ const CommonTable = ({
           onPageChange={handlePageClick}
           pageRangeDisplayed={1}
           pageCount={totalPages}
+          // marginPagesDisplayed={2}
           previousLabel={
             <button
               className="disabled:opacity-60"
               onClick={() => previousPage()}
             >
-              <div className="bg-[#DD69AA] md:py-[14px] group rounded-[3px] px-4 py-1 hover:bg-pink-500">
+              <div className="bg-[#DD69AA] md:py-[9px] px-3 md:h-[30px] py-1 group rounded-[3px] mr-2 md:mr-1 md:rounded-[10px] hover:bg-pink-500">
                 <Arrow className="text-white group-hover:text-black" />
               </div>
             </button>
@@ -214,11 +240,11 @@ const CommonTable = ({
           nextLinkClassName="leading-none flex"
           previousLinkClassName="leading-none flex"
           containerClassName={
-            "flex py-8 justify-center items-center gap-x-3 leading-none"
+            "flex pt-[17px] pb-[25px] md:py-8 justify-center items-center gap-x-[3px] md:gap-x-1 leading-none"
           }
-          pageClassName="cursor-pointer md:border md:border-solid md:border-white md:rounded-[10px] md:min-w-[40px] md:flex md:justify-center md:items-center "
-          pageLinkClassName="font-normal md:px-2 md:py-1 h-full w-full text-center text-[14px] md:text-lg leading-[18.87px] text-[#979998] -tracking-tight after:content-[','] after:ml-1 after:text-[#979998] md:after:content-none "
-          breakClassName="text-[#979998] tracking-[5px]"
+          pageClassName="cursor-pointer md:rounded-[10px] md:min-w-[30px] md:h-[30px] md:flex md:justify-center md:items-center after:content-[','] last:bg-blue-500 after:ml-1 after:text-[#979998] md:after:content-none"
+          pageLinkClassName="font-normal md:px-2 md:py-1 h-full w-full text-center text-[14px] md:text-sm leading-[18.87px] text-[#979998] -tracking-tight"
+          breakClassName="text-[#979998] tracking-[2px] md:tracking-[3px] 2xl:tracking-[5px]"
           activeLinkClassName="text-[#FFFFFF]"
           activeClassName="md:bg-[#DD69AA]"
         />

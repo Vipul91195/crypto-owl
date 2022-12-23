@@ -1,20 +1,28 @@
 import { Formik } from 'formik'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomButton from '../components/forms/CustomButton'
 import Dropdown from '../components/forms/Dropdown'
 import { InputField } from '../components/forms/InputField'
 import { AwardPointValidationSchema } from '../utils/FormValidations'
+import { useDispatch } from 'react-redux'
+import { addRewardPoints } from '../Redux/modalSlice'
 
 const people = [
-    { name: 'Business Points' },
-    { name: 'Personal Points' },
+    { name: 'Business Points', value: '1' },
+    { name: 'Personal Points', value: '2' },
 ]
 
-const AwardPoint = ({ type }) => {
-    const initialValues = { point: "", awardPoints: "", };
-
-    const handleLoginSubmit = (values) => {
+const AwardPoint = ({ type, memberId, onSubmit }) => {
+    const initialValues = { amount: "", reward_type: "", };
+    const [members, setMembers] = useState(null);
+    const dispatch = useDispatch();
+    const handleAwardSubmit = (values) => {
+        dispatch(addRewardPoints({...values, member_id: members}))
     }
+
+    useEffect(() => {
+        setMembers(memberId)
+    }, [memberId]);
 
     return (
         <div className='max-w-[600px] bg-[#1C1C1C] px-9 py-9'>
@@ -23,7 +31,7 @@ const AwardPoint = ({ type }) => {
                 validationSchema={AwardPointValidationSchema}
                 validateOnBlur={false}
                 validateOnChange={false}
-                onSubmit={handleLoginSubmit}
+                onSubmit={handleAwardSubmit}
             >
                 {({ values, setFieldValue, handleSubmit }) =>
                 (<form onSubmit={handleSubmit} >
@@ -33,8 +41,8 @@ const AwardPoint = ({ type }) => {
                             inputstyle='w-[304px] text-white text-2xl outline-none h-[48px] rounded-2xl bg-[#101010] pl-5'
                             borderstyle='w-[304px] text-[#A6A6A6] text-2xl outline-none h-[48px] rounded-2xl bg-[#101010] pl-5 border border-red-800'
                             type='text'
-                            id='point'
-                            name='point' />
+                            id='amount'
+                            name='amount' />
                     </div>
                     <div className='flex justify-between 2xl:gap-[77px] items-center pt-[26px] pb-[30px]'>
                         <label className='text-[32px] leading-5 font-normal tracking-tight text-white'>Point type</label>
@@ -43,9 +51,9 @@ const AwardPoint = ({ type }) => {
                             people={people}
                             disabled={type === "customer" || type === "user"}
                             selected={type === "customer" || type === "user" ? { name: 'Personal Points' } : null}
-                            id="awardPoints"
+                            id="reward_type"
                             setValues={setFieldValue}
-                            name="awardPoints"
+                            name="reward_type"
                         />
                     </div>
                     <div className='flex justify-end '>
