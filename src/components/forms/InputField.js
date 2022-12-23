@@ -30,7 +30,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, errorRight, i
                         : (props.type || "text")
                 } />
             {props.type === "password" ?
-                <div className='absolute top-4 sm:top-[24px] right-5 cursor-pointer'
+                <div className='absolute top-4 2xl:top-[24px] right-5 cursor-pointer'
 
                     onClick={() => setShowPassword(!showPassword)}
                 >
