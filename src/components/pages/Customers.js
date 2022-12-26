@@ -20,7 +20,7 @@ import { SelectColumnFilter } from "../../utils/helper";
 
 const Customers = () => {
   const dispatch = useDispatch();
-  const { isLoading, allBusinesses} = useSelector(state => ({
+  const { isLoading, allBusinesses } = useSelector(state => ({
     isLoading: state.businessSlice.isLoading,
     customerData: state.businessSlice.customerData
   }))
@@ -29,7 +29,7 @@ const Customers = () => {
   const navigate = useNavigate();
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
-  
+
   /**   temp code */
   const data = React.useMemo(() => [
     {
@@ -149,18 +149,21 @@ const Customers = () => {
     <AdminLayout>
       <AdminHeader type="customer" title="User Management (Customers)" />
       <div className="pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
-        <div className="absolute pt-10 pl-[65px]">
+        {/* <div className="absolute pt-10 pl-[65px] max-w-[81.39px] max-h-[81.39px] lg:max-w-[142px] xl:max-w-[170px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]">
           <img src={businessIcon} alt="businessIcon" />
+        </div> */}
+        <div className="absolute pt-4 pl-[14px] 2xl:pt-14 2xl:pl-[42px]">
+          <div className='relative max-w-[82.39px] max-h-[82.39px] lg:max-w-[140px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
+            <img src={businessIcon} alt="businessIcon" />
+          </div>
         </div>
-        <div className="text-5xl leading-9 font-bold text-[#CDBEBE] pt-10 pb-[18px] bg-[#040404] pl-[279px] rounded-t-[20px]">
+        <div className="text-2xl leading-4 tracking-tight font-bold text-white pt-[17.9px] pb-[7.91px] pl-[109px] lg:pl-[170px] lg:text-4xl 2xl:text-5xl 2xl:leading-9  2xl:text-[#CDBEBE] 2xl:pt-10 2xl:pb-[18px] bg-[#040404] 2xl:pl-[279px] rounded-t-[20px]">
           Verizon Pvt. Ltd.
         </div>
-        <div className="flex items-center pl-[279px] pr-[30px] pt-2 pb-[18px] bg-[#101010] ">
-          <div className="text-xl leading-9 font-normal text-[#979998] flex flex-col gap-[6px] justify-between grow">
+        <div className="flex flex-col lg:flex lg:flex-row 2xl:items-center pt-[3px] 2xl:pl-[279px] lg:pr-[30px] 2xl:pt-2 2xl:pb-[18px] bg-[#101010]">
+          <div className="text-sm pl-[109px] lg:pl-[170px] lg:text-lg 2xl:pl-0 pr-[15px] 2xl:pr-0 pb-[12.11px] 2xl:pb-0 leading-4 tracking-tight 2xl:text-xl 2xl:leading-9 font-normal text-[#979998] flex flex-col gap-[4px] lg:gap-0 2xl:gap-[6px] justify-between grow">
             <div className="flex justify-between">
-              <p className="text-xl leading-9 font-normal text-[#979998]">
-                Company No.
-              </p>
+              <p > Company No.</p>
               <p className="text-[#DD69AA]">34689433</p>
             </div>
             <div className="flex justify-between">
@@ -172,8 +175,8 @@ const Customers = () => {
               <p className="text-[#DD69AA]">MEM0001</p>
             </div>
           </div>
-          <span className="h-[100px] w-[1px] mx-[55px] bg-[#979998] text-center"></span>
-          <div className="text-xl leading-9 font-normal text-[#979998] flex flex-col gap-[6px] justify-between grow">
+          <span className="hidden lg:flex h-[100px] w-[1px] mx-[55px] bg-[#979998] lg:text-center"></span>
+          <div className="hidden lg:flex text-xl leading-9 font-normal text-[#979998] lg:text-lg  2xl:flex flex-col gap-[6px] lg:gap-0 2xl:gap-[6px] justify-between grow pb-[12.11px]">
             <div className="flex justify-between">
               <p className="text-xl leading-9 font-normal text-[#979998]">
                 Owner
@@ -191,7 +194,26 @@ const Customers = () => {
           </div>
         </div>
       </div>
-      <div className="mt-[20px] md:mt-[38px]">
+      <div className="lg:hidden">
+        <div className="flex gap-1">
+          <span className="text-base leading-9 font-medium tracking-tight text-[#979998]">Details</span>
+          <div className="h-[2px] w-full bg-[#979998] mt-[23px]"></div>
+        </div>
+        <div className="flex justify-between ">
+          <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Owner</span>
+          <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">Kris Washington</span>
+        </div>
+        <div className="flex justify-between py-2">
+          <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Owner&apos;s Email ID</span>
+          <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">xyz@gmail.com</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Address</span>
+          <span className="text-sm leading-4 tracking-tight font-medium text-[#CDBEBE] w-[172px] text-end">Khandala, behind hanging garden, India</span>
+        </div>
+      </div>
+
+      <div className="mt-3 md:mt-[38px] 2xl:mt-[20px]">
         <CommonTable
           showSelectCheck
           columns={columns}
