@@ -220,8 +220,8 @@ const UserProfile = () => {
                 </div>
                 <div className='rounded-[10px] overflow-hidden mt-3'>
                     <div className='xl:hidden  flex items-center bg-[#040404]  justify-around'>
-                        <p onClick={userDetails} id="details" className={classNames('flex-1 text-center text-base leading-9 font-medium tracking-tight text-[#DD69AA] md:text-xl md:leading-10', { 'border-b-[1.5px] border-[#DD69AA]': showDetails === "details" })}>Details</p>
-                        <p onClick={userDetails} id="points" className={classNames('text-base flex-1 text-center leading-9 font-medium tracking-tight text-[#DD69AA] md:text-xl md:leading-10', { 'border-b-[1.5px] border-[#DD69AA]': showDetails === "points" })}>Points</p>
+                        <p onClick={userDetails} id="details" className={classNames('flex-1 text-center text-base leading-9 font-medium tracking-tight text-[#DD69AA] md:text-xl md:leading-10 cursor-pointer', { 'border-b-[1.5px] border-[#DD69AA]': showDetails === "details" })}>Details</p>
+                        <p onClick={userDetails} id="points" className={classNames('text-base flex-1 text-center leading-9 font-medium tracking-tight text-[#DD69AA] md:text-xl md:leading-10 cursor-pointer', { 'border-b-[1.5px] border-[#DD69AA]': showDetails === "points" })}>Points</p>
                     </div>
                     {showDetails === "details" &&
                         <div className='px-[14px] xl:px-0 bg-[#101010] xl:bg-[#171717] xl:grid xl:grid-cols-[1fr,1fr,1fr] xl:gap-[30px] 2xl:gap-[68px]'>
