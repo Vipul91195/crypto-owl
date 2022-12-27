@@ -30,7 +30,7 @@ export const AdminLayout = ({ children }) => {
     return (
         <RouteMiddleware>
             <div className='md:grid md:grid-cols-[200px,auto] 2xl:grid-cols-[290px,auto] font-Sans overflow-hidden relative'>
-                <div className={classNames('max-w-[290px] bg-[#040404] min-h-screen pb-14 lg:pb-0 absolute md:relative md:translate-x-0 z-50 right-0 translate-x-full transition-all duration-200', {'translate-x-0': showMobileMenu})} >
+                <div className={classNames('max-w-[290px] bg-[#040404] min-h-screen pb-14 lg:pb-0 absolute md:relative md:translate-x-0 z-50 md:z-0 right-0 translate-x-full transition-all duration-200', { 'translate-x-0': showMobileMenu })} >
                     <div className='absolute top-7 md:hidden right-7 cursor-pointer' onClick={handleMobileMenu}>
                         <CloseFilled className="text-[#DD69AA] h-7 w-7" />
                     </div>
