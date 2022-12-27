@@ -1,15 +1,15 @@
+import { getBusinessCustomers } from "../../Redux/businessSlice";
 import ApiMiddleware from "../ApiMiddleware";
 
 
 export const addCustomerApi = async (params, { rejectWithValue, dispatch }) => {
-  console.log(params);
   try {
-    const response = await ApiMiddleware.post(`/admin/add/customer/${params?.business_id}`, params?.customer, {
+    const response = await ApiMiddleware.post(`/admin/add/customer/${params?.business_id}/`, params?.customer, {
       headers: {
-        "Content-Type":'multipart/form-data'
+        "Content-Type": 'multipart/form-data'
       }
     });
-    // dispatch(getCustomers())
+    dispatch(getBusinessCustomers({ business_id: params?.business_id }))
     return response.data;
   } catch (error) {
     if (!error.response) {
