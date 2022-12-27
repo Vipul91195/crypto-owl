@@ -11,6 +11,9 @@ import toast from 'react-hot-toast';
 const initialState = {
   isLoading: false,
   allBusinesses: null,
+  pagination: null,
+  businessCustomers: null,
+  businessDetails: null,
 }
 
 export const getBusinesses = createAsyncThunk('business/getAll', getBusinessesApi)
@@ -28,14 +31,32 @@ const businessSlice = createSlice({
     },
     [getBusinesses.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.allBusinesses = payload.result[0];
-      state.test = "telskjadsf";
-      console.log(payload);
-      console.log("Asfasdlfjaslkdfjlkj");
+      state.allBusinesses = payload?.result[0];
+      state.pagination = payload?.paginaton || false;
     },
     [getBusinesses.rejected]: (state, { payload }) => {
       state.isLoading = false;
-      // console.log(payload);
+    },
+    [getBusinessCustomers.pending]: (state, { payload }) => {
+      state.isLoading = true;
+    },
+    [getBusinessCustomers.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.businessCustomers = payload?.result[0];
+      state.pagination = payload?.paginaton || false;
+    },
+    [getBusinessCustomers.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+    },
+    [getBusiness.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getBusiness.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.businessDetails = payload?.result[0][0];
+    },
+    [getBusiness.rejected]: (state, { payload }) => {
+      state.isLoading = false;
     }
   },
 });

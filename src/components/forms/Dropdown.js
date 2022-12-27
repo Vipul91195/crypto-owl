@@ -41,7 +41,7 @@ const Dropdown = ({ setValues, cursorNotAllowed, ...props }) => {
                         leaveTo="opacity-0"
                     >
                         <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-[10px] xl:py-3 text-sm leading-5 font-normal xl:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bg-[#303030] xl:bg-[#101010]">
-                            {props.people.map((person, personIdx) => (
+                            {props.options.map((person, personIdx) => (
                                 <Listbox.Option
                                     key={personIdx}
                                     className={({ active }) =>

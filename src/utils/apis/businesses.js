@@ -1,9 +1,12 @@
+import { getBusinesses } from "../../Redux/businessSlice";
+import { setCurrentPage } from "../../Redux/commonSlice";
 import ApiMiddleware from "../ApiMiddleware";
 
 export const getBusinessesApi = async (params, { rejectWithValue }) => {
+  console.log(params, " business api params");
   try {
-    // ?search=${params?.search}
-    const response = await ApiMiddleware.get(`/admin/get/business/${params?.search ? '?search='+params?.search : ''}`);
+    // ?search=${params?.search}&page_size&page=
+    const response = await ApiMiddleware.get(`/admin/get/business/?page=${params?.page || '1'}${params?.search ? '&search='+params?.search : ''}${(params?.filter && params?.filter.value !== "") ? '&status='+params?.filter.value : ''}${params?.page_size ? '&page_size='+params?.page_size : ''}`);
     return response.data;
   } catch (error) {
     if (!error.response) {
@@ -15,7 +18,7 @@ export const getBusinessesApi = async (params, { rejectWithValue }) => {
 
 export const getBusinessApi = async (params, { rejectWithValue }) => {
   try {
-    const response = await ApiMiddleware.get(`/admin/business/details/${params?.id}/`);
+    const response = await ApiMiddleware.get(`/admin/business/details/${params?.business_id}/`);
     return response.data;
   } catch (error) {
     if (!error.response) {
@@ -27,8 +30,9 @@ export const getBusinessApi = async (params, { rejectWithValue }) => {
 
 export const getBusinessCustomersApi = async (params, { rejectWithValue }) => {
   try {
-    const response = await ApiMiddleware.get(`/admin/all/customer/${params?.id}/`);
-    return response.data;
+    // const response = await ApiMiddleware.get(`/admin/get/customer/${params?.business_id}/${params?.search ? '?search='+params?.search : ''}`);
+    const response = await ApiMiddleware.get(`/admin/get/customer/${params?.business_id}/?page=${params?.page || '1'}${params?.search ? '&search='+params?.search : ''}${(params?.filter && params?.filter.value !== "") ? '&status='+params?.filter.value : ''}${params?.page_size ? '&page_size='+params?.page_size : ''}`);
+    return {...response.data, business_id: params?.business_id};
   } catch (error) {
     if (!error.response) {
       throw rejectWithValue(error);
@@ -45,6 +49,8 @@ export const addBusinessApi = async (params, { rejectWithValue, dispatch }) => {
         "Content-Type":'multipart/form-data'
       }
     });
+    dispatch(getBusinesses())
+    dispatch(setCurrentPage(1))
     return response.data;
   } catch (error) {
     if (!error.response) {

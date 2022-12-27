@@ -2,11 +2,11 @@ import React from 'react'
 import CustomModal from './CustomModal'
 import { CloseFilled } from './icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { closeConfirmModal } from '../Redux/modalSlice'
+import { closeConfirmModal } from '../Redux/commonSlice'
 
 const ConfirmModal = () => {
   const dispatch = useDispatch();
-  const ConfirmModal = useSelector(state => state.modalSlice.confirmModal);
+  const ConfirmModal = useSelector(state => state.commonSlice.confirmModal);
   return (
     <CustomModal modal={ConfirmModal} >
       <div className='bg-[#101010] min-w-[300px] rounded-[10px]'>

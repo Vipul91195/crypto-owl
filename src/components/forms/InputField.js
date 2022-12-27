@@ -49,7 +49,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, errorRight, i
             }
             {meta.touched && meta.error && (
                 <div className={classNames("absolute error lg:ml-5 md:mt-1", { "right-0 xl:left-0": errorRight })}>
-                    <p className="text-[11px] xl:text-lg text-red-500">{meta.error}</p>
+                    <p className="text-[11px] md:text-sm 2xl:text-lg whitespace-nowrap text-red-500">{meta.error}</p>
                 </div>
             )}
         </div>
