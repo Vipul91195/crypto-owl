@@ -4,7 +4,7 @@ export const LoginValidationSchema = Yup.object({
     username: Yup.string()
         // .email("Invalid email address.")
         .min(3, "Must be 3 char long.")
-        .required("E-mail is Required."),
+        .required("E-mail is required."),
     password: Yup.string()
         .trim()
         .oneOf([Yup.ref("password"), null])
@@ -15,7 +15,7 @@ export const LoginValidationSchema = Yup.object({
 export const ForgotValidationSchema = Yup.object({
     email: Yup.string()
         .email("Invalid email address.")
-        .required("E-mail is Required."),
+        .required("E-mail is required."),
 });
 
 export const ResetPasswordValidationSchema = Yup.object({
@@ -46,19 +46,19 @@ export const BusinessFormValidationSchema = Yup.object({
         .max(20, "Maximum 20 char.")
         .required("Name of the company is required.")
         .matches(/^\p{L}+$/u, "Special characters not allowed."),
-        company_no: Yup.string()
+    company_no: Yup.string()
         .trim()
         .max(10, "Maximum 10 char.")
-        .required("Company' Number required."),
-        owner_name: Yup.string()
+        .required("Company's Number required."),
+    owner_name: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
         .max(20, "Maximum 20 char.")
         .required("Owner's Name required."),
-        owner_email: Yup.string()
+    owner_email: Yup.string()
         .email("Invalid email address.")
-        .required("E-mail is Required."),
-        vat_no: Yup.string()
+        .required("E-mail is required."),
+    vat_no: Yup.string()
         .trim()
         .max(20, "Maximum 9 char.")
         .required("VAT Number required.")
@@ -80,7 +80,7 @@ export const CustomerFormValidationSchema = Yup.object({
         .matches(/^\p{L}+$/u, "Special characters not allowed."),
     Email: Yup.string()
         .email("Invalid email address.")
-        .required("E-mail is Required."),
+        .required("E-mail is required."),
     Phone: Yup.string()
         .trim()
         .max(10, "Maximum 10 char.")

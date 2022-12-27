@@ -24,14 +24,14 @@ const Dropdown = ({ setValues, cursorNotAllowed, ...props }) => {
                         meta.touched && meta.error && " border border-red-800",
                         meta.touched && meta.error && " text-red-500 "
                     )}>
-                        <span className={classNames("block truncate text-2xl", { 'text-gray-500': props?.disabled || false })}>{selected?.name}</span>
-                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
-                            <img src={vector} alt="v" />
+                        <span className={classNames("block truncate text-left text-base xl:text-2xl", { 'text-gray-500': props?.disabled || false })}>{selected?.name}</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 xl:pr-4 ">
+                            <img className='w-[9.5px] xl:w-[27px]' src={vector} alt="v" />
                         </span>
                     </Listbox.Button>
                     {meta.touched && meta.error && (
-                        <div className="absolute error ml-5 mt-1">
-                            <p className="text-ms text-red-500">{meta.error}</p>
+                        <div className="absolute error xl:ml-5 xl:mt-1">
+                            <p className="text-[11px] xl:text-ms text-red-500">{meta.error}</p>
                         </div>
                     )}
                     <Transition
@@ -40,7 +40,7 @@ const Dropdown = ({ setValues, cursorNotAllowed, ...props }) => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-[10px] py-3 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bg-[#101010]">
+                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-[10px] xl:py-3 text-sm leading-5 font-normal xl:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm bg-[#303030] xl:bg-[#101010]">
                             {props.people.map((person, personIdx) => (
                                 <Listbox.Option
                                     key={personIdx}
@@ -53,7 +53,7 @@ const Dropdown = ({ setValues, cursorNotAllowed, ...props }) => {
                                     {({ selected }) => (
                                         <>
                                             <span
-                                                className={`block group-last:border-none py-3 border-[#545557] border-b border-solid truncate text-left  text-white text-[20px] leading-[24px] ${selected ? 'font-medium ' : 'font-normal'}`}
+                                                className={`block group-last:border-none py-1 xl:py-3 border-[#545557] border-b border-solid truncate text-left  text-white text-sm xl:text-[20px] leading-[24px] ${selected ? 'font-medium' : 'font-normal'}`}
                                             >
                                                 {person.name}
                                             </span>
