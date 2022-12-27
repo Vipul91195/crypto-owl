@@ -18,6 +18,7 @@ import Reports from './components/pages/Reports';
 import SearchUser from './components/pages/SearchUser';
 import UserProfile from './components/pages/UserProfile';
 import MessageForm from './admin/MessageForm';
+import PageNotFound from './components/pages/PageNotFound';
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
               <Route path="/" element={<Businesses />} />
               <Route path="/admin-info" element={<AdminInfo />} />
               <Route path="/businesses" element={<Businesses />} />
-              <Route path="/customers" element={<Customers />} />
+              <Route path="/customers/:business_id" element={<Customers />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/search-user" element={<SearchUser />} />
               <Route path="/user-profile" element={<UserProfile />} />
@@ -39,6 +40,7 @@ function App() {
               <Route path="/forgot" element={<Forgot />} />
               <Route path="/verifyOtp" element={<VerifyOtp />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>
         </div>

@@ -5,11 +5,13 @@ import PopOver from '../PopOver';
 import ReactPaginate from 'react-paginate';
 import { Arrow } from '../icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedIds } from '../../Redux/modalSlice';
+import { setSelectedIds } from '../../Redux/commonSlice';
+import { getBusinesses } from '../../Redux/businessSlice';
 
 const CommonTable = ({
   columns,
   data,
+  initialState,
   cellDefaultStyle,
   tableClasses,
   containerClasses,
@@ -26,27 +28,33 @@ const CommonTable = ({
   handleRowSelect,
   selectionColumn,
   filteredColumns,
+  isLoading,
   ...props
 }) => {
 
-  // console.log(data, "      data from table");
-
   const dispatch = useDispatch();
 
-  const [currentPageLocal, setCurrentPageLocal] = useState(1);
-  const [totalPages, setTotalPages] = useState(20);
+  // const [currentPageLocal, setCurrentPageLocal] = useState(1);
+  // const [totalPages, setTotalPages] = useState(20);
   // const [selectedIds, setSelectedIds] = useState({});
   const [allSelected, setAllSelected] = useState(false);
   const [allCheckSelected, setAllCheckSelected] = useState(false);
 
   const { selectedIds, modal } = useSelector(state => ({
-    selectedIds : state.modalSlice.tableData.selectedIds,
-    modal : state.modalSlice.modal
+    selectedIds : state.commonSlice.tableData.selectedIds,
+    modal : state.commonSlice.modal
   }));
 
-  const handlePageClick = () => { }
-  const nextPage = () => { }
-  const previousPage = () => { }
+  // const handlePaginationChange = () => {
+  // }
+
+  // const handlePageClick = (page) => {
+    // console.log(page+1)
+    // dispatch(getBusinesses({ page: page + 1 }))
+    // 
+  // }
+  // const nextPage = () => {}
+  // const previousPage = () => { }
 
   const [tableColumns, setTableColumns] = useState([{
     Headers: "Header",
@@ -65,7 +73,8 @@ const CommonTable = ({
   } = useTable(
     {
       columns : tableColumns,
-      data: tableData
+      data: tableData,
+      initialState: initialState || {}
     },
     useFilters
   );
@@ -76,7 +85,7 @@ const CommonTable = ({
   }, [data, columns]);
 
   const checkHighlight = (rowValues) => {
-    return heightLightRow && Object.values(heightLightRow).includes(rowValues[Object.keys(heightLightRow)[0]]);
+    return heightLightRow && Object.values(heightLightRow).includes(String(rowValues[Object.keys(heightLightRow)[0]]));
   }
 
   useEffect(() => {
@@ -88,44 +97,52 @@ const CommonTable = ({
     showSelectCheck && selectedIds && handleRowSelect(Object.keys(selectedIds).filter(selectedId => selectedIds[selectedId]))
   }, [selectedIds]);
 
+  // useEffect(() => {
+  //   console.log(currentPageLocal, " : page change");
+  //   dispatch(getBusinesses({ page: currentPageLocal, page_size: 1 }))
+  // }, [currentPageLocal])
+
   if (showSelectCheck && !selectionColumn) {
     return <p className='text-white text-xl text-center' >'selectionColumn' is required if 'showSelectCheck' is enabled </p>
   }
 
   return (
     <div>
-      <div className={classNames(containerClasses, "max-w-[100vw] rounded-[20px]")}>
-        <table {...getTableProps()} className={tableClasses+" min-h-[130px]"}>
+      <div
+        className={classNames(containerClasses, "max-w-[100vw] rounded-[20px]")}
+      >
+        <table {...getTableProps()} className={tableClasses + " min-h-[130px]"}>
           <thead className={HeaderClasses}>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {showSelectCheck &&
-                  <th >
-                    <div className='pl-[10px] md:pl-[23px] w-max h-[14px] 2xl:h-[20px]'>
+                {showSelectCheck && (
+                  <th>
+                    <div className="pl-[10px] md:pl-[23px] w-max h-[14px] 2xl:h-[20px]">
                       <input
                         type="checkbox"
                         checked={allSelected}
                         className="bg-checkFalse mt-2 2xl:mt-[6px] bg-no-repeat bg-contain checked:bg-checkTrue appearance-none pl-[23px] h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px]"
-                        onChange={(e) => 
+                        onChange={(e) =>
                           setAllSelected(!allSelected && !allCheckSelected)
                         }
                       />
                     </div>
                   </th>
-                }
+                )}
                 {headerGroup.headers.map((header) => (
                   <th
                     {...header.getHeaderProps()}
                     className={classNames("", HeadingClasses)}
                     style={
-                      Object.keys(headerClasses || {}).includes(header.id) ?
-                        headerClasses[header.id] : {}
+                      Object.keys(headerClasses || {}).includes(header.id)
+                        ? headerClasses[header.id]
+                        : {}
                     }
                   >
                     {filteredColumns.includes(header.id) ? (
                       <>
                         <PopOver
-                          LabelIconClassName="text-[#DD69AA] pl-1 pt-1"
+                          LabelIconClassName="text-[#DD69AA] pl-1 pt-[2px]"
                           LabelClassName="text-[16px] 2xl:text-[20px] font-[500] leading-[24px] -tracking-[0.02em] text-[#DD69AA]"
                           label={header.render("Header")}
                         >
@@ -134,10 +151,9 @@ const CommonTable = ({
                           </>
                         </PopOver>
                       </>
-                    ) :
-                      (
-                        header.render("Header")
-                      )}
+                    ) : (
+                      header.render("Header")
+                    )}
                   </th>
                 ))}
               </tr>
@@ -149,10 +165,11 @@ const CommonTable = ({
               return (
                 <tr
                   {...row.getRowProps()}
-                  className={classNames({
-                    "bg-[#20191D]": checkHighlight(row.values),
-                  },
-                  "group"
+                  className={classNames(
+                    {
+                      "bg-[#20191D]": checkHighlight(row.values),
+                    },
+                    "group"
                   )}
                 >
                   {showSelectCheck && (
@@ -161,13 +178,17 @@ const CommonTable = ({
                         <input
                           type="checkbox"
                           checked={selectedIds[row.values[selectionColumn]]}
-                          className={classNames("bg-checkFalse bg-no-repeat bg-contain checked:bg-checkTrue appearance-none h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px] group-last:mb-5")}
+                          className={classNames(
+                            "bg-checkFalse bg-no-repeat bg-contain checked:bg-checkTrue appearance-none h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px] group-last:mb-5"
+                          )}
                           onChange={(e) => {
-                            dispatch(setSelectedIds({
-                              ...selectedIds,
-                              [row.values[selectionColumn]]:
-                                !selectedIds[row.values[selectionColumn]],
-                            }));
+                            dispatch(
+                              setSelectedIds({
+                                ...selectedIds,
+                                [row.values[selectionColumn]]:
+                                  !selectedIds[row.values[selectionColumn]],
+                              })
+                            );
                             allSelected &&
                               selectedIds[row.values[selectionColumn]] &&
                               setAllCheckSelected(false);
@@ -179,7 +200,10 @@ const CommonTable = ({
                   {row.cells.map((cell) => (
                     <td
                       {...cell.getCellProps()}
-                      className={classNames(cellDefaultStyle, "group-last:pb-5")}
+                      className={classNames(
+                        cellDefaultStyle,
+                        "group-last:pb-5"
+                      )}
                       style={
                         Object.keys(cellClasses || {}).includes(cell.column.id)
                           ? cellClasses[cell.column.id]
@@ -221,21 +245,18 @@ const CommonTable = ({
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center md:justify-end h-max items-center gap-12">
+      {/* <div className="flex justify-center md:justify-end h-max items-center gap-12">
         <ReactPaginate
           breakLabel=".........."
           nextLabel={
-            <button
-              className="disabled:opacity-60"
-              onClick={() => nextPage()}
-            >
+            <button className="disabled:opacity-60" onClick={() => nextPage()}>
               <div className="bg-[#DD69AA] md:py-[9px] px-3 md:h-[30px] py-1 group rounded-[3px] ml-2 md:ml-1 md:rounded-[10px] hover:bg-pink-500">
                 <Arrow className="text-white group-hover:text-black rotate-180" />
               </div>
             </button>
           }
           forcePage={currentPageLocal - 1}
-          onPageChange={handlePageClick}
+          onPageChange={setCurrentPageLocal}
           pageRangeDisplayed={1}
           pageCount={totalPages}
           // marginPagesDisplayed={2}
@@ -261,7 +282,7 @@ const CommonTable = ({
           activeLinkClassName="text-[#FFFFFF]"
           activeClassName="md:bg-[#DD69AA]"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

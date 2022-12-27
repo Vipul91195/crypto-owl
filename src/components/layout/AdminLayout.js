@@ -12,6 +12,7 @@ import { Form, Formik } from 'formik'
 import { InputField } from '../forms/InputField'
 import { CloseFilled, MobMenu, SearchIcon } from '../icons'
 import classNames from 'classnames'
+import { Link } from "react-router-dom";
 
 const tabs = [
     // { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -37,7 +38,7 @@ export const AdminLayout = ({ children }) => {
                     <div className='border-b border-[#FFFFFF]/[10%] pt-32'></div>
                     <div className='pt-7'>
                         {tabs.map((tab, i) => (
-                            <a key={i} href="#!" onClick={() => navigate(tab.route)}>
+                            <Link to={tab.route}>
                                 <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
                                     {tab.route === route.pathname &&
                                         <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>
@@ -45,7 +46,7 @@ export const AdminLayout = ({ children }) => {
                                     <img src={tab.icon} alt="i" />
                                     <div className='text-base leading-7 text-[#DD69AA] font-bold whitespace-nowrap'>{tab.name}</div>
                                 </div>
-                            </a>
+                            </Link>
                         ))}
                     </div>
                 </div>

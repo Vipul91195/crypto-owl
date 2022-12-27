@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { InputField } from '../forms/InputField'
 import { CloseFilled, SearchIcon, StarFilled, UserAdd } from '../icons'
 import CustomButton from '../forms/CustomButton'
-import { closeModal, openConfirmModal, openModal } from '../../Redux/modalSlice'
+import { closeModal, openConfirmModal, openModal } from '../../Redux/commonSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomModal from '../CustomModal'
 import BusinessForm from '../../admin/BusinessForm'
@@ -11,25 +11,32 @@ import CustomerForm from '../../admin/CustomerForm'
 import AwardPoint from '../../admin/AwardPoint'
 import classNames from 'classnames'
 import TextField from '../forms/TextField'
-import { getBusinesses } from '../../Redux/businessSlice'
+import { getBusinessCustomers, getBusinesses } from '../../Redux/businessSlice'
+import { useParams } from 'react-router-dom'
 
 const AdminHeader = ({type, title, showControls = true}) => {
-  const { selectedIds, modal } = useSelector(state => ({
-    selectedIds : state.modalSlice.tableData.selectedIds,
-    modal : state.modalSlice.modal
+  const { selectedIds, modal, pageSize } = useSelector(state => ({
+    selectedIds : state.commonSlice.tableData.selectedIds,
+    pageSize : state.commonSlice.tableData.pageSize,
+    modal : state.commonSlice.modal
   }));
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(null);
   const dispatch = useDispatch();
   const [anySelected, setAnySelected] = useState(null);
   const hideModal = () => dispatch(closeModal());
+  const location = useParams();
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value)
   }
 
   useEffect(() => {
-    searchTerm && searchTerm !== '' && dispatch(getBusinesses({search: searchTerm}));
+    if(type === "business" && searchTerm !== null){
+      dispatch(getBusinesses({search: searchTerm, page_size: pageSize}));
+      searchTerm === "" && setSearchTerm(null);
+    }
+    type === "customer" && location.business_id && dispatch(getBusinessCustomers({business_id : location.business_id, search: searchTerm, page_size: pageSize}));
   }, [searchTerm]);
 
   useEffect(() => {

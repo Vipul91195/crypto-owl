@@ -38,7 +38,7 @@ const Login = () => {
                         <div className='max-w-[410px]'>
                             <div className='text-2xl leading-[45px] tracking-[-0.02em] lg:text-3xl 2xl:text-4xl text-pink-light 2xl:leading-[56px] 2xl:tracking-[-0.02em] font-bold text-left'>Sign In</div>
                             <div className='text-base leading-4 font-normal tracking-tight text-[#737373] text-left lg"pt-1 pb-6 2xl:pt-2 2xl:pb-9'>Enter your email and password to sign in!</div>
-                            <a href='google' >
+                            <a href='!#' >
                                 <div className="flex justify-center items-center gap-3 h-[40px] text-sm w-full lg:max-w-[350px]  2xl:max-w-[410px] sm:h-[50px] rounded-2xl text-pink-light bg-[#000000]">
                                     <img src={googleLogo} height="20px" width="20px" alt="googleLogo" />
                                     Sign in with Google

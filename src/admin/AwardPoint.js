@@ -5,27 +5,35 @@ import Dropdown from '../components/forms/Dropdown'
 import { InputField } from '../components/forms/InputField'
 import { AwardPointValidationSchema } from '../utils/FormValidations'
 import { useDispatch, useSelector } from 'react-redux'
-import { addRewardPoints } from '../Redux/modalSlice'
-
-const people = [
-    { name: 'Business', value: '1' },
-    { name: 'Personal', value: '2' },
-]
+import { addRewardPoints, getPointTypes } from '../Redux/commonSlice'
 
 const AwardPoint = ({ type, memberId, onSubmit }) => {
-    const { isLoading, selectedIds } = useSelector(state => ({
-        isLoading: state.modalSlice.isLoading,
-        selectedIds: state.modalSlice.tableData.selectedIds
+    const {isLoading, selectedIds, pointsTypes} = useSelector(state => ({ 
+        isLoading : state.commonSlice.isLoading,
+        selectedIds: state.commonSlice.tableData.selectedIds,
+        pointsTypes: state.commonSlice.tableData.pointsTypes
     }));
-    const initialValues = { amount: "", reward_type: type === "customer" ? "2" : "" };
+
+    const initialValues = { amount: "", reward_type: type === "customer" ? "2" : ""};
     const [members, setMembers] = useState(null);
+    const [options, setOptions] = useState(null);
     const dispatch = useDispatch();
     const handleAwardSubmit = (values) => {
+        // console.log("values : ", values);
+        // console.log("members : ", members);
         dispatch(addRewardPoints({ ...values, member_id: members }))
     }
     useEffect(() => {
         setMembers(Object.keys(selectedIds).filter(selectedId => selectedIds[selectedId]))
     }, [selectedIds]);
+
+    useEffect(() => {
+        dispatch(getPointTypes());
+    }, []);
+
+    useEffect(() => {
+        pointsTypes && setOptions(pointsTypes.map(pointType => ({ name: pointType.reward_name, value: pointType.id })))
+    }, [pointsTypes]);
 
     return (
         <div className='max-w-[600px] bg-[#101010] xl:bg-[#1C1C1C] py-[22px] px-[18px] xl:px-9 xl:py-9'>
@@ -49,20 +57,22 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
                     </div>
                     <div className='flex justify-between gap-[60px] xl:gap-[77px] items-center pt-[10px] pb-[22px] xl:pt-[26px] xl:pb-[30px]'>
                         <label className='w-full text-left text-base leading-[10px] text-[#A6A6A6] font-normal tracking-tight xl:text-[32px] xl:leading-5 xl:text-white whitespace-nowrap'>Point type</label>
-                        <Dropdown
+                        {options && <Dropdown
                             inputstyle='w-[163px] xl:w-[304px] text-white text-base leading-[10px] xl:text-2xl outline-none h-[25px] xl:h-[48px] rounded-[5px] xl:rounded-2xl bg-[#303030] xl:bg-[#101010] pl-2 lg:pl-5'
-                            people={people}
+                            options={options}
                             disabled={type === "customer" || type === "user"}
-                            selected={type === "customer" || type === "user" ? { name: 'Personal Points', value: '2' } : null}
+                            // selected={type === "customer" || type === "user" ? { name: 'Personal Points', value: '2' } : null}
+                            selected={type === "customer" || type === "user" ? pointsTypes.filter(pointType => pointType.name === 'Personal Points') : null}
                             id="reward_type"
                             setValues={setFieldValue}
                             name="reward_type"
-                        />
+                        />}
                     </div>
                     <div className='flex justify-end'>
                         <CustomButton
                             showLoader={isLoading}
                             disabled={isLoading}
+                            loaderSize={20}
                             type='submit'
                             buttonStyle="w-full py-[7.5px] xl:py-3 text-[#DD69AA] xl:text-white text-xl font-medium rounded-[10px] xl:text-3xl xl:font-bold xl:rounded-2xl xl:bg-[#DD69AA] border-[1.5px] border-[#DD69AA] xl:border-none">
                             Award Point

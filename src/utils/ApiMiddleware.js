@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getAccessToken } from "./helper";
+import Cookies from "js-cookie";
 
 const ApiMiddleware = axios.create({
     baseURL: process.env.REACT_APP_PUBLIC_baseURL,
@@ -28,11 +29,16 @@ ApiMiddleware.interceptors.request.use(
 ApiMiddleware.interceptors.response.use(
     function (response) {
         if (response.code === 401) {
-            return response;
+            Cookies.remove('crypt-access', { path: '' })
+            Cookies.remove('crypt-refresh', { path: '' })
         }
         return response;
     },
     function (error) {
+        if(error.response.status === 401) {
+            Cookies.remove('crypt-access', { path: '' })
+            Cookies.remove('crypt-refresh', { path: '' })
+        }
         return Promise.reject(error);
     }
 );
