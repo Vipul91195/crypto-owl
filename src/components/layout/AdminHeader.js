@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { InputField } from '../forms/InputField'
 import { CloseFilled, SearchIcon, StarFilled, UserAdd } from '../icons'
 import CustomButton from '../forms/CustomButton'
-import { closeModal, openConfirmModal, openModal } from '../../Redux/commonSlice'
+import { closeModal, openConfirmModal, openModal, setCurrentPage } from '../../Redux/commonSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomModal from '../CustomModal'
 import BusinessForm from '../../admin/BusinessForm'
@@ -36,7 +36,8 @@ const AdminHeader = ({type, title, showControls = true}) => {
       dispatch(getBusinesses({search: searchTerm, page_size: pageSize}));
       searchTerm === "" && setSearchTerm(null);
     }
-    type === "customer" && location.business_id && dispatch(getBusinessCustomers({business_id : location.business_id, search: searchTerm, page_size: pageSize}));
+    dispatch(setCurrentPage(1));
+    type === "customer" && location.business_id && dispatch(getBusinessCustomers({page: 1, business_id : location.business_id, search: searchTerm, page_size: pageSize}));
   }, [searchTerm]);
 
   useEffect(() => {
