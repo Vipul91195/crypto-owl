@@ -72,23 +72,22 @@ export const BusinessFormValidationSchema = Yup.object({
 
 
 export const CustomerFormValidationSchema = Yup.object({
-    Name: Yup.string()
+    name: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
         .max(20, "Maximum 20 char.")
         .required("Name is required.")
         .matches(/^\p{L}+$/u, "Special characters not allowed."),
-    Email: Yup.string()
+    email: Yup.string()
         .email("Invalid email address.")
         .required("E-mail is required."),
-    Phone: Yup.string()
+    phone_no: Yup.string()
         .trim()
         .max(10, "Maximum 10 char.")
         .required("Phone Number is required."),
     address: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
-        .max(20, "Maximum 20 char.")
         .required("Address is required.")
 });
 
@@ -96,12 +95,10 @@ export const MessageFormValidationSchema = Yup.object({
     subject: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
-        .max(20, "Maximum 20 char.")
         .required("Subject is required."),
     message: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
-        .max(20, "Maximum 20 char.")
         .required("Message is required.")
 });
 

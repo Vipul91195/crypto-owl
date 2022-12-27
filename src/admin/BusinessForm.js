@@ -8,7 +8,7 @@ import { addBusinesses } from '../Redux/commonSlice';
 
 const BusinessForm = () => {
     const dispatch = useDispatch();
-    const {isLoading} = useSelector(state=> state.commonSlice);
+    const { isLoading } = useSelector(state => state.commonSlice);
 
     const handleChange = (e, setFieldValue) => {
         const value = e.target.value.replace(/\D/g, "");

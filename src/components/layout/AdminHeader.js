@@ -14,11 +14,11 @@ import TextField from '../forms/TextField'
 import { getBusinessCustomers, getBusinesses } from '../../Redux/businessSlice'
 import { useParams } from 'react-router-dom'
 
-const AdminHeader = ({type, title, showControls = true}) => {
+const AdminHeader = ({ type, title, showControls = true }) => {
   const { selectedIds, modal, pageSize } = useSelector(state => ({
-    selectedIds : state.commonSlice.tableData.selectedIds,
-    pageSize : state.commonSlice.tableData.pageSize,
-    modal : state.commonSlice.modal
+    selectedIds: state.commonSlice.tableData.selectedIds,
+    pageSize: state.commonSlice.tableData.pageSize,
+    modal: state.commonSlice.modal
   }));
 
   const [searchTerm, setSearchTerm] = useState(null);
@@ -32,12 +32,12 @@ const AdminHeader = ({type, title, showControls = true}) => {
   }
 
   useEffect(() => {
-    if(type === "business" && searchTerm !== null){
-      dispatch(getBusinesses({search: searchTerm, page_size: pageSize}));
+    if (type === "business" && searchTerm !== null) {
+      dispatch(getBusinesses({ search: searchTerm, page_size: pageSize }));
       searchTerm === "" && setSearchTerm(null);
     }
     dispatch(setCurrentPage(1));
-    type === "customer" && location.business_id && dispatch(getBusinessCustomers({page: 1, business_id : location.business_id, search: searchTerm, page_size: pageSize}));
+    type === "customer" && location.business_id && dispatch(getBusinessCustomers({ page: 1, business_id: location.business_id, search: searchTerm, page_size: pageSize }));
   }, [searchTerm]);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const AdminHeader = ({type, title, showControls = true}) => {
           </CustomButton>
           <CustomButton
             disabled={!anySelected}
-            onClick={() => {dispatch(openModal({ type: "award" }))}}
+            onClick={() => { dispatch(openModal({ type: "award" })) }}
             buttonStyle="hidden md:block lg:leading-[16px] 2xl:leading-6 4xl:w-screen w-full 4xl:max-w-[200px] px-3 2xl:px-6 4xl:px-0 py-[6px] lg:py-2 xl:py-3 lg:text-sm h-max 4xl:h-[51px] text-[12px] 2xl:text-sm border border-[#DD69AA] font-medium rounded-[12px] 2xl:rounded-2xl text-[#DD69AA] whitespace-nowrap"
           >
             Award Point
@@ -89,7 +89,7 @@ const AdminHeader = ({type, title, showControls = true}) => {
             onClick={() => dispatch(openModal({ type }))}
           >
             <UserAdd className="text-[#DD69AA]" />
-            <div className="bg-[#101010] group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+            <div className="bg-[#101010] z-50 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
               <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[10px]">
                 {type === "business" ? "Add Business" : "Add Customer"}
               </span>
@@ -98,10 +98,10 @@ const AdminHeader = ({type, title, showControls = true}) => {
           <button
             className="block md:hidden p-[3px] group relative"
             disabled={!anySelected}
-            onClick={() =>dispatch(openConfirmModal({ message: "User has been removed" }))}
+            onClick={() => dispatch(openConfirmModal({ message: "User has been removed" }))}
           >
-            <CloseFilled className={classNames({"text-[#DD69AA]": anySelected}, {"text-gray-500": (!selectedIds || !anySelected)})} />
-            <div className="bg-[#101010] group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+            <CloseFilled className={classNames({ "text-[#DD69AA]": anySelected }, { "text-gray-500": (!selectedIds || !anySelected) })} />
+            <div className="bg-[#101010] z-50 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
               <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[10px]">
                 Remove
               </span>
@@ -111,8 +111,8 @@ const AdminHeader = ({type, title, showControls = true}) => {
             disabled={!anySelected}
             onClick={() => dispatch(openModal({ type: "award" }))}
           >
-            <StarFilled className={classNames({"text-[#DD69AA]": anySelected}, {"text-gray-500": (!selectedIds || !anySelected)})} />
-            <div className="bg-[#101010] group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+            <StarFilled className={classNames({ "text-[#DD69AA]": anySelected }, { "text-gray-500": (!selectedIds || !anySelected) })} />
+            <div className="bg-[#101010] z-50 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
               <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[10px]">
                 Award Points
               </span>
