@@ -11,7 +11,7 @@ import { Navigate, useLocation, useNavigate, useParams, useRoutes } from "react-
 import { Form, Formik } from "formik";
 import { InputField } from "../forms/InputField";
 import { Arrow, SearchIcon } from "../icons";
-import { openConfirmModal, setCurrentPage } from "../../Redux/commonSlice";
+import { openNotifyModal, setCurrentPage } from "../../Redux/commonSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CustomerForm from "../../admin/CustomerForm";
 import CustomModal from "../CustomModal";
@@ -126,7 +126,7 @@ const Customers = () => {
     {
       Header: "Name",
       accessor: (row) => {
-        const { customerImage, owner_name } = row;
+        const { customerImage, name } = row;
         return (
           <div onClick={() => navigate('/user-profile')} className="flex gap-[16px] items-center cursor-pointer">
             <div className="w-[30px] h-[30px] 2xl:w-[45.42px] 2xl:h-[45.42px] rounded-[10px] 2xl:rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black">
@@ -147,7 +147,7 @@ const Customers = () => {
                 </svg>
               )}
             </div>
-            <p>{owner_name}</p>
+            <p>{name}</p>
           </div>
         );
       },
@@ -162,7 +162,7 @@ const Customers = () => {
     },
     {
       Header: "Email Id",
-      accessor: "owner_email",
+      accessor: "email",
     },
     {
       Header: "Status",
@@ -258,7 +258,7 @@ const Customers = () => {
         </div>
       </div>
       <div className="mt-3 md:mt-[38px] 2xl:mt-[20px]">
-      {Array.isArray(data) ? (
+      {Array.isArray(businessCustomers) ? (
         <CommonTable
         initialState={initialState}
             showSelectCheck={businessCustomers}
@@ -320,7 +320,7 @@ const Customers = () => {
             //   whiteSpace: "pre-wrap",
             //   maxWidth: "90px",
             // },
-            owner_email: { textAlign: "center", color: "#DD69AA" },
+            email: { textAlign: "center", color: "#DD69AA" },
           }}
             handleRowSelect={setSelectedIds}
             isLoading={isLoading}

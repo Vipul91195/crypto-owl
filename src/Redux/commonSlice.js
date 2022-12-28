@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addRewardPointsApi, getPointTypesApi } from "../utils/apis/admin";
+import { addRewardPointsApi, getPointTypesApi, removeBusinessApi } from "../utils/apis/admin";
 import toast from 'react-hot-toast';
 import { addBusinessApi } from "../utils/apis/businesses";
 import { addCustomerApi } from "../utils/apis/customer";
@@ -7,6 +7,7 @@ import { addCustomerApi } from "../utils/apis/customer";
 const initialState = {
   isLoading: false,
   tableData: {
+    isLoading: false,
     pointTypesLoading: false,
     pageSize: 10,
     currentPage: 1,
@@ -16,10 +17,17 @@ const initialState = {
     pointsTypes: null,
     currentTable: null,
   },
-  confirmModal: {
+  notifyModal: {
     isVisible: false,
     title: "",
     message: ""
+  },
+  ConfirmModal: {
+    isLoading: false,
+    isVisible: false,
+    title: "",
+    message: "",
+    action: false,
   },
   modal: {
     isVisible: false,
@@ -31,20 +39,35 @@ export const addRewardPoints = createAsyncThunk('business/add/reward', addReward
 export const getPointTypes = createAsyncThunk('reward/types', getPointTypesApi)
 export const addBusinesses = createAsyncThunk('business/add', addBusinessApi)
 export const addCustomer = createAsyncThunk('customer/add', addCustomerApi)
+export const addBulkCustomer = createAsyncThunk('customer/multiple/add', addBulkCustomerApi)
+export const removeBusiness = createAsyncThunk('customer/multiple/add', removeBusinessApi)
 
 const commonSlice = createSlice({
   name: "loginPage",
   initialState,
   reducers: {
+    openNotifyModal: (state, { payload }) => {
+      state.notifyModal = {
+        ...payload,
+        isVisible: true,
+      };
+    },
+    closeNotifyModal: (state) => {
+      state.notifyModal = {
+        ...state.notifyModal,
+        isVisible: false,
+      };
+    },
     openConfirmModal: (state, { payload }) => {
-      state.confirmModal = {
+      state.ConfirmModal = {
+        ...state.ConfirmModal,
         ...payload,
         isVisible: true,
       };
     },
     closeConfirmModal: (state) => {
-      state.confirmModal = {
-        ...state.confirmModal,
+      state.ConfirmModal = {
+        ...state.ConfirmModal,
         isVisible: false,
       };
     },
@@ -137,10 +160,30 @@ const commonSlice = createSlice({
     [getPointTypes.rejected]: (state) => {
       state.pointTypesLoading = false;
     },
+    [removeBusiness.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [removeBusiness.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.success(payload?.message || "Success");
+      state.modal = {
+        ...state.modal,
+        isVisible: false,
+      };
+      state.tableData = {
+        ...state.tableData,
+        selectedIds: false,
+      };
+    },
+    [removeBusiness.rejected]: (state) => {
+      state.isLoading = false;
+    },
   },
 });
 
 export const {
+  openNotifyModal,
+  closeNotifyModal,
   openConfirmModal,
   closeConfirmModal,
   setSelectedIds,

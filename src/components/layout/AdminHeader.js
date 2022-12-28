@@ -13,6 +13,7 @@ import classNames from 'classnames'
 import TextField from '../forms/TextField'
 import { getBusinessCustomers, getBusinesses } from '../../Redux/businessSlice'
 import { useParams } from 'react-router-dom'
+import ConfirmationModal from '../modal/ConfirmationModal'
 
 const AdminHeader = ({ type, title, showControls = true }) => {
   const { selectedIds, modal, pageSize } = useSelector(state => ({
@@ -66,7 +67,7 @@ const AdminHeader = ({ type, title, showControls = true }) => {
             type="submit"
             disabled={!anySelected}
             onClick={() =>
-              dispatch(openConfirmModal({ message: "User has been removed" }))
+              dispatch(dispatch(openModal({ type: "confirm" })))
             }
             buttonStyle="hidden md:block lg:leading-[16px] 2xl:leading-6 4xl:w-screen w-full 4xl:max-w-[200px] px-3 2xl:px-6 4xl:px-0 py-[6px] lg:py-2 xl:py-3 lg:text-sm h-max 4xl:h-[51px] text-[12px] 2xl:text-sm  border border-[#DD69AA] font-medium rounded-[12px] 2xl:rounded-2xl text-[#DD69AA]"
           >
@@ -99,7 +100,7 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           <button
             className="block md:hidden p-[3px] group relative"
             disabled={!anySelected}
-            onClick={() => dispatch(openConfirmModal({ message: "User has been removed" }))}
+            onClick={() => dispatch(dispatch(openModal({ type: "confirm" })))}
           >
             <CloseFilled className={classNames({ "text-[#DD69AA]": anySelected }, { "text-gray-500": (!selectedIds || !anySelected) })} />
             <div className="bg-[#101010] z-10 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
@@ -125,6 +126,7 @@ const AdminHeader = ({ type, title, showControls = true }) => {
         {modal.type === "business" && <BusinessForm />}
         {modal.type === "customer" && <CustomerForm />}
         {modal.type === "award" && <AwardPoint type={type} memberId={selectedIds} />}
+        {modal.type === "confirm" && <ConfirmationModal />}
       </CustomModal>
     </div>
   );

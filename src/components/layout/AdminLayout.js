@@ -3,7 +3,6 @@ import home from '../../assets/img/home.svg'
 import user from '../../assets/img/user.svg'
 import report from '../../assets/img/report.svg'
 import searchUser from '../../assets/img/searchUser.svg'
-import ConfirmModal from '../ConfirmModal';
 
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,6 +12,8 @@ import { InputField } from '../forms/InputField'
 import { CloseFilled, MobMenu, SearchIcon } from '../icons'
 import classNames from 'classnames'
 import { Link } from "react-router-dom";
+import NotifyModal from '../modal/NotifyModal'
+import ConfirmationModal from '../modal/ConfirmationModal'
 
 const tabs = [
     // { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -72,7 +73,7 @@ export const AdminLayout = ({ children }) => {
                     {children}
                 </div>
             </div >
-            <ConfirmModal />
+            <NotifyModal />
         </RouteMiddleware>
     )
 }
