@@ -32,8 +32,8 @@ const Dropdown = ({ setValues, cursorNotAllowed, ...props }) => {
                         </span>
                     </Listbox.Button>
                     {meta.touched && meta.error && (
-                        <div className="absolute error">
-                            <p className="text-[11px] md:text-[12px] xl:text-sm 2xl:text:base  text-red-500">{meta.error}</p>
+                        <div className="absolute error lg:mt-[2px]">
+                            <p className="text-[11px] md:text-[12px] xl:text-sm 2xl:text-base text-red-500">{meta.error}</p>
                         </div>
                     )}
                     <Transition
