@@ -146,7 +146,8 @@ const UserProfile = () => {
             <AdminHeader type="user-profile" title="User Profile" />
             <div className=''>
                 {/* <h1 className='text-[34px] leading-[42px] tracking-tight font-bold text-pink-light'>User Profile</h1> */}
-                <div className="pt-[18px] lg:pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
+                {/* <div className="pt-[18px] lg:pt-[50.94px] rounded-b-[20px] overflow-hidden relative"> */}
+                <div className="pt-[18px] lg:pt-[30px] rounded-b-[20px] overflow-hidden relative">
                     <div className="absolute pt-4 pl-4 md:pt-6 lg:pt-14 xl:pl-[42px] ">
                         <div className='relative max-w-[84.72px] max-h-[98.39px] lg:max-w-[142px] xl:max-w-[170px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
                             <img src={profilepic} alt="businessIcon" />

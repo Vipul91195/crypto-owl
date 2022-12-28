@@ -94,6 +94,7 @@ const CommonTable = ({
   }, [allSelected]);
 
   useEffect(() => {
+    !selectedIds && setAllSelected(false);
     showSelectCheck && selectedIds && handleRowSelect(Object.keys(selectedIds).filter(selectedId => selectedIds[selectedId]))
   }, [selectedIds]);
 
@@ -116,12 +117,12 @@ const CommonTable = ({
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {showSelectCheck && (
-                  <th>
-                    <div className="pl-[10px] md:pl-[23px] w-max h-[14px] 2xl:h-[20px]">
+                  <th className='2xl:pr-[10px] 4xl:pr-0'>
+                    <div className="pl-[10px] md:pl-[23px] w-max h-[22px] 2xl:h-[20px]">
                       <input
                         type="checkbox"
                         checked={allSelected}
-                        className="bg-checkFalse mt-2 2xl:mt-[6px] bg-no-repeat bg-contain checked:bg-checkTrue appearance-none pl-[23px] h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px]"
+                        className="bg-checkFalse md:mt-[6px] 2xl:mt-[3px] bg-no-repeat bg-contain checked:bg-checkTrue appearance-none pl-[23px] h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px]"
                         onChange={(e) =>
                           setAllSelected(!allSelected && !allCheckSelected)
                         }
@@ -173,13 +174,13 @@ const CommonTable = ({
                   )}
                 >
                   {showSelectCheck && (
-                    <td>
-                      <div className="pl-[10px] md:pl-[23px] w-max h-[14px] 2xl:h-[20px]">
+                    <td className='pt-3 group-last:pb-4 2xl:group-last:pb-1'>
+                      <div className="pl-[10px] md:pl-[23px] w-max h-[14px] 2xl:h-[25px]">
                         <input
                           type="checkbox"
                           checked={selectedIds[row.values[selectionColumn]]}
                           className={classNames(
-                            "bg-checkFalse bg-no-repeat bg-contain checked:bg-checkTrue appearance-none h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px] group-last:mb-5"
+                            "bg-checkFalse bg-no-repeat bg-contain checked:bg-checkTrue appearance-none h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px] group-last:mb-5 2xl:group-last:mb-0"
                           )}
                           onChange={(e) => {
                             dispatch(
