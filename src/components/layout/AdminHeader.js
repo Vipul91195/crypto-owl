@@ -90,8 +90,8 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           >
             {type === "user-profile" ? <Message className="text-[#DD69AA]" />
               : <UserAdd className="text-[#DD69AA]" />}
-            <div className="bg-[#101010] z-50 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
-              <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[10px]">
+            <div className="bg-[#101010] z-10 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+              <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
                 {type === "business" ? "Add Business" : "Add Customer"}
               </span>
             </div>
@@ -102,8 +102,8 @@ const AdminHeader = ({ type, title, showControls = true }) => {
             onClick={() => dispatch(openConfirmModal({ message: "User has been removed" }))}
           >
             <CloseFilled className={classNames({ "text-[#DD69AA]": anySelected }, { "text-gray-500": (!selectedIds || !anySelected) })} />
-            <div className="bg-[#101010] z-50 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
-              <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[10px]">
+            <div className="bg-[#101010] z-10 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+              <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
                 Remove
               </span>
             </div>
@@ -113,8 +113,8 @@ const AdminHeader = ({ type, title, showControls = true }) => {
             onClick={() => dispatch(openModal({ type: "award" }))}
           >
             <StarFilled className={classNames({ "text-[#DD69AA]": anySelected }, { "text-gray-500": (!selectedIds || !anySelected) })} />
-            <div className="bg-[#101010] z-50 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
-              <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[10px]">
+            <div className="bg-[#101010] z-10 ml-[-40px] group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+              <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
                 Award Points
               </span>
             </div>

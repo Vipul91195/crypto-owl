@@ -7,6 +7,7 @@ import { addCustomerApi } from "../utils/apis/customer";
 const initialState = {
   isLoading: false,
   tableData: {
+    pointTypesLoading: false,
     pageSize: 10,
     currentPage: 1,
     selectedIds: false,
@@ -124,17 +125,17 @@ const commonSlice = createSlice({
       toast.error(payload || "Something went wrong.");
     },
     [getPointTypes.pending]: (state) => {
-      state.isLoading = true;
+      state.pointTypesLoading = true;
     },
     [getPointTypes.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
+      state.pointTypesLoading = false;
       state.tableData = {
         ...state.tableData,
         pointsTypes: payload.result[0],
       };
     },
     [getPointTypes.rejected]: (state) => {
-      state.isLoading = false;
+      state.pointTypesLoading = false;
     },
   },
 });
