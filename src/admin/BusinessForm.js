@@ -30,7 +30,7 @@ const BusinessForm = () => {
     const initialValues = { business_logo: null, business_name: "", company_no: "", owner_name: "", owner_email: "", vat_no: "", address: "" };
     return (
         <div className='min-w-[304px] max-w-[597px] 2xl:max-w-[1171px] w-[70vw] 3xl:w-full'>
-            <div className='bg-[#141414] md:bg-[#101010]  pt-1 xl:pt-2  xl:h-[68px] text-left text-xl md:text-3xl leading-9 2xl:text-[34px] xl:leading-[56px] font-medium text-white xl:text-[#CDBEBE] tracking-tight pl-[20px] xl:pl-[31px] '>
+            <div className='bg-[#141414] md:bg-[#101010]  pt-1 xl:pt-2 md:h-[48px]  xl:h-[68px] text-left text-xl md:text-3xl leading-9 2xl:text-[34px] xl:leading-[56px] font-medium text-white xl:text-[#CDBEBE] tracking-tight pl-[20px] xl:pl-[31px] '>
                 Add Business
             </div>
             <Formik
@@ -53,12 +53,12 @@ const BusinessForm = () => {
                                 }} />
                             </div> */}
                             <div>
-                                <label className='whitespace-nowrap text-sm md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Business<span className='text-[#DD69AA]'>*</span></label>
+                                <label className='whitespace-nowrap text-base md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Business<span className='text-[#DD69AA]'>*</span></label>
                                 <InputField
-                                    inputstyle='w-full text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                    py-[11px] 2xl:py-[15px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
-                                    borderstyle='w-full text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                    py-[11px] 2xl:py-[15px] rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                    inputstyle='w-full text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                   py-[8px] md:py-[14px]  2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                    borderstyle='w-full text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                   py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
                                     errorRight={true}
                                     type='text'
                                     id='business_name'
@@ -68,12 +68,12 @@ const BusinessForm = () => {
                             {/* <div className='xl:flex xl:flex-row xl:gap-[34px] flex flex-col gap-[14px]'> */}
                             <div className='grid xl:grid-cols-2 xl:gap-[34px] gap-[14px]'>
                                 <div>
-                                    <label className='whitespace-nowrap text-sm md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Company Number<span className='text-[#DD69AA]'>*</span></label>
+                                    <label className='whitespace-nowrap text-base md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Company Number<span className='text-[#DD69AA]'>*</span></label>
                                     <InputField
-                                        inputstyle='w-full  text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                         py-[11px] 2xl:py-[15px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
-                                        borderstyle='w-full  text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                         py-[11px] 2xl:py-[15px] rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                        inputstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                         py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                        borderstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                         py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
                                         errorRight={true}
                                         type='text'
                                         id='company_no'
@@ -81,12 +81,12 @@ const BusinessForm = () => {
                                         placeholder='000000000' />
                                 </div>
                                 <div>
-                                    <label className='whitespace-nowrap text-sm md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Owner&apos;s Name<span className='text-[#DD69AA]'>*</span></label>
+                                    <label className='whitespace-nowrap text-base md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Owner&apos;s Name<span className='text-[#DD69AA]'>*</span></label>
                                     <InputField
-                                        inputstyle='w-full  text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                              py-[11px] 2xl:py-[15px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
-                                        borderstyle='w-full  text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                              py-[11px] 2xl:py-[15px] rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                        inputstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                              py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                        borderstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                              py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
                                         errorRight={true}
                                         type='text'
                                         id='owner_name'
@@ -97,12 +97,12 @@ const BusinessForm = () => {
                             {/* <div className='xl:flex xl:flex-row xl:gap-[34px] flex flex-col gap-[14px]'> */}
                             <div className='grid xl:grid-cols-2 xl:gap-[34px] gap-[14px]'>
                                 <div>
-                                    <label className='whitespace-nowrap text-sm md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Owner&apos;s Email ID<span className='text-[#DD69AA]'>*</span></label>
+                                    <label className='whitespace-nowrap text-base md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Owner&apos;s Email ID<span className='text-[#DD69AA]'>*</span></label>
                                     <InputField
-                                        inputstyle='w-full  text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                      py-[11px] 2xl:py-[15px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
-                                        borderstyle='w-full  text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                      py-[11px] 2xl:py-[15px] rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                        inputstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                      py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                        borderstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                      py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
                                         errorRight={true}
                                         type='text'
                                         id='owner_email'
@@ -110,12 +110,12 @@ const BusinessForm = () => {
                                         placeholder='mail@simmmple.com' />
                                 </div>
                                 <div>
-                                    <label className='whitespace-nowrap text-sm md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] 2xl:pb-[20px] block'>VAT Number<span className='text-[#DD69AA]'>*</span></label>
+                                    <label className='whitespace-nowrap text-base md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] 2xl:pb-[20px] block'>VAT Number<span className='text-[#DD69AA]'>*</span></label>
                                     <InputField
-                                        inputstyle='w-full  text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                       py-[11px] 2xl:py-[15px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
-                                        borderstyle='w-full  text-[#858383] text-[10px] md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                       py-[11px] 2xl:py-[15px] rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                        inputstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                       py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                        borderstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                       py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
                                         errorRight={true}
                                         type='text'
                                         id='vat_no'
@@ -124,10 +124,14 @@ const BusinessForm = () => {
                                 </div>
                             </div>
                             <div>
-                                <label className='whitespace-nowrap text-sm md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Address<span className='text-[#DD69AA]'>*</span></label>
+                                <label className='whitespace-nowrap text-base md:text-xl font-medium tracking-tight text-pink-light pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Address<span className='text-[#DD69AA]'>*</span></label>
                                 <InputField
-                                    inputstyle='w-full text-[#858383] text-[10px] xl:text-sm font-normal tracking-[-0.02em] outline-none py-[20px] xl:py-[43px] rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent placeholder:text-[10px] xl:placeholder:text-sm placeholder:text-[#858383] pl-[15.56px] xl:pl-6'
-                                    borderstyle='w-full text-[#858383] text-[10px] xl:text-sm font-normal tracking-[-0.02em] outline-none py-[20px] xl:py-[43px] rounded-2xl border border-red-800 bg-transparent placeholder:text-[10px] xl:placeholder:text-sm placeholder:text-[#858383] pl-[15.56px] xl:pl-6'
+                                    // inputstyle='w-full text-[#858383] text-sm xl:text-sm font-normal tracking-[-0.02em] outline-none py-[20px] xl:py-[43px] rounded-[10px] 2xl:rounded-2xl  border border-[#FFFFFF]/[10%] bg-transparent placeholder:text-[10px] xl:placeholder:text-sm placeholder:text-[#858383] pl-[15.56px] xl:pl-6'
+                                    // borderstyle='w-full text-[#858383] text-sm xl:text-sm font-normal tracking-[-0.02em] outline-none py-[20px] xl:py-[43px] rounded-[10px] 2xl:rounded-2xl  border border-red-800 bg-transparent placeholder:text-[10px] xl:placeholder:text-sm placeholder:text-[#858383] pl-[15.56px] xl:pl-6'
+                                    inputstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                    py-[20px] md:py-[30px] xl:py-[43px] rounded-[10px] 2xl:rounded-2xl  border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]'
+                                    borderstyle='w-full  text-[#858383] text-sm md:text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                                    py-[20px] md:py-[30px] xl:py-[43px] rounded-[10px] 2xl:rounded-2xl  border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
                                     errorRight={true}
                                     type='text'
                                     id='address'
@@ -143,7 +147,7 @@ const BusinessForm = () => {
                                     loaderSize={20}
                                     type='submit'
                                     className="text-xl"
-                                    buttonStyle="w-full py-[7.5px] 2xl:py-[12px] text-xl tracking-tight text-white xl:text-pink-light font-bold rounded-2xl 
+                                    buttonStyle="w-full py-[7.5px] 2xl:py-[12px] text-xl tracking-tight text-white xl:text-pink-light font-bold rounded-[10px] 2xl:rounded-2xl  
                                     bg-[#DD69AA] mt-[29.6px] xl:mt-8">
                                     Invite
                                 </CustomButton >

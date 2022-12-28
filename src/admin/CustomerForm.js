@@ -31,7 +31,7 @@ const CustomerForm = () => {
     const initialValues = { name: "", email: "", phone_no: "", address: "" };
     return (
         <div className='min-w-[304px] xl:min-w-[597px] w-full'>
-            <div className='bg-[#101010] pt-1 xl:h-[68px] text-left text-xl leading-9 text-white xl:text-[34px] xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight pl-5 xl:pl-[31px] '>
+            <div className='bg-[#101010] pt-1 2xl:h-[68px] xl:h-[50px]  text-left text-xl leading-9 text-white xl:text-3xl  2xl:text-[34px] 2xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight pl-5 xl:pl-[31px] '>
                 Add Customer
             </div>
             <Formik

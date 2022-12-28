@@ -19,7 +19,7 @@ const CustomModal = ({ children, modal, setModal, onClose }) => {
             <div className="fixed inset-0 backdrop-blur-[10px] bg-[rgba(0,0,0,0.21)]" />
           </Transition.Child>
           <div
-            className="fixed inset-0 bg-[#0009] overflow-y-auto"
+            className="fixed z-50 inset-0 bg-[#0009] overflow-y-auto"
             onClick={(e) => {
               e.stopPropagation();
               onClose && onClose();
