@@ -39,11 +39,7 @@ export const ResetPasswordValidationSchema = Yup.object({
 
 
 export const AwardPointValidationSchema = Yup.object({
-<<<<<<< Updated upstream
-    amount: Yup.number()
-=======
     amount: Yup.number("Points must be number")
->>>>>>> Stashed changes
         .required("Points are required."),
     reward_type: Yup.string().required("Point type is required.").nullable(),
 });
