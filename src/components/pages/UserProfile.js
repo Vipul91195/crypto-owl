@@ -143,7 +143,7 @@ const UserProfile = () => {
     return (
         <AdminLayout>
             {/* <AdminHeader type="user-profile" title="User Profile" showControls={false} /> */}
-            <AdminHeader type="customer" title="User Profile" />
+            <AdminHeader type="user-profile" title="User Profile" />
             <div className=''>
                 {/* <h1 className='text-[34px] leading-[42px] tracking-tight font-bold text-pink-light'>User Profile</h1> */}
                 <div className="pt-[18px] lg:pt-[50.94px] rounded-b-[20px] overflow-hidden relative">

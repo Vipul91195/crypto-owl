@@ -1,7 +1,7 @@
 import { Formik, Form } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { InputField } from '../forms/InputField'
-import { CloseFilled, SearchIcon, StarFilled, UserAdd } from '../icons'
+import { CloseFilled, SearchIcon, StarFilled, UserAdd, Message } from '../icons'
 import CustomButton from '../forms/CustomButton'
 import { closeModal, openConfirmModal, openModal, setCurrentPage } from '../../Redux/commonSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -88,7 +88,8 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           <button className="block md:hidden p-[3px] relative group"
             onClick={() => dispatch(openModal({ type }))}
           >
-            <UserAdd className="text-[#DD69AA]" />
+            {type === "user-profile" ? <Message className="text-[#DD69AA]" />
+              : <UserAdd className="text-[#DD69AA]" />}
             <div className="bg-[#101010] z-50 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
               <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[10px]">
                 {type === "business" ? "Add Business" : "Add Customer"}
