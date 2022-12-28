@@ -10,13 +10,7 @@ const BusinessForm = () => {
     const dispatch = useDispatch();
     const { isLoading } = useSelector(state => state.commonSlice);
 
-    const handleChange = (e, setFieldValue) => {
-        const value = e.target.value.replace(/\D/g, "");
-        setFieldValue(e.target.name, value);
-    };
-
     const handleLoginSubmit = (values) => {
-        console.log(values);
         const formData = new FormData();
         formData.append('business_name', values.business_name);
         formData.append('company_no', values.company_no);

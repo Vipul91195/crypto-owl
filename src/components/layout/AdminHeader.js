@@ -46,7 +46,7 @@ const AdminHeader = ({ type, title, showControls = true }) => {
 
   return (
     <div className="pb-3 md:pt-[36px] 2xl:pt-[72px] flex md:gap-5 lg:gap-14 justify-between md:items-start lg:items-center w-full items-center md:flex-col lg:flex-row">
-      <p className="text-white whitespace-pre-wrap 2xl:whitespace-nowrap 2xl:leading-9 leading-5 text-xl max-w-[65%] md:max-w-none md:text-lg lg:text-xl xl:text-[28px] 4xl:text-4xl">
+      <p className="text-white whitespace-pre-wrap 2xl:whitespace-nowrap 2xl:leading-[42px] leading-5 text-xl max-w-[65%] md:max-w-none md:text-lg lg:text-xl xl:text-[28px] 2xl:text-[34px]">
         {title || "User Management (Businesses)"}
       </p>
       {showControls && (

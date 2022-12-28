@@ -18,3 +18,20 @@ export const addCustomerApi = async (params, { rejectWithValue, dispatch }) => {
     throw rejectWithValue(error.response.data.message);
   }
 }
+
+export const addBulkCustomerApi = async (params, { rejectWithValue, dispatch }) => {
+  try {
+    const response = await ApiMiddleware.post(`/admin/add/customer/csv/${params?.business_id}/`, params?.customers, {
+      headers: {
+        "Content-Type": 'multipart/form-data'
+      }
+    });
+    dispatch(getBusinessCustomers({ business_id: params?.business_id }))
+    return response.data;
+  } catch (error) {
+    if (!error.response) {
+      throw rejectWithValue(error);
+    }
+    throw rejectWithValue(error.response.data.message);
+  }
+}
