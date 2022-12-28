@@ -20,7 +20,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, errorRight, i
                 {...props}
                 placeholder={placeholder}
                 // className={meta.touched && meta.error ? borderstyle : inputstyle}
-                className={classNames({ "pl-[50px]": iconBefore }, inputstyle, { [borderstyle]: meta.touched && meta.error })}
+                className={classNames({ "pl-[50px]": iconBefore }, { [inputstyle]: !meta.error }, { [borderstyle]: meta.error })}
                 autoComplete="off"
                 type={
                     props?.type === "password"
@@ -48,7 +48,7 @@ export const InputField = ({ inputstyle, placeholder, borderstyle, errorRight, i
                     : null
             }
             {meta.touched && meta.error && (
-                <div className={classNames("absolute error  md:mt-1", { "right-0 xl:left-0": errorRight })}>
+                <div className={classNames("absolute error lg:mt-[2px]", { "right-0 xl:left-0": errorRight })}>
                     <p className="text-[11px] md:text-[12px] xl:text-sm 2xl:text-base  whitespace-nowrap text-red-500">{meta.error}</p>
                 </div>
             )}

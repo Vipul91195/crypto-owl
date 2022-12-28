@@ -9,7 +9,7 @@ export const LoginValidationSchema = Yup.object({
         .trim()
         .oneOf([Yup.ref("password"), null])
         .min(8, "Must be 8 char long.")
-        .required("Password is Required."),
+        .required("Password is required."),
 });
 
 export const ForgotValidationSchema = Yup.object({
@@ -18,23 +18,28 @@ export const ForgotValidationSchema = Yup.object({
         .required("E-mail is required."),
 });
 
+export const BulkUploadValidations = Yup.object({
+    csv_file: Yup.mixed()
+        .required("Select CSV file to upload.").nullable(),
+});
+
 export const ResetPasswordValidationSchema = Yup.object({
     password: Yup.string().required('Password is required.')
         .trim()
         .oneOf([Yup.ref("password"), null])
         .min(8, "Must be 8 char long.")
-        .required("Password is Required.")
+        .required("Password is required.")
     ,
     passwordConfirmation: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match.')
         .trim()
         .min(8, "Must be 8 char long.")
-        .required("Password is Required."),
+        .required("Password is required."),
 });
 
 
 export const AwardPointValidationSchema = Yup.object({
-    amount: Yup.number()
+    amount: Yup.number("Points must be number")
         .required("Points are required."),
     reward_type: Yup.string().required("Point type is required.").nullable(),
 });
