@@ -5,3 +5,5 @@ export { Arrow } from "./Arrow";
 export { UserAdd } from "./UserAdd";
 export { StarFilled } from "./StarFilled";
 export { MobMenu } from "./MobMenu";
+export { Message } from "./Message";
+

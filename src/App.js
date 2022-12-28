@@ -19,6 +19,7 @@ import SearchUser from './components/pages/SearchUser';
 import UserProfile from './components/pages/UserProfile';
 import MessageForm from './admin/MessageForm';
 import PageNotFound from './components/pages/PageNotFound';
+import ConfirmationModal from './components/modal/ConfirmationModal';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <div className="App">
           <div>
             <Routes>
+              {/* <Route path="/" element={<ConfirmationModal />} /> */}
               <Route path="/" element={<Businesses />} />
               <Route path="/admin-info" element={<AdminInfo />} />
               <Route path="/businesses" element={<Businesses />} />
