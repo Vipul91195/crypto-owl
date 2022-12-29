@@ -14,13 +14,19 @@ import AwardPoint from '../../admin/AwardPoint';
 import AdminHeader from '../layout/AdminHeader';
 import { getCustomerProfile } from '../../Redux/customerSlice';
 import { capitalize } from '../../utils/helper';
+import { closeModal, openModal } from '../../Redux/commonSlice';
 const UserProfile = () => {
     const dispatch = useDispatch();
-    const { customerDetails } = useSelector(state => state.customerSlice);
-    const [modal, setModal] = useState(false);
+    const { customerDetails
+        // , modal 
+    } = useSelector(state => ({
+        customerDetails: state.customerSlice.customerDetails,
+        // modal: state.commonSlice.modal
+    }));
+    // const [modal, setModal] = useState(false);
     const navigate = useNavigate();
-    const showModal = (type) => setModal(type)
-    const hideModal = () => setModal(false)
+    // const showModal = (type) => setModal(type)
+    // const hideModal = () => dispatch(closeModal())
     const [showDetails, setShowDetails] = useState("details")
     const userDetails = (e) => {
         setShowDetails(e.target.id)
@@ -161,14 +167,14 @@ const UserProfile = () => {
                         </div>
                     </div>
                     <div className=" bg-[#040404] pl-[126px] lg:pl-[180px] xl:pl-[250px] 2xl:pl-[328px] pr-[24.42px] rounded-t-[20px] pt-[23px] lg:pt-[61px]">
-                        <p className='text-2xl leading-[14px] tracking-tight text-white md:text-lg lg:text-4xl lg:leading-7 2xl:text-[64px] 2xl:leading-[64px] 2xl:font-bold lg:text-pink-light '>
+                        <p className='text-2xl leading-[14px] tracking-tight text-white md:text-lg lg:text-4xl lg:leading-10 2xl:text-[64px] 2xl:leading-[64px] 2xl:font-bold lg:text-pink-light '>
                             {customerDetails?.profile?.name}
                         </p>
                         <div className='flex flex-row justify-between'>
                             <p className='text-xs leading-5 lg:text-2xl 2xl:text-[31.5066px] tracking-tight 2xl:leading-[54px] font-normal text-[#DD69AA]'>General Manager</p>
                             <div className='flex pb-[22px] md:pb-2 lg:pb-[22px]'>
                                 <div className='flex cursor-pointer'
-                                    onClick={() => showModal("message")}
+                                    onClick={() => dispatch(openModal({ type: "message"}))}
                                 >
                                     <div className='hidden md:flex'>
                                         <img className='w-5 h-5 lg:w-[30px] lg:h-[30px] 2xl:w-[39px] 2xl:h-[39px]' src={chat} alt="c" />
@@ -179,7 +185,7 @@ const UserProfile = () => {
                                     {/* <div><img src={roundedblock} alt="b" /></div>
                                     <p className='text-[21.1953px] leading-9 font-bold tracking-tight text-pink-light pl-[14px] whitespace-nowrap'>Block User</p> */}
                                     <CustomButton
-                                        onClick={() => showModal("award")}
+                                        onClick={() => dispatch(openModal({ type: "award"}))}
                                         buttonStyle="text-[10px] px-[10px] lg:px-[30px] 2xl:px-[43px] 2xl:py-[8px] lg:text-sm lg:leading-6 tracking-tight font-medium border border-[#DD69AA] 
                                     text-[#DD69AA] whitespace-nowrap"
                                     >
@@ -193,22 +199,22 @@ const UserProfile = () => {
                         {/* <div className="text-xl leading-9 font-normal text-[#979998] gap-2 flex flex-col md:gap-[6px] justify-between grow "> */}
                         <div className="gap-2 xl:gap-0 flex flex-col 2xl:gap-[6px] justify-between grow ">
                             <div className="flex gap-2">
-                                <p className="text-sm leading-[14px] font-normal lg:text-[21.1953px] lg:leading-9 lg:font-bold tracking-tight text-[#CDBEBE]">
+                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight text-[#CDBEBE]">
                                     Email:
                                 </p>
-                                <p className="text-sm leading-[14px] font-normal lg:text-[21.1953px] lg:leading-9 lg:font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.email}</p>
+                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.email}</p>
                             </div>
                             <div className="flex gap-2">
-                                <p className="text-sm leading-[14px] font-normal lg:text-[21.1953px] lg:leading-9 lg:font-bold tracking-tight text-[#CDBEBE]">
+                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight text-[#CDBEBE]">
                                     Phone:
                                 </p>
-                                <p className="text-sm leading-[14px] font-normal lg:text-[21.1953px] lg:leading-9 lg:font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.phone}</p>
+                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.phone}</p>
                             </div>
                             <div className="hidden xl:flex gap-2 ">
-                                <p className="text-[21.1953px] leading-9 font-bold tracking-tight text-[#CDBEBE]">
+                                <p className="text-[21.1953px] lg:text-[18px] leading-9 lg:leading-7 font-bold tracking-tight text-[#CDBEBE]">
                                     Address:
                                 </p>
-                                <p className="text-[21.1953px] leading-9 font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.address}</p>
+                                <p className="text-[21.1953px] lg:text-[18px] leading-9 lg:leading-7 font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.address}</p>
                             </div>
                         </div>
                         {/* <div className="hidden md:flex md:flex-col md:justify-end">
@@ -285,8 +291,8 @@ const UserProfile = () => {
                                         <p>Personal Points</p>
                                     </div>
                                     <div className='flex flex-col gap-[2px] md:gap-[10px] text-xs leading-[23px] md:text-xl md:leading-9 font-medium tracking-tight text-white text-right'>
-                                        <p>{customerDetails?.awarded_points?.business_point}</p>
-                                        <p>4000</p>
+                                        <p>{customerDetails?.awarded_points?.business_point || 0}</p>
+                                        <p>{customerDetails?.awarded_points?.personal_point || 0}</p>
                                     </div>
                                 </div>
                             </div>
@@ -301,8 +307,8 @@ const UserProfile = () => {
                                         <p>Personal Points</p>
                                     </div>
                                     <div className='flex flex-col gap-[2px] md:gap-[10px] text-xs leading-[23px] md:text-xl md:leading-9 font-medium tracking-tight text-white text-right'>
-                                        <p>10000</p>
-                                        <p>4000</p>
+                                        <p>{customerDetails?.redeemed_points?.business_point || 0}</p>
+                                        <p>{customerDetails?.redeemed_points?.personal_point || 0}</p>
                                     </div>
                                 </div>
                             </div>
@@ -316,8 +322,8 @@ const UserProfile = () => {
                                     <p>Personal Points</p>
                                 </div>
                                 <div className='flex flex-col gap-[2px] md:gap-[10px] text-xs leading-[23px] md:text-xl md:leading-9 font-medium tracking-tight text-white text-right pb-[14.73px]'>
-                                    <p>10000</p>
-                                    <p>4000</p>
+                                    <p>{customerDetails?.avaliable_balance?.business_point || 0}</p>
+                                    <p>{customerDetails?.avaliable_balance?.personal_point || 0}</p>
                                 </div>
                             </div>
                         </div>}
@@ -339,8 +345,8 @@ const UserProfile = () => {
                                 <p>Personal Points</p>
                             </div>
                             <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
-                                <p>{customerDetails?.awarded_points?.business_point}</p>
-                                <p>4000</p>
+                                <p>{customerDetails?.awarded_points?.business_point || 0}</p>
+                                <p>{customerDetails?.awarded_points?.personal_point || 0}</p>
                             </div>
                         </div>
                     </div>
@@ -355,8 +361,8 @@ const UserProfile = () => {
                                 <p>Personal Points</p>
                             </div>
                             <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
-                                <p>10000</p>
-                                <p>4000</p>
+                                <p>{customerDetails?.redeemed_points?.business_point || 0}</p>
+                                <p>{customerDetails?.redeemed_points?.personal_point || 0}</p>
                             </div>
                         </div>
                     </div>
@@ -371,8 +377,8 @@ const UserProfile = () => {
                                 <p>Personal Points</p>
                             </div>
                             <div className='flex flex-col gap-[10px] text-xl leading-9 font-medium tracking-tight text-white text-right'>
-                                <p>10000</p>
-                                <p>4000</p>
+                                <p>{customerDetails?.avaliable_balance?.business_point || 0}</p>
+                                <p>{customerDetails?.avaliable_balance?.personal_point || 0}</p>
                             </div>
                         </div>
                     </div>
@@ -411,10 +417,10 @@ const UserProfile = () => {
                     transactionType: { color: "#6D737A" },
                 }}
             />
-            <CustomModal onClose={hideModal} modal={{ isVisible: !!modal }}>
-                {modal === "message" && <MessageForm />}
-                {modal === "award" && <AwardPoint type={"user"} />}
-            </CustomModal>
+            {/* <CustomModal onClose={hideModal} modal={modal}>
+                
+                {modal.type === "award" && <AwardPoint type={"user"} />}
+            </CustomModal> */}
         </AdminLayout>
     );
 }

@@ -14,6 +14,7 @@ import TextField from '../forms/TextField'
 import { getBusinessCustomers, getBusinesses } from '../../Redux/businessSlice'
 import { useParams } from 'react-router-dom'
 import ConfirmationModal from '../modal/ConfirmationModal'
+import MessageForm from '../../admin/MessageForm'
 
 const AdminHeader = ({ type, title, showControls = true }) => {
   const { selectedIds, modal, pageSize } = useSelector(state => ({
@@ -125,6 +126,7 @@ const AdminHeader = ({ type, title, showControls = true }) => {
       <CustomModal onClose={hideModal} modal={modal}>
         {modal.type === "business" && <BusinessForm />}
         {modal.type === "customer" && <CustomerForm />}
+        {modal.type === "message" && <MessageForm />}
         {modal.type === "award" && <AwardPoint type={type} memberId={selectedIds} />}
         {modal.type === "confirm" && <ConfirmationModal />}
       </CustomModal>
