@@ -20,16 +20,13 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
         setFieldValue(e.target.name, value);
     };
 
-    const initialValues = { amount: "", reward_type: type === "customer" ? "2" : "" };
+    const initialValues = { amount: "", reward_type: type === "customer" || type === "user-profile" ? "2" : "" };
     const [members, setMembers] = useState(null);
     const [options, setOptions] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const dispatch = useDispatch();
-    const { business_id } = useParams();
+    const { business_id, member_id } = useParams();
     const handleAwardSubmit = (values) => {
-        // console.log("values : ", values);
-        // console.log("members : ", members);
-        
         business_id
           ? dispatch(
               addRewardPoints({
@@ -37,9 +34,13 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
                 business_id: business_id,
               })
             )
-          : dispatch(
+          : member_id ? 
+          dispatch(
+            addRewardPoints({ data: { ...values, member_id: [member_id] }, member_id })
+          )
+          :  dispatch(
               addRewardPoints({ data: { ...values, member_id: members } })
-            );
+            )
     }
     useEffect(() => {
         setMembers(Object.keys(selectedIds).filter(selectedId => selectedIds[selectedId]))
@@ -52,7 +53,7 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
         pointsTypes && setOptions(pointsTypes.map(pointType => ({ name: pointType.reward_name, value: pointType.id })));
         // pointsTypes && console.log(pointsTypes.filter(pointType => pointType.id === 2).map(pointType => ({ name: pointType.reward_name, value: pointType.id }))[0] );
         
-        (type === "customer" || type === "user") && pointsTypes &&  
+        (type === "customer" || type === "user-profile") && pointsTypes &&  
             setSelectedOption(pointsTypes.filter(pointType => pointType.id === 2).map(pointType => ({ name: pointType.reward_name, value: pointType.id }))[0]);
     }, [pointsTypes]);
 
@@ -82,9 +83,9 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
                         <Dropdown
                             inputstyle='w-[163px] xl:w-[304px] text-white text-base leading-[10px] xl:text-2xl outline-none h-[25px] py-[12px] flex items-center xl:h-[48px] rounded-[5px] xl:rounded-2xl bg-[#303030] xl:bg-[#101010] pl-2 xl:pl-5'
                             options={options}
-                            disabled={type === "customer" || type === "user"}
-                            // selected={type === "customer" || type === "user" ? { name: 'Personal Points', value: '2' } : null}
-                            // selected={type === "customer" || type === "user" ? pointsTypes ? pointsTypes.filter(pointType => pointType.name === 'Personal Points')[0] : null : null}
+                            disabled={type === "customer" || type === "user-profile"}
+                            // selected={type === "customer" || type === "user-profile" ? { name: 'Personal Points', value: '2' } : null}
+                            // selected={type === "customer" || type === "user-profile" ? pointsTypes ? pointsTypes.filter(pointType => pointType.name === 'Personal Points')[0] : null : null}
                             // selected={options.filter(option => option?.name === 'Personal Points')}
                             selected={selectedOption}
                             id="reward_type"

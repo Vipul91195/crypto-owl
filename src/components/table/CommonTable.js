@@ -7,6 +7,7 @@ import { Arrow } from '../icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedIds } from '../../Redux/commonSlice';
 import { getBusinesses } from '../../Redux/businessSlice';
+import { Oval } from 'react-loader-spinner';
 
 const CommonTable = ({
   columns,
@@ -161,7 +162,7 @@ const CommonTable = ({
             ))}
           </thead>
           <tbody {...getTableBodyProps()} className={BodyClasses}>
-            {rows.map((row) => {
+            {!isLoading && rows.map((row) => {
               prepareRow(row);
               return (
                 <tr
@@ -245,6 +246,18 @@ const CommonTable = ({
             })}
           </tbody>
         </table>
+        {isLoading && 
+          <div className='w-full py-10 flex justify-center'>
+          <Oval
+                  color="#FFFFFF"
+                  height={30}
+                  width={30}
+                  secondaryColor="#FAFAFA"
+                  strokeWidth={2}
+                  strokeWidthSecondary={2}
+                />
+          </div> 
+        }
       </div>
       {/* <div className="flex justify-center md:justify-end h-max items-center gap-12">
         <ReactPaginate

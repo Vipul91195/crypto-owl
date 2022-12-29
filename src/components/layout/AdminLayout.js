@@ -3,7 +3,6 @@ import home from '../../assets/img/home.svg'
 import user from '../../assets/img/user.svg'
 import report from '../../assets/img/report.svg'
 import searchUser from '../../assets/img/searchUser.svg'
-import ConfirmModal from '../ConfirmModal';
 
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,6 +12,8 @@ import { InputField } from '../forms/InputField'
 import { CloseFilled, MobMenu, SearchIcon } from '../icons'
 import classNames from 'classnames'
 import { Link } from "react-router-dom";
+import NotifyModal from '../modal/NotifyModal'
+import ConfirmationModal from '../modal/ConfirmationModal'
 
 const tabs = [
     // { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -38,7 +39,7 @@ export const AdminLayout = ({ children }) => {
                     <div className='border-b border-[#FFFFFF]/[10%] pt-32'></div>
                     <div className='pt-7'>
                         {tabs.map((tab, i) => (
-                            <Link to={tab.route}>
+                            <Link key={i} to={tab.route}>
                                 <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
                                     {tab.route === route.pathname &&
                                         <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>
@@ -72,7 +73,7 @@ export const AdminLayout = ({ children }) => {
                     {children}
                 </div>
             </div >
-            <ConfirmModal />
+            <NotifyModal />
         </RouteMiddleware>
     )
 }

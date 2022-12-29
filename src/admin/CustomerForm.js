@@ -27,7 +27,24 @@ const CustomerForm = () => {
   }
 
   const handleLoginSubmit = (values) => {
-    business_id && dispatch(addCustomer({ business_id: business_id, customer: values }));
+    const formData = new FormData();
+    {/**
+    {
+    "name":"Kartik",
+    "email":"employee1@gmail.com",
+    "phone_no":"1234567890",
+    "address":"abc",
+    "profile_picture": "atew"
+}
+   */}
+    formData.append('name', values.name);
+    formData.append('phone_no', values.phone_no);
+    formData.append('email', values.email);
+    formData.append('address', values.address);
+    // formData.append('profile_picture', values.profile_picture || '');
+    formData.append('user_profile_pic', values.user_profile_pic || '');
+    // dispatch(addBusinesses(formData));
+    business_id && dispatch(addCustomer({ business_id: business_id, customer: formData }));
   }
   const handleBulkUpload = (values) => {
     const data = new FormData();
@@ -36,6 +53,7 @@ const CustomerForm = () => {
       dispatch(addBulkCustomer({ business_id: business_id, customers: data }));
   }
   const initialValues = { user_profile_pic: null, name: "", email: "", phone_no: "", address: "" };
+  // const initialValues = { profile_picture: null, name: "", email: "", phone_no: "", address: "" };
   return (
     <div className="min-w-[304px] xl:min-w-[597px] w-full">
       <div className="bg-[#101010] pt-1 xl:h-[68px] text-left text-xl leading-9 text-white xl:text-[34px] xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight pl-5 xl:pl-[31px] ">
@@ -102,11 +120,11 @@ const CustomerForm = () => {
             <form onSubmit={handleSubmit} encType="multipart/form-data">
               <div className="pt-[13px] pb-[25px] xl:pt-6 xl:pb-6 bg-[#1C1C1C] px-5 xl:px-[31.5px]">
                 <div className="flex text-left flex-col gap-[14px] md:gap-3 xl:gap-[30px] 2xl:gap-[35px]">
-                  {/* <div>
+                  <div>
                           <input id="file" name="user_profile_pic" type="file" onChange={(event) => {
                               setFieldValue("user_profile_pic", event.currentTarget.files[0]);
                           }} />
-                      </div> */}
+                      </div>
                   <div>
                     <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
                       Name<span className="text-[#DD69AA]">*</span>

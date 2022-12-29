@@ -60,16 +60,16 @@ export const addBusinessApi = async (params, { rejectWithValue, dispatch }) => {
   }
 }
 
-export const removeBusinessApi = async (params, { rejectWithValue }) => {
-  // try {
-  //   const response = await ApiMiddleware.delete("/admin/...", {
-  //     ...params,
-  //   });
-  //   return response.data;
-  // } catch (error) {
-  //   if (!error.response) {
-  //     throw rejectWithValue(error);
-  //   }
-  //   throw rejectWithValue(error.response.data.message);
-  // }
-}
+// export const removeBusinessApi = async (params, { rejectWithValue }) => {
+//   try {
+//     const response = await ApiMiddleware.patch("/admin/remove/user/", {
+//       ...params,
+//     });
+//     return response.data;
+//   } catch (error) {
+//     if (!error.response) {
+//       throw rejectWithValue(error);
+//     }
+//     throw rejectWithValue(error.response.data.message);
+//   }
+// }
