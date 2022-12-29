@@ -11,12 +11,12 @@ const ConfirmationModal = () => {
         isLoading: state.commonSlice.isLoading,
         selectedIds: state.commonSlice.tableData.selectedIds
     }));
-    const { business_id } = useParams();
+    const { business_id, member_id } = useParams();
 
     const [members, setMembers] = useState(null);
     
     const handleConfirm = () => {
-        members && business_id ? dispatch(removeBusiness({ business_id, data:{ member_id: members }})): dispatch(removeBusiness({ data:{ member_id: members } }));
+        members && business_id ? dispatch(removeBusiness({ business_id, data:{ member_id: members }})): member_id ? dispatch(removeBusiness({member_id, data:{ member_id: [member_id] } })) : dispatch(removeBusiness({ data:{ member_id: members } }));
     }
     
     const handleCancel = () => {

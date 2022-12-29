@@ -39,7 +39,7 @@ export const AdminLayout = ({ children }) => {
                     <div className='border-b border-[#FFFFFF]/[10%] pt-32'></div>
                     <div className='pt-7'>
                         {tabs.map((tab, i) => (
-                            <Link to={tab.route}>
+                            <Link key={i} to={tab.route}>
                                 <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
                                     {tab.route === route.pathname &&
                                         <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>

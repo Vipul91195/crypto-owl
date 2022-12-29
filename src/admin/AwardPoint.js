@@ -25,11 +25,8 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
     const [options, setOptions] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const dispatch = useDispatch();
-    const { business_id } = useParams();
+    const { business_id, member_id } = useParams();
     const handleAwardSubmit = (values) => {
-        // console.log("values : ", values);
-        // console.log("members : ", members);
-        
         business_id
           ? dispatch(
               addRewardPoints({
@@ -38,7 +35,7 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
               })
             )
           : dispatch(
-              addRewardPoints({ data: { ...values, member_id: members } })
+              addRewardPoints({ data: { ...values, member_id: [member_id] || members } })
             );
     }
     useEffect(() => {

@@ -17,6 +17,13 @@ export const removeAccessToken = (token) => {
   return Cookies.remove("crypt-access");
 }
 
+export const capitalize = (value) =>  {
+  if(typeof value === 'string' && value.length > 1) {
+    return value[0].toUpperCase()+value.slice(1);
+  }
+  return null;
+}
+
 export const SelectColumnFilter = ({
   column: { filterValue, setFilter, preFilteredRows, id },
 }) => {

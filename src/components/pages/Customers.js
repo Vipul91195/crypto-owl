@@ -126,9 +126,9 @@ const Customers = () => {
     {
       Header: "Name",
       accessor: (row) => {
-        const { customerImage, name } = row;
+        const { customerImage, name, member_id } = row;
         return (
-          <div onClick={() => navigate('/user-profile')} className="flex gap-[16px] items-center cursor-pointer">
+          <div onClick={() => navigate(`/user-profile/${member_id}`)} className="flex gap-[16px] items-center cursor-pointer">
             <div className="w-[30px] h-[30px] 2xl:w-[45.42px] 2xl:h-[45.42px] rounded-[10px] 2xl:rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black">
               {customerImage && customerImage !== "" ? (
                 <img src={customerImage} alt="test" />

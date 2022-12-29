@@ -95,9 +95,11 @@ const loginSlice = createSlice({
             if (payload.keepMeLogin) {
                 cookies.set('crypt-access', payload?.result[0]?.token?.access, { expires: 1 });
                 cookies.set('crypt-refresh', payload?.result[0]?.token?.refresh, { expires: 1 });
+                cookies.set('is-admin', payload?.result[0]?.is_admin, { expires: 1 });
             } else {
                 cookies.set('crypt-access', payload?.result[0]?.token?.access);
                 cookies.set('crypt-refresh', payload?.result[0]?.token?.refresh);
+                cookies.set('is-admin', payload?.result[0]?.is_admin);
             }
             toast.success(payload?.message);
         },

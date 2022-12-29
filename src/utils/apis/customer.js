@@ -19,6 +19,18 @@ export const addCustomerApi = async (params, { rejectWithValue, dispatch }) => {
   }
 }
 
+export const getCustomerProfileApi = async (params, { rejectWithValue }) => {
+  try {
+    const response = await ApiMiddleware.get(`/admin/get/user/profile/?member_id=${params?.member_id}`);
+    return response.data;
+  } catch (error) {
+    if (!error.response) {
+      throw rejectWithValue(error);
+    }
+    throw rejectWithValue(error.response.data.message);
+  }
+}
+
 export const addBulkCustomerApi = async (params, { rejectWithValue, dispatch }) => {
   try {
     const response = await ApiMiddleware.post(`/admin/add/customer/csv/${params?.business_id}/`, params?.customers, {

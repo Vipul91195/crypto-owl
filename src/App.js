@@ -37,7 +37,7 @@ function App() {
               <Route path="/customers/:business_id" element={<Customers />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/search-user" element={<SearchUser />} />
-              <Route path="/user-profile" element={<UserProfile />} />
+              <Route path="/user-profile/:member_id" element={<UserProfile />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forgot" element={<Forgot />} />
               <Route path="/verifyOtp" element={<VerifyOtp />} />

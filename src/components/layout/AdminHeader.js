@@ -65,16 +65,16 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           />
           <CustomButton
             type="submit"
-            disabled={!anySelected}
+            disabled={type !== "user-profile" && !anySelected}
             onClick={() =>
-              dispatch(dispatch(openModal({ type: "confirm" })))
+              dispatch(openModal({ type: "confirm" }))
             }
             buttonStyle="hidden md:block lg:leading-[16px] 2xl:leading-6 4xl:w-screen w-full 4xl:max-w-[200px] px-3 2xl:px-6 4xl:px-0 py-[6px] lg:py-2 xl:py-3 lg:text-sm h-max 4xl:h-[51px] text-[12px] 2xl:text-sm  border border-[#DD69AA] font-medium rounded-[12px] 2xl:rounded-2xl text-[#DD69AA]"
           >
             Remove
           </CustomButton>
           <CustomButton
-            disabled={!anySelected}
+            disabled={type !== "user-profile" && !anySelected}
             onClick={() => { dispatch(openModal({ type: "award" })) }}
             buttonStyle="hidden md:block lg:leading-[16px] 2xl:leading-6 4xl:w-screen w-full 4xl:max-w-[200px] px-3 2xl:px-6 4xl:px-0 py-[6px] lg:py-2 xl:py-3 lg:text-sm h-max 4xl:h-[51px] text-[12px] 2xl:text-sm border border-[#DD69AA] font-medium rounded-[12px] 2xl:rounded-2xl text-[#DD69AA] whitespace-nowrap"
           >
@@ -99,10 +99,10 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           </button>
           <button
             className="block md:hidden p-[3px] group relative"
-            disabled={!anySelected}
-            onClick={() => dispatch(dispatch(openModal({ type: "confirm" })))}
+            disabled={type !== "user-profile" && !anySelected}
+            onClick={() => dispatch(openModal({ type: "confirm" }))}
           >
-            <CloseFilled className={classNames({ "text-[#DD69AA]": anySelected }, { "text-gray-500": (!selectedIds || !anySelected) })} />
+            <CloseFilled className={classNames({ "text-[#DD69AA]": type === "user-profile" || anySelected }, { "text-gray-500": type !== "user-profile" && (!selectedIds || !anySelected) })} />
             <div className="bg-[#101010] z-10 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
               <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
                 Remove
@@ -110,10 +110,10 @@ const AdminHeader = ({ type, title, showControls = true }) => {
             </div>
           </button>
           <button className="block md:hidden p-[3px] group relative"
-            disabled={!anySelected}
+            disabled={type !== "user-profile" && !anySelected}
             onClick={() => dispatch(openModal({ type: "award" }))}
           >
-            <StarFilled className={classNames({ "text-[#DD69AA]": anySelected }, { "text-gray-500": (!selectedIds || !anySelected) })} />
+            <StarFilled className={classNames({ "text-[#DD69AA]": type === "user-profile" || anySelected }, { "text-gray-500": type !== "user-profile" && (!selectedIds || !anySelected) })} />
             <div className="bg-[#101010] z-10 ml-[-40px] group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
               <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
                 Award Points
