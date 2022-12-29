@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addRewardPointsApi, getPointTypesApi } from "../utils/apis/admin";
+import { addRewardPointsApi, getPointTypesApi, sendMessageApi } from "../utils/apis/admin";
 import toast from 'react-hot-toast';
 import { addBusinessApi } from "../utils/apis/businesses";
 import { addBulkCustomerApi, addCustomerApi } from "../utils/apis/customer";
@@ -32,6 +32,8 @@ export const getPointTypes = createAsyncThunk('reward/types', getPointTypesApi)
 export const addBusinesses = createAsyncThunk('business/add', addBusinessApi)
 export const addCustomer = createAsyncThunk('customer/add', addCustomerApi)
 export const addBulkCustomer = createAsyncThunk('customer/multiple/add', addBulkCustomerApi)
+export const sendMessage = createAsyncThunk('user/message', sendMessageApi)
+
 
 const commonSlice = createSlice({
   name: "loginPage",
@@ -131,14 +133,12 @@ const commonSlice = createSlice({
     [addBulkCustomer.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       toast.success(
-        `${payload?.result[0]?.total_added_employee > 0 ? payload?.result[0]?.total_added_employee : ''} ${
-          payload?.result[0]?.total_added_employee > 0 ? Number(payload?.result[0]?.total_added_employee) > 1
-            ? "customers added successfully. \n\n"
-            : "customer added successfully. \n\n" : ''
-        } ${ payload?.result[0]?.not_added_employees.length > 0 ? payload?.result[0]?.not_added_employees.map(customer => customer.index).join() : ""} ${
-          payload?.result[0]?.not_added_employees.length > 0 ? payload?.result[0]?.not_added_employees.length > 1
-            ? "customers are not added. \n\n"
-            : "customer is not added.\n\n" : ""
+        `${payload?.result[0]?.total_added_employee > 0 ? payload?.result[0]?.total_added_employee : ''} ${payload?.result[0]?.total_added_employee > 0 ? Number(payload?.result[0]?.total_added_employee) > 1
+          ? "customers added successfully. \n\n"
+          : "customer added successfully. \n\n" : ''
+        } ${payload?.result[0]?.not_added_employees.length > 0 ? payload?.result[0]?.not_added_employees.map(customer => customer.index).join() : ""} ${payload?.result[0]?.not_added_employees.length > 0 ? payload?.result[0]?.not_added_employees.length > 1
+          ? "customers are not added. \n\n"
+          : "customer is not added.\n\n" : ""
         } ${payload?.result[0]?.already_exist_employee.length > 0 ? payload?.result[0]?.already_exist_employee.map(customer => customer?.row[0] + " already exists.").join("\n") : ''} `
       );
       state.modal = {
@@ -162,6 +162,21 @@ const commonSlice = createSlice({
     },
     [getPointTypes.rejected]: (state) => {
       state.pointTypesLoading = false;
+    },
+    [sendMessage.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload || "Something went wrong.");
+    },
+    [sendMessage.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [sendMessage.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.success(payload?.message || "Success");
+      state.modal = {
+        ...state.modal,
+        isVisible: false,
+      };
     },
   },
 });
