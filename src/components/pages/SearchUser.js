@@ -20,6 +20,7 @@ const SearchUser = () => {
         !searchTerm && dispatch(clearGlobalSearch());
         searchTerm && searchTerm !== "" && dispatch(searchUser({ search: searchTerm }));
     }, [searchTerm]);
+
     return (
         <AdminLayout>
             <AdminHeader type="search" title="Search User" showControls={false} />
@@ -27,7 +28,7 @@ const SearchUser = () => {
                 <div className='w-full max-w-[280px] md:max-w-[400px] 2xl:max-w-[660px] relative'>
                     <TextField
                         iconAfter={
-                        <SearchIcon className="h-[14px] 2xl:h-[17px] hidden md:block w-[14px] 2xl:w-[17px]" />
+                            <SearchIcon className="h-[14px] 2xl:h-[17px] hidden md:block w-[14px] 2xl:w-[17px]" />
                         }
                         type="text"
                         name="searchTerm"
@@ -39,7 +40,7 @@ const SearchUser = () => {
                     {globalSearch && (globalSearch.length > 0) &&
                         <div className='absolute w-max min-w-full grid gap-1 py-4 rounded-xl max-h-[300px] overflow-y-auto'>
                             {globalSearch.map(user => (
-                                <p onClick={() => navigate(`/user-profile/${user?.member_id}`) } className='text-white cursor-pointer px-5 py-3 bg-[#101010] hover:bg-black hover:text-[#DD69AA] lg:text-[16px] 2xl:text-5 leading-5 rounded-xl w-full' >{user?.username}</p>
+                                <p onClick={() => navigate(`/user-profile/${user?.member_id}`)} className='text-white cursor-pointer px-5 py-3 bg-[#101010] hover:bg-black hover:text-[#DD69AA] lg:text-[16px] 2xl:text-5 leading-5 rounded-xl w-full' >{user?.username}</p>
                             ))}
                         </div>
                     }
