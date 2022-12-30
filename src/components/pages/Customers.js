@@ -47,12 +47,12 @@ const Customers = () => {
   const navigate = useNavigate();
   const showModal = (type) => setModal(type)
   const hideModal = () => setModal(false)
-  const {business_id} = useParams();
+  const { business_id } = useParams();
 
   // console.log(businessDetails);
   useEffect(() => {
-    business_id && dispatch(getBusinessCustomers({business_id : business_id}));
-    business_id && dispatch(getBusiness({business_id : business_id}));
+    business_id && dispatch(getBusinessCustomers({ business_id: business_id }));
+    business_id && dispatch(getBusiness({ business_id: business_id }));
   }, [business_id])
 
   const [currentPageLocal, setCurrentPageLocal] = useState(1);
@@ -61,12 +61,12 @@ const Customers = () => {
   // const handlePageClick = (page) => { 
   //   dispatch(getBusinessCustomers({business_id : business_id, page: page.selected + 1 , page_size: pageSize }))
   // }
-  const handlePageClick = (page) => { 
+  const handlePageClick = (page) => {
     dispatch(setCurrentPage(page.selected + 1));
   }
 
   useEffect(() => {
-    dispatch(getBusinessCustomers({business_id : business_id, page: currentPage, filter: selectedFilter }))
+    dispatch(getBusinessCustomers({ business_id: business_id, page: currentPage, filter: selectedFilter }))
   }, [currentTable, currentPage, dispatch, selectedFilter]);
 
   // useEffect(() => {
@@ -74,7 +74,7 @@ const Customers = () => {
   // dispatch(getBusinessCustomers({ page: 1, page_size: pageSize, filter: selectedFilter }))
   // }, [currentTable, dispatch, selectedFilter]);
 
-  
+
   /**   temp code */
   const data = React.useMemo(() => [
     {
@@ -191,8 +191,8 @@ const Customers = () => {
         {/* <div className="absolute pt-10 pl-[65px] max-w-[81.39px] max-h-[81.39px] lg:max-w-[142px] xl:max-w-[170px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]">
           <img src={businessIcon} alt="businessIcon" />
         </div> */}
-        <div className="absolute pt-4 pl-[14px] 2xl:pt-14 2xl:pl-[42px]">
-          <div className='relative max-w-[82.39px] max-h-[82.39px] lg:max-w-[140px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
+        <div className="absolute pt-4 pl-[14px] 2xl:pt-[40px] 2xl:pl-[42px]">
+          <div className='relative max-w-[82.39px] max-h-[82.39px]  lg:max-w-[130px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
             {/* <img src={businessIcon} alt="businessIcon" /> */}
             <img
               src={businessDetails?.business_logo || businessIcon}
@@ -201,7 +201,7 @@ const Customers = () => {
           </div>
         </div>
         <div className="text-2xl leading-4 tracking-tight font-bold text-white pt-[17.9px] pb-[7.91px] pl-[109px] lg:pl-[170px] lg:text-4xl 2xl:text-5xl 2xl:leading-9  2xl:text-[#CDBEBE] 2xl:pt-10 2xl:pb-[18px] bg-[#040404] 2xl:pl-[279px] rounded-t-[20px]">
-        {businessDetails?.business_name}
+          {businessDetails?.business_name}
         </div>
         <div className="flex flex-col lg:flex lg:flex-row 2xl:items-center pt-[3px] 2xl:pl-[279px] lg:pr-[30px] 2xl:pt-2 2xl:pb-[18px] bg-[#101010]">
           <div className="text-sm pl-[109px] lg:pl-[170px] lg:text-lg 2xl:pl-0 pr-[15px] 2xl:pr-0 pb-[12.11px] 2xl:pb-0 leading-4 tracking-tight 2xl:text-xl 2xl:leading-9 font-normal text-[#979998] flex flex-col gap-[4px] lg:gap-0 2xl:gap-[6px] justify-between grow">
@@ -218,10 +218,10 @@ const Customers = () => {
               <p className="text-[#DD69AA]">{businessDetails?.member_id}</p>
             </div>
           </div>
-          <span className="hidden lg:flex h-[100px] w-[1px] mx-[55px] bg-[#979998] lg:text-center"></span>
-          <div className="hidden lg:flex text-xl leading-9 font-normal text-[#979998] lg:text-lg  2xl:flex flex-col gap-[6px] lg:gap-0 2xl:gap-[6px] justify-between grow pb-[12.11px]">
+          <span className="hidden lg:flex lg:h-[70px] mt-[7px] 2xl:h-[100px] w-[1px] lg:mx-[20px] xl:mx-[40px] 2xl:mx-[55px] bg-[#979998] lg:text-center"></span>
+          <div className="hidden lg:flex text-xl leading-9 font-normal text-[#979998] lg:text-lg 2xl:text-xl 2xl:leading-9  2xl:flex flex-col gap-[6px] lg:gap-0 2xl:gap-[6px] justify-between grow pb-[12.11px]">
             <div className="flex justify-between">
-              <p className="text-xl leading-9 font-normal text-[#979998]">
+              <p >
                 Owner
               </p>
               <p className="text-[#DD69AA]">{businessDetails?.owner}</p>
@@ -258,9 +258,9 @@ const Customers = () => {
         </div>
       </div>
       <div className="mt-3 md:mt-[38px] 2xl:mt-[20px]">
-      {Array.isArray(businessCustomers) ? (
-        <CommonTable
-        initialState={initialState}
+        {Array.isArray(businessCustomers) ? (
+          <CommonTable
+            initialState={initialState}
             showSelectCheck={businessCustomers}
             data={businessCustomers || [{ no_data: "No Data" }]}
             columns={
@@ -268,60 +268,60 @@ const Customers = () => {
                 ? columns
                 : [{ Header: "", accessor: "no_data" }]
             }
-          // showSelectCheck
-          // columns={columns}
-          // data={data}
-          selectionColumn="member_id"
-          filteredColumns={["Status"]}
-          heightLightRow={{ memberId: businessDetails?.member_id }}
-          // heightLightRow={{ memberId: "MEM0001" }}
-          // heighLightCellPostfix={{ name: "(owner)" }}
-          HeaderClasses="bg-[#040404] text-[#DD69AA]"
-          HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
-          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
-          tableClasses="w-full rounded-[20px] overflow-hidden"
-          BodyClasses="text-white bg-[#101010]"
-          containerClasses="min-h-[20vh] h-max overflow-auto"
-          headerClasses={{
-            selected: { padding: "0" },
-            Name: { textAlign: "left", maxWidth: "399px" },
-            businessPoints: {
-              textAlign: "center",
-              whiteSpace: "pre-wrap",
-              maxWidth: "90px",
-            },
-            personalPoints: {
-              textAlign: "center",
-              whiteSpace: "pre-wrap",
-              maxWidth: "90px",
-            },
-          }}
-          cellTextClassName={{
-            emailId: { justifyContent: "center", width: "100%" },
-            Name: { justifyContent: "left", width: "100%" },
-            selected: { padding: "0", width: "18px" },
-          }}
-          cellClasses={{
-            selected: { paddingInline: "22px 15px", width: "18px" },
-            Name: {
-              textAlign: "left",
-              fontSize: "16px",
-              fontWeight: "700",
-              maxWidth: "280px",
-              lineHeight: "1px",
-              "@media (max-width: 1536px)": {
-                fontSize: "21px",
-                maxWidth: "369px",
-                lineHeight: "24px",
+            // showSelectCheck
+            // columns={columns}
+            // data={data}
+            selectionColumn="member_id"
+            filteredColumns={["Status"]}
+            heightLightRow={{ memberId: businessDetails?.member_id }}
+            // heightLightRow={{ memberId: "MEM0001" }}
+            // heighLightCellPostfix={{ name: "(owner)" }}
+            HeaderClasses="bg-[#040404] text-[#DD69AA]"
+            HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+            cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
+            tableClasses="w-full rounded-[20px] overflow-hidden"
+            BodyClasses="text-white bg-[#101010]"
+            containerClasses="min-h-[20vh] h-max overflow-auto"
+            headerClasses={{
+              selected: { padding: "0" },
+              Name: { textAlign: "left", maxWidth: "399px" },
+              businessPoints: {
+                textAlign: "center",
+                whiteSpace: "pre-wrap",
+                maxWidth: "90px",
               },
-            },
-            // personal_points: {
-            //   textAlign: "center",
-            //   whiteSpace: "pre-wrap",
-            //   maxWidth: "90px",
-            // },
-            email: { textAlign: "center", color: "#DD69AA" },
-          }}
+              personalPoints: {
+                textAlign: "center",
+                whiteSpace: "pre-wrap",
+                maxWidth: "90px",
+              },
+            }}
+            cellTextClassName={{
+              emailId: { justifyContent: "center", width: "100%" },
+              Name: { justifyContent: "left", width: "100%" },
+              selected: { padding: "0", width: "18px" },
+            }}
+            cellClasses={{
+              selected: { paddingInline: "22px 15px", width: "18px" },
+              Name: {
+                textAlign: "left",
+                fontSize: "16px",
+                fontWeight: "700",
+                maxWidth: "280px",
+                lineHeight: "1px",
+                "@media (max-width: 1536px)": {
+                  fontSize: "21px",
+                  maxWidth: "369px",
+                  lineHeight: "24px",
+                },
+              },
+              // personal_points: {
+              //   textAlign: "center",
+              //   whiteSpace: "pre-wrap",
+              //   maxWidth: "90px",
+              // },
+              email: { textAlign: "center", color: "#DD69AA" },
+            }}
             handleRowSelect={setSelectedIds}
             isLoading={isLoading}
           />
