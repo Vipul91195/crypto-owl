@@ -3,8 +3,6 @@ import home from '../../assets/img/home.svg'
 import user from '../../assets/img/user.svg'
 import report from '../../assets/img/report.svg'
 import searchUser from '../../assets/img/searchUser.svg'
-
-
 import { useLocation, useNavigate } from 'react-router-dom';
 import RouteMiddleware from '../RouteMiddleware'
 import { Form, Formik } from 'formik'
@@ -14,6 +12,7 @@ import classNames from 'classnames'
 import { Link } from "react-router-dom";
 import NotifyModal from '../modal/NotifyModal'
 import ConfirmationModal from '../modal/ConfirmationModal'
+import Loader from '../loader/Loader'
 
 const tabs = [
     // { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -22,13 +21,14 @@ const tabs = [
     { name: 'Search User', icon: searchUser, route: "/search-user" }
 ];
 
-export const AdminLayout = ({ children }) => {
+export const AdminLayout = ({ children, isLoading }) => {
     const route = useLocation();
     const navigate = useNavigate();
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const handleMobileMenu = () => {
         setShowMobileMenu(!showMobileMenu);
     }
+    if (isLoading) return <Loader />
     return (
         <RouteMiddleware>
             <div className='md:grid md:grid-cols-[200px,auto] 2xl:grid-cols-[290px,auto] font-Sans overflow-hidden relative'>
@@ -70,6 +70,7 @@ export const AdminLayout = ({ children }) => {
                             <MobMenu className="text-[#DD69AA]" />
                         </div>
                     </div>
+                    {/* {isLoading ? <Loader /> : children} */}
                     {children}
                 </div>
             </div >
