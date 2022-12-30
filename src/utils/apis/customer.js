@@ -31,6 +31,18 @@ export const getCustomerProfileApi = async (params, { rejectWithValue }) => {
   }
 }
 
+export const getTransactionHistoryApi = async (params, { rejectWithValue }) => {
+  try {
+    const response = await ApiMiddleware.get(`/transaction/history/?member_id=${params?.member_id}&page=${params?.page || '1'}${params?.search ? '&search='+params?.search : ''}${params?.page_size ? '&page_size='+params?.page_size : ''}`);
+    return response.data;
+  } catch (error) {
+    if (!error.response) {
+      throw rejectWithValue(error);
+    }
+    throw rejectWithValue(error.response.data.message);
+  }
+}
+
 export const addBulkCustomerApi = async (params, { rejectWithValue, dispatch }) => {
   try {
     const response = await ApiMiddleware.post(`/admin/add/customer/csv/${params?.business_id}/`, params?.customers, {

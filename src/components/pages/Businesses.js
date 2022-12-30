@@ -18,6 +18,7 @@ import { getBusinesses } from '../../Redux/businessSlice';
 import AdminHeader from '../layout/AdminHeader';
 import { SelectColumnFilter } from '../../utils/helper';
 import ReactPaginate from 'react-paginate';
+import { capitalize } from 'lodash';
 
 const Businesses = () => {
 
@@ -100,9 +101,8 @@ const Businesses = () => {
     },
     {
       Header: "Status",
-      accessor: (row) => {
-        const { status } = row;
-        return <p className={classNames({ 'text-[#DD69AA]': status === "Active", 'text-[#858383]': status === "Inactive" })}  >{status}</p>
+      accessor: ({ status }) => {
+        return <p className={classNames({ 'text-[#DD69AA]': status === "active", 'text-[#A6A6A6]': status === "inactive" })}  >{capitalize(status)}</p>
       },
       Filter: SelectColumnFilter,
       filter: "includes",
@@ -133,7 +133,7 @@ const Businesses = () => {
           tableClasses="w-full rounded-[20px] overflow-hidden"
           BodyClasses="text-white bg-[#101010]"
           containerClasses="min-h-[20vh] h-max overflow-x-auto"
-          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
+          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center text-[#A6A6A6]"
           headerClasses={{
             owner_name: { textAlign: "right" },
             Business: { textAlign: "left" },
@@ -154,8 +154,10 @@ const Businesses = () => {
             owner_name: { justifyContent: "right", width: "100%" },
           }}
           cellClasses={{
-            Business: { textAlign: "left" },
+            Business: { textAlign: "left", fontWeight: "700", color: "#CDBEBE" },
+            owner_email: { color: "#DD69AA" },
             owner_name: {
+              color: "#CDBEBE",
               textAlign: "right",
               fontSize: "16px",
               fontWeight: "700",
