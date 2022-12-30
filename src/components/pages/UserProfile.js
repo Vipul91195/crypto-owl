@@ -31,10 +31,10 @@ const UserProfile = () => {
     const userDetails = (e) => {
         setShowDetails(e.target.id)
     }
-    const {member_id} = useParams();
+    const { member_id } = useParams();
 
     useEffect(() => {
-        member_id && dispatch(getCustomerProfile({member_id}));
+        member_id && dispatch(getCustomerProfile({ member_id }));
     }, [member_id]);
 
     /**   temp code */
@@ -156,65 +156,118 @@ const UserProfile = () => {
     return (
         <AdminLayout>
             {/* <AdminHeader type="user-profile" title="User Profile" showControls={false} /> */}
-            <AdminHeader type="user-profile" title="User Profile" />
+            <AdminHeader className="" type="user-profile" title="User Profile" />
             <div className=''>
                 {/* <h1 className='text-[34px] leading-[42px] tracking-tight font-bold text-pink-light'>User Profile</h1> */}
                 {/* <div className="pt-[18px] lg:pt-[50.94px] rounded-b-[20px] overflow-hidden relative"> */}
-                <div className="pt-[18px] lg:pt-[30px] rounded-b-[20px] overflow-hidden relative">
-                    <div className="absolute pt-4 pl-4 md:pt-6 lg:pt-14 xl:pl-[42px] ">
-                        <div className='relative max-w-[84.72px] max-h-[98.39px] lg:max-w-[142px] xl:max-w-[170px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
+                <div className="pt-[18px] 2xl:pt-[30px] rounded-b-[20px] overflow-hidden relative">
+                    <div className="absolute pt-4 pl-4 md:pt-6 2xl:pt-14 xl:pl-[42px] ">
+                        <div className='relative max-w-[84.72px] md:max-w-[86px] max-h-[98.39px] lg:max-w-[125px] xl:max-w-[140px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
                             <img src={customerDetails?.profile?.profile_picture || profilepic} alt="businessIcon" />
                         </div>
                     </div>
-                    <div className=" bg-[#040404] pl-[126px] lg:pl-[180px] xl:pl-[250px] 2xl:pl-[328px] pr-[24.42px] rounded-t-[20px] pt-[23px] lg:pt-[61px]">
-                        <p className='text-2xl leading-[14px] tracking-tight text-white md:text-lg lg:text-4xl lg:leading-10 2xl:text-[64px] 2xl:leading-[64px] 2xl:font-bold lg:text-pink-light '>
+                    <div className=" bg-[#040404] pl-[126px] lg:pl-[180px] xl:pl-[220px] 2xl:pl-[328px] pr-[24.42px] rounded-t-[20px] pt-[23px] 2xl:pt-[61px]">
+                        <p className='text-2xl leading-[14px] tracking-tight text-white md:text-lg lg:text-4xl lg:leading-10 2xl:text-[64px] 2xl:leading-[36px] 2xl:font-bold lg:text-pink-light 2xl:mb-2'>
                             {customerDetails?.profile?.name}
                         </p>
                         <div className='flex flex-row justify-between'>
                             <p className='text-xs leading-5 lg:text-2xl 2xl:text-[31.5066px] tracking-tight 2xl:leading-[54px] font-normal text-[#DD69AA]'>General Manager</p>
-                            <div className='flex pb-[22px] md:pb-2 lg:pb-[22px]'>
+                            {/* <div className='flex pb-[22px] md:pb-2 lg:pb-[22px]'>
                                 <div className='flex cursor-pointer'
-                                    onClick={() => dispatch(openModal({ type: "message"}))}
+                                    onClick={() => dispatch(openModal({ type: "message" }))}
                                 >
                                     <div className='hidden md:flex'>
                                         <img className='w-5 h-5 lg:w-[30px] lg:h-[30px] 2xl:w-[39px] 2xl:h-[39px]' src={chat} alt="c" />
                                     </div>
-                                    <p className='hidden md:flex md:text-sm lg:text-lg lg:leading-7 2xl:text-[21.1953px] 2xl:leading-9 font-bold tracking-tight text-pink-light pl-[10px] whitespace-nowrap pr-[23px]'>Send Message</p>
+                                    <p className='hidden md:flex md:text-sm lg:text-lg lg:leading-7 2xl:text-[21.1953px] 2xl:leading-9 font-bold tracking-tight text-pink-light pl-[10px] whitespace-nowrap pr-[23px]'></p>
                                 </div>
                                 <div className='hidden md:flex'>
-                                    {/* <div><img src={roundedblock} alt="b" /></div>
-                                    <p className='text-[21.1953px] leading-9 font-bold tracking-tight text-pink-light pl-[14px] whitespace-nowrap'>Block User</p> */}
                                     <CustomButton
-                                        onClick={() => dispatch(openModal({ type: "award"}))}
+                                        onClick={() => dispatch(openModal({ type: "award" }))}
+                                        buttonStyle="text-[10px] px-[10px] lg:px-[30px] 2xl:px-[43px] 2xl:py-[8px] lg:text-sm lg:leading-6  2xl:text-[20px] 2xl:leading-8 4xl:text-[24px] 4xl:leading-9 tracking-tight font-medium border border-[#DD69AA] 
+                                    text-[#DD69AA] whitespace-nowrap"
+                                    >
+                                        Send Message
+                                    </CustomButton>
+                                </div>
+                                <div className='hidden md:flex'>
+                                    <CustomButton
+                                        onClick={() => dispatch(openModal({ type: "award" }))}
+                                        buttonStyle="text-[10px] px-[10px] lg:px-[30px] 2xl:px-[43px] 2xl:py-[8px] lg:text-sm lg:leading-6 tracking-tight font-medium border border-[#DD69AA] 
+                                    text-[#DD69AA] whitespace-nowrap"
+                                    >
+                                        Remove
+                                    </CustomButton>
+                                </div>
+                                <div className='hidden md:flex'>
+                                    <CustomButton
+                                        onClick={() => dispatch(openModal({ type: "award" }))}
                                         buttonStyle="text-[10px] px-[10px] lg:px-[30px] 2xl:px-[43px] 2xl:py-[8px] lg:text-sm lg:leading-6 tracking-tight font-medium border border-[#DD69AA] 
                                     text-[#DD69AA] whitespace-nowrap"
                                     >
                                         Award Point
                                     </CustomButton>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
-                    <div className="flex pl-[126px] lg:pl-[180px] xl:pl-[250px] 2xl:pl-[328px] pr-[44px] pt-[10px] pb-5 2xl:pb-[39px] bg-[#101010] ">
+                    <div className="flex pl-[126px] lg:pl-[180px] xl:pl-[220px] 2xl:pl-[328px] md:pr-[20px] xl:pr-[44px] pt-[10px] pb-5 2xl:pb-[39px] bg-[#101010] ">
                         {/* <div className="text-xl leading-9 font-normal text-[#979998] gap-2 flex flex-col md:gap-[6px] justify-between grow "> */}
-                        <div className="gap-2 xl:gap-0 flex flex-col 2xl:gap-[6px] justify-between grow ">
+                        <div className="gap-2 xl:gap-0 flex flex-col 2xl:gap-[10px] justify-between grow ">
                             <div className="flex gap-2">
-                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight text-[#CDBEBE]">
+                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold 2xl:text-[21px] 2xl:leading-9  tracking-tight text-[#CDBEBE]">
                                     Email:
                                 </p>
-                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.email}</p>
+                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 2xl:text-[21px] 2xl:leading-9 lg:font-bold  tracking-tight text-[#DD69AA]">{customerDetails?.profile?.email}</p>
                             </div>
                             <div className="flex gap-2">
-                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight text-[#CDBEBE]">
+                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold 2xl:text-[21px] 2xl:leading-9  tracking-tight text-[#CDBEBE]">
                                     Phone:
                                 </p>
-                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.phone}</p>
+                                <p className="text-sm leading-[14px] font-normal lg:text-[18px] lg:leading-7 lg:font-bold tracking-tight 2xl:text-[21px] 2xl:leading-9 text-[#DD69AA]">{customerDetails?.profile?.phone}</p>
                             </div>
                             <div className="hidden xl:flex gap-2 ">
-                                <p className="text-[21.1953px] lg:text-[18px] leading-9 lg:leading-7 font-bold tracking-tight text-[#CDBEBE]">
+                                <p className="text-[21.1953px] lg:text-[18px] leading-9 lg:leading-7 2xl:text-[21px] 2xl:leading-9  font-bold tracking-tight text-[#CDBEBE]">
                                     Address:
                                 </p>
-                                <p className="text-[21.1953px] lg:text-[18px] leading-9 lg:leading-7 font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.address}</p>
+                                <p className="text-[21.1953px] lg:text-[18px] leading-9 lg:leading-7 2xl:text-[21px] 2xl:leading-9  font-bold tracking-tight text-[#DD69AA]">{customerDetails?.profile?.address}</p>
+                            </div>
+                        </div>
+                        <div className='flex md:gap-1 lg:gap-3 2xl:gap-[27px]'>
+                            {/* <div className='flex cursor-pointer'
+                                onClick={() => dispatch(openModal({ type: "message" }))}
+                            >
+                                <div className='hidden md:flex'>
+                                    <img className='w-5 h-5 lg:w-[30px] lg:h-[30px] 2xl:w-[39px] 2xl:h-[39px]' src={chat} alt="c" />
+                                </div>
+                                <p className='hidden md:flex md:text-sm lg:text-lg lg:leading-7 2xl:text-[21.1953px] 2xl:leading-9 font-bold tracking-tight text-pink-light pl-[10px] whitespace-nowrap pr-[23px]'></p>
+                            </div> */}
+                            <div className='hidden md:flex md:flex-col md:justify-end'>
+                                <CustomButton
+                                    onClick={() => dispatch(openModal({ type: "award" }))}
+                                    buttonStyle="w-screen md:max-w-[60px] lg:max-w-[110px] xl:max-w-[130px] 2xl:max-w-[150px] 4xl:max-w-[200px] md:text-[8px] leading-[15px] lg:text-[10px] xl:py-[5px] 2xl:py-[5px] 4xl:py-[7px] lg:text-sm lg:leading-6 2xl:text-[20px] 2xl:leading-8 4xl:text-[24px] 4xl:leading-9 tracking-tight font-medium border border-[#DD69AA] 
+                                    text-[#DD69AA] whitespace-nowrap  2xl:border-[2px] rounded-lg md:rounded-[5px]"
+                                >
+                                    Remove
+                                </CustomButton>
+                            </div>
+                            <div className='hidden md:flex md:flex-col md:justify-end'>
+                                <CustomButton
+                                    onClick={() => dispatch(openModal({ type: "award" }))}
+                                    buttonStyle="w-screen md:max-w-[70px] lg:max-w-[110px] xl:max-w-[130px] 2xl:max-w-[150px] 4xl:max-w-[200px] md:text-[8px] leading-[15px] lg:text-[10px] xl:py-[5px]  2xl:py-[5px]  4xl:py-[7px] lg:text-sm lg:leading-6  2xl:text-[20px] 2xl:leading-8 4xl:text-[24px] 4xl:leading-9 tracking-tight font-medium border border-[#DD69AA] 
+                                    text-[#DD69AA] whitespace-nowrap  2xl:border-[2px] rounded-lg md:rounded-[5px]"
+                                >
+                                    Award Point
+                                </CustomButton>
+                            </div>
+                            <div className='hidden md:flex md:flex-col md:justify-end'>
+                                <CustomButton
+                                    onClick={() => dispatch(openModal({ type: "message" }))}
+                                    buttonStyle="w-screen md:max-w-[70px] lg:max-w-[110px] xl:max-w-[130px] 2xl:max-w-[150px] 4xl:max-w-[200px] md:text-[8px] leading-[15px] lg:text-[10px] xl:py-[5px]   2xl:py-[5px]  4xl:py-[7px] lg:text-sm lg:leading-6  2xl:text-[20px] 2xl:leading-8 4xl:text-[24px] 4xl:leading-9 tracking-tight font-medium border border-[#DD69AA] 
+                                    text-[#DD69AA] whitespace-nowrap 2xl:border-[2px] rounded-lg md:rounded-[5px]"
+                                >
+                                    Send Message
+                                </CustomButton>
                             </div>
                         </div>
                         {/* <div className="hidden md:flex md:flex-col md:justify-end">
@@ -421,7 +474,7 @@ const UserProfile = () => {
                 
                 {modal.type === "award" && <AwardPoint type={"user"} />}
             </CustomModal> */}
-        </AdminLayout>
+        </AdminLayout >
     );
 }
 
