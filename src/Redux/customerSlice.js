@@ -1,18 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ApiMiddleware from "../utils/ApiMiddleware";
 import { toast } from "react-hot-toast";
-import { getCustomerProfileApi } from "../utils/apis/customer";
+import { getCustomerProfileApi, getTransactionHistoryApi } from "../utils/apis/customer";
 
 const initialState = {
   isLoading: false,
-  // allBusinesses: null,
-  customerDetails: null
+  customerDetails: null,
+  transactionData: null,
+  pagination: null,
 }
 
-// export const getCustomer = createAsyncThunk('customer/get', getCustomerApi)
-
-// export const getBusinesses = createAsyncThunk('business/getAll', getCustomersApi)
 export const getCustomerProfile = createAsyncThunk('customer/getProfile', getCustomerProfileApi)
+export const getTransactionHistory = createAsyncThunk('customer/transactions', getTransactionHistoryApi)
 
 export const uploadCSVTemplate = createAsyncThunk('customer/add/bulk', async ({ business_id, data}, { rejectWithValue }) => {
   try {
@@ -42,7 +41,7 @@ const customerSlice = createSlice({
   name: "businessSlice",
   initialState,
   extraReducers: {
-    [getCSVTemplate.pending]: (state, { payload }) => {
+    [getCSVTemplate.pending]: (state) => {
       state.isLoading = true;
     },
     [getCSVTemplate.fulfilled]: (state, { payload }) => {
@@ -60,16 +59,26 @@ const customerSlice = createSlice({
       state.isLoading = false;
       toast.error(payload || "Template file not downloaded");
     },
-    [getCustomerProfile.pending]: (state, { payload }) => {
+    [getCustomerProfile.pending]: (state) => {
       state.isLoading = true;
     },
     [getCustomerProfile.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.customerDetails = payload.result[0]
     },
-    [getCustomerProfile.rejected]: (state, { payload }) => {
+    [getCustomerProfile.rejected]: (state) => {
       state.isLoading = false;
-      toast.error(payload || "Template file not downloaded");
+    },
+    [getTransactionHistory.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getTransactionHistory.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.transactionData = payload.result[0]
+      state.pagination = payload?.paginaton || false;
+    },
+    [getTransactionHistory.rejected]: (state) => {
+      state.isLoading = false;
     },
   },
 });

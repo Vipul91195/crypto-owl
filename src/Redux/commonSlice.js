@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addRewardPointsApi, getPointTypesApi, removeBusinessApi, sendMessageApi } from "../utils/apis/admin";
+import { addRewardPointsApi, getPointTypesApi, removeBusinessApi, searchUserApi, sendMessageApi } from "../utils/apis/admin";
 import toast from 'react-hot-toast';
 import { addBusinessApi } from "../utils/apis/businesses";
 import { addBulkCustomerApi, addCustomerApi } from "../utils/apis/customer";
@@ -32,7 +32,8 @@ const initialState = {
   modal: {
     isVisible: false,
     type: null,
-  }
+  },
+  globalSearch: null
 }
 
 export const addRewardPoints = createAsyncThunk('business/add/reward', addRewardPointsApi)
@@ -42,6 +43,7 @@ export const addCustomer = createAsyncThunk('customer/add', addCustomerApi)
 export const addBulkCustomer = createAsyncThunk('customer/multiple/add', addBulkCustomerApi)
 export const removeBusiness = createAsyncThunk('customer/multiple/remove', removeBusinessApi)
 export const sendMessage = createAsyncThunk('user/message', sendMessageApi)
+export const searchUser = createAsyncThunk('user/search', searchUserApi)
 
 
 const commonSlice = createSlice({
@@ -97,6 +99,9 @@ const commonSlice = createSlice({
     clearFilter: (state) => {
       state.tableData.filters = null;
       state.tableData.selectedFilter = null;
+    },
+    clearGlobalSearch: (state) => {
+      state.globalSearch = null;
     },
   },
   extraReducers: {
@@ -214,6 +219,7 @@ const commonSlice = createSlice({
     },
     [sendMessage.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
+      console.log("asddfdsfkj send message...");
       toast.success(payload?.message || "Success");
       state.modal = {
         ...state.modal,
@@ -224,7 +230,17 @@ const commonSlice = createSlice({
         selectedIds: false,
       };
     },
-    
+    [searchUser.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload || "Something went wrong.");
+    },
+    [searchUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [searchUser.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;      
+      state.globalSearch = payload?.result[0]?.data;      
+    },
   },
 });
 
@@ -239,6 +255,7 @@ export const {
   closeModal,
   setCurrentPage,
   openModal,
+  clearGlobalSearch,
 } = commonSlice.actions;
 
 export default commonSlice.reducer;

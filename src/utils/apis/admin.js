@@ -1,12 +1,13 @@
 import { getBusinessCustomers, getBusinesses } from "../../Redux/businessSlice";
 import { setCurrentPage } from "../../Redux/commonSlice";
-import { getCustomerProfile } from "../../Redux/customerSlice";
+import { getCustomerProfile, getTransactionHistory } from "../../Redux/customerSlice";
 import ApiMiddleware from "../ApiMiddleware";
 
 export const addRewardPointsApi = async ({ business_id, member_id, data }, { rejectWithValue, dispatch }) => {
   try {
     const response = await ApiMiddleware.post(`/admin/add/reward/points/`, data);
     business_id ? dispatch(getBusinessCustomers({ business_id })) : member_id ? dispatch(getCustomerProfile({ member_id })) : dispatch(getBusinesses())
+    member_id && dispatch(getTransactionHistory({member_id}));
     return response.data;
   } catch (error) {
     if (!error.response) {
@@ -45,6 +46,18 @@ export const removeBusinessApi = async ({business_id, member_id, data}, { reject
 export const sendMessageApi = async (params, { rejectWithValue }) => {
   try {
     const response = await ApiMiddleware.post(`/admin/send/message/`, params);
+    return response.data;
+  } catch (error) {
+    if (!error.response) {
+      throw rejectWithValue(error);
+    }
+    throw rejectWithValue(error.response.data.message);
+  }
+}
+
+export const searchUserApi = async (params, { rejectWithValue }) => {
+  try {
+    const response = await ApiMiddleware.get(`/search/user/?search=${params?.search}`);
     return response.data;
   } catch (error) {
     if (!error.response) {
