@@ -98,7 +98,11 @@ const Businesses = () => {
     },
     {
       Header: "Issue Date",
-      accessor: "issue_date",
+      id: "issue_date",
+      accessor: ({issue_date}) => {
+        const issueDate = new Date(issue_date);
+        return issueDate.toLocaleDateString();
+      },
     },
     {
       Header: "Status",
@@ -118,119 +122,116 @@ const Businesses = () => {
     },
   ]);
 
-  // if (isLoading) return <Loader />
   return (
     <AdminLayout>
-      {isLoading ? <Loader /> :
-        <><AdminHeader type="business" title="User Management (Businesses)" />
-          <div className="md:mt-[36px] lg:mt-[56px]">
-            {Array.isArray(allBusinesses) ?
-              <CommonTable
-                showSelectCheck={allBusinesses}
-                selectionColumn="member_id"
-                columns={allBusinesses ? columns : [{ Header: "", accessor: "no_data" }]}
-                data={allBusinesses || [{ no_data: "No Data" }]}
-                filteredColumns={["Status"]}
-                HeaderClasses="bg-[#040404] text-[#DD69AA]"
-                HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
-                tableClasses="w-full rounded-[20px] overflow-hidden"
-                BodyClasses="text-white bg-[#101010]"
-                containerClasses="min-h-[20vh] h-max overflow-x-auto"
-                cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center text-[#A6A6A6]"
-                headerClasses={{
-                  owner_name: { textAlign: "right" },
-                  Business: { textAlign: "left" },
-                  business_points: {
-                    textAlign: "center",
-                    whiteSpace: "pre-wrap",
-                    maxWidth: "90px",
+      <><AdminHeader type="business" title="User Management (Businesses)" />
+        <div className="md:mt-[36px] lg:mt-[56px]">
+          {Array.isArray(allBusinesses) ?
+            <CommonTable
+              showSelectCheck={allBusinesses}
+              selectionColumn="member_id"
+              columns={allBusinesses ? columns : [{ Header: "", accessor: "no_data" }]}
+              data={allBusinesses || [{ no_data: "No Data" }]}
+              filteredColumns={["Status"]}
+              HeaderClasses="bg-[#040404] text-[#DD69AA]"
+              HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+              tableClasses="w-full rounded-[20px] overflow-hidden"
+              BodyClasses="text-white bg-[#101010]"
+              containerClasses="min-h-[20vh] h-max overflow-x-auto"
+              cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center text-[#A6A6A6]"
+              headerClasses={{
+                owner_name: { textAlign: "right" },
+                Business: { textAlign: "left" },
+                business_points: {
+                  textAlign: "center",
+                  whiteSpace: "pre-wrap",
+                  maxWidth: "90px",
+                },
+                personal_points: {
+                  textAlign: "center",
+                  whiteSpace: "pre-wrap",
+                  maxWidth: "90px",
+                },
+              }}
+              cellTextClassName={{
+                Business: { justifyContent: "left", width: "100%" },
+                owner_email: { justifyContent: "center", width: "100%" },
+                owner_name: { justifyContent: "right", width: "100%" },
+              }}
+              cellClasses={{
+                Business: { textAlign: "left", fontWeight: "700", color: "#CDBEBE" },
+                owner_email: { color: "#DD69AA" },
+                owner_name: {
+                  color: "#CDBEBE",
+                  textAlign: "right",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  lineHeight: "16px",
+                  "@media (max-width: 1536px)": {
+                    fontSize: "21px",
+                    lineHeight: "24px",
                   },
-                  personal_points: {
-                    textAlign: "center",
-                    whiteSpace: "pre-wrap",
-                    maxWidth: "90px",
-                  },
-                }}
-                cellTextClassName={{
-                  Business: { justifyContent: "left", width: "100%" },
-                  owner_email: { justifyContent: "center", width: "100%" },
-                  owner_name: { justifyContent: "right", width: "100%" },
-                }}
-                cellClasses={{
-                  Business: { textAlign: "left", fontWeight: "700", color: "#CDBEBE" },
-                  owner_email: { color: "#DD69AA" },
-                  owner_name: {
-                    color: "#CDBEBE",
-                    textAlign: "right",
-                    fontSize: "16px",
-                    fontWeight: "700",
-                    lineHeight: "16px",
-                    "@media (max-width: 1536px)": {
-                      fontSize: "21px",
-                      lineHeight: "24px",
-                    },
-                  },
-                }}
-                handleRowSelect={setSelectedIds}
-                isLoading={isLoading}
+                },
+              }}
+              handleRowSelect={setSelectedIds}
+              isLoading={isLoading}
+            />
+            :
+            <CommonTable
+              columns={[{ Header: "", accessor: "no_data" }]}
+              data={[{ no_data: "No Data" }]}
+              filteredColumns={["Status"]}
+              HeaderClasses="bg-[#040404] text-[#DD69AA]"
+              HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+              tableClasses="w-full rounded-[20px] overflow-hidden"
+              BodyClasses="text-white bg-[#101010]"
+              containerClasses="min-h-[20vh] h-max overflow-x-auto"
+              cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
+            />
+          }
+          {pagination &&
+            <div className="flex justify-center md:justify-end h-max items-center gap-12">
+              <ReactPaginate
+                breakLabel=".........."
+                nextLabel={
+                  <button disabled={!pagination?.next_link} className="group"
+                  >
+                    <div className="bg-[#DD69AA] md:py-[9px] px-3 md:h-[30px] py-1 group-disabled:bg-gray-500 rounded-[3px] ml-2 md:ml-1 md:rounded-[10px] hover:bg-pink-500">
+                      <Arrow className="text-white group-hover:text-black rotate-180" />
+                    </div>
+                  </button>
+                }
+                pageRangeDisplayed={1}
+                onPageChange={handlePageClick}
+                forcePage={currentPage - 1}
+                pageCount={pagination?.total_pages || 1}
+                marginPagesDisplayed={2}
+                previousLabel={
+                  <button
+                    className="group"
+                    disabled={!pagination?.previous_link}
+                  >
+                    <div className="bg-[#DD69AA] group-disabled:bg-gray-500 md:py-[9px] px-3 md:h-[30px] py-1 group rounded-[3px] mr-2 md:mr-1 md:rounded-[10px] hover:bg-pink-500">
+                      <Arrow className="text-white group-hover:text-black" />
+                    </div>
+                  </button>
+                }
+                renderOnZeroPageCount={1}
+                nextLinkClassName="leading-none flex"
+                previousLinkClassName="leading-none flex"
+                containerClassName={
+                  "flex pt-[17px] pb-[25px] md:py-8 justify-center items-center gap-x-[3px] md:gap-x-1 leading-none"
+                }
+                pageClassName="cursor-pointer md:rounded-[10px] md:min-w-[30px] md:h-[30px] md:flex md:justify-center md:items-center after:content-[','] last:bg-blue-500 after:ml-1 after:text-[#979998] md:after:content-none"
+                pageLinkClassName="font-normal md:px-2 md:py-1 h-full w-full text-center text-[14px] md:text-sm leading-[18.87px] text-[#979998] -tracking-tight"
+                breakClassName="text-[#979998] tracking-[2px] md:tracking-[3px] 2xl:tracking-[5px]"
+                activeLinkClassName="text-[#FFFFFF]"
+                activeClassName="md:bg-[#DD69AA]"
               />
-              :
-              <CommonTable
-                columns={[{ Header: "", accessor: "no_data" }]}
-                data={[{ no_data: "No Data" }]}
-                filteredColumns={["Status"]}
-                HeaderClasses="bg-[#040404] text-[#DD69AA]"
-                HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
-                tableClasses="w-full rounded-[20px] overflow-hidden"
-                BodyClasses="text-white bg-[#101010]"
-                containerClasses="min-h-[20vh] h-max overflow-x-auto"
-                cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
-              />
-            }
-            {pagination &&
-              <div className="flex justify-center md:justify-end h-max items-center gap-12">
-                <ReactPaginate
-                  breakLabel=".........."
-                  nextLabel={
-                    <button disabled={!pagination?.next_link} className="group"
-                    >
-                      <div className="bg-[#DD69AA] md:py-[9px] px-3 md:h-[30px] py-1 group-disabled:bg-gray-500 rounded-[3px] ml-2 md:ml-1 md:rounded-[10px] hover:bg-pink-500">
-                        <Arrow className="text-white group-hover:text-black rotate-180" />
-                      </div>
-                    </button>
-                  }
-                  pageRangeDisplayed={1}
-                  onPageChange={handlePageClick}
-                  forcePage={currentPage - 1}
-                  pageCount={pagination?.total_pages || 1}
-                  marginPagesDisplayed={2}
-                  previousLabel={
-                    <button
-                      className="group"
-                      disabled={!pagination?.previous_link}
-                    >
-                      <div className="bg-[#DD69AA] group-disabled:bg-gray-500 md:py-[9px] px-3 md:h-[30px] py-1 group rounded-[3px] mr-2 md:mr-1 md:rounded-[10px] hover:bg-pink-500">
-                        <Arrow className="text-white group-hover:text-black" />
-                      </div>
-                    </button>
-                  }
-                  renderOnZeroPageCount={1}
-                  nextLinkClassName="leading-none flex"
-                  previousLinkClassName="leading-none flex"
-                  containerClassName={
-                    "flex pt-[17px] pb-[25px] md:py-8 justify-center items-center gap-x-[3px] md:gap-x-1 leading-none"
-                  }
-                  pageClassName="cursor-pointer md:rounded-[10px] md:min-w-[30px] md:h-[30px] md:flex md:justify-center md:items-center after:content-[','] last:bg-blue-500 after:ml-1 after:text-[#979998] md:after:content-none"
-                  pageLinkClassName="font-normal md:px-2 md:py-1 h-full w-full text-center text-[14px] md:text-sm leading-[18.87px] text-[#979998] -tracking-tight"
-                  breakClassName="text-[#979998] tracking-[2px] md:tracking-[3px] 2xl:tracking-[5px]"
-                  activeLinkClassName="text-[#FFFFFF]"
-                  activeClassName="md:bg-[#DD69AA]"
-                />
-              </div>
-            }
-          </div>
-        </>
-      }
+            </div>
+          }
+        </div>
+      </>
     </AdminLayout>
   );
 }

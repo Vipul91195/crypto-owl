@@ -14,7 +14,7 @@ const CustomerForm = ({type}) => {
   const [fileError, setFileError] = useState(null);
   const { isLoading, useProfile } = useSelector(state => ({
     isLoading: state.commonSlice.isLoading,
-    useProfile: state.userSlice.userData.profile
+    useProfile: state.userSlice?.userData?.profile
   }));
   const { business_id } = useParams();
 
@@ -35,14 +35,12 @@ const CustomerForm = ({type}) => {
     formData.append('phone_no', values.phone_no);
     type !== "edit-profile" && formData.append('email', values.email);
     formData.append('address', values.address);
-    // formData.append('profile_picture', values.profile_picture || '');
-    type === "edit-profile" ?
-    formData.append('profile_picture', values?.user_profile_pic || ''):
-    formData.append('user_profile_pic', values.user_profile_pic || '');
-    // dispatch(addBusinesses(formData));
-    console.log("type: ", type, values);
-    // business_id && type === "edit-profile" ? dispatch(userProfileEdit(formData)) : dispatch(addCustomer({ business_id: business_id, customer: formData }));
-    dispatch(userProfileEdit(formData))
+    formData.append('profile_picture', values?.user_profile_pic || '')
+    if(type === "edit-profile") {
+      dispatch(userProfileEdit(formData))
+    }else {
+      business_id && dispatch(addCustomer({ business_id: business_id, customer: formData }));
+    }
   }
   const handleBulkUpload = (values) => {
     const data = new FormData();

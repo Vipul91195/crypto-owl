@@ -1,9 +1,9 @@
-import React, { Children, useState } from 'react'
+import React, { Children, useEffect, useState } from 'react'
 import home from '../../assets/img/home.svg'
 import user from '../../assets/img/user.svg'
 import report from '../../assets/img/report.svg'
 import searchUser from '../../assets/img/searchUser.svg'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import RouteMiddleware from '../RouteMiddleware'
 import { Form, Formik } from 'formik'
 import { InputField } from '../forms/InputField'
@@ -11,8 +11,10 @@ import { CloseFilled, MobMenu, SearchIcon } from '../icons'
 import classNames from 'classnames'
 import { Link } from "react-router-dom";
 import NotifyModal from '../modal/NotifyModal'
-import ConfirmationModal from '../modal/ConfirmationModal'
-import Loader from '../loader/Loader'
+import { useDispatch, useSelector } from 'react-redux'
+import { getBusinessCustomers, getBusinesses } from '../../Redux/businessSlice'
+import { setCurrentPage } from '../../Redux/commonSlice'
+import _ from 'lodash'
 
 const tabs = [
     // { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -24,11 +26,32 @@ const tabs = [
 export const AdminLayout = ({ children, isLoading }) => {
     const route = useLocation();
     const navigate = useNavigate();
+    const { pageSize } = useSelector(state => ({
+        pageSize: state.commonSlice.tableData.pageSize,
+    }));
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const handleMobileMenu = () => {
         setShowMobileMenu(!showMobileMenu);
     }
-    if (isLoading) return <Loader />
+    const location = useLocation();
+    const query = useParams();
+    const [searchTerm, setSearchTerm] = useState(null);
+    const dispatch = useDispatch();
+
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value)
+    }
+
+    useEffect(() => {
+        if (location.pathname === "/businesses" && searchTerm !== null) {
+            dispatch(getBusinesses({ search: searchTerm, page_size: pageSize }));
+            searchTerm === "" && setSearchTerm(null);
+        }
+        if (searchTerm !== null && query?.business_id) {
+            dispatch(getBusinessCustomers({ page: 1, business_id: query.business_id, search: searchTerm, page_size: pageSize }));
+        }
+        dispatch(setCurrentPage(1));
+    }, [searchTerm]);
     return (
         <RouteMiddleware>
             <div className='md:grid md:grid-cols-[200px,auto] 2xl:grid-cols-[290px,auto] font-Sans overflow-hidden relative'>
@@ -41,7 +64,7 @@ export const AdminLayout = ({ children, isLoading }) => {
                         {tabs.map((tab, i) => (
                             <Link key={i} to={tab.route}>
                                 <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
-                                    {tab.route === route.pathname &&
+                                    {tab.route === route.pathname || (route.pathname === "/" && tab.name === 'User Management') &&
                                         <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>
                                     }
                                     <img src={tab.icon} alt="i" />
@@ -53,12 +76,14 @@ export const AdminLayout = ({ children, isLoading }) => {
                 </div>
                 <div className='bg-[#171717] min-h-screen px-5 box-border md:max-w-[calc(100vw_-_200px)] 2xl:max-w-[calc(100vw_-_290px)] w-full 2xl:px-11 '>
                     <div className='flex w-full justify-end items-center pt-[30px] pb-[25px] gap-x-5 md:hidden'>
-                        <Formik initialValues={{ searchTerm: "" }} onSubmit={() => console.log(" search term submitted. ")}>
+                        <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
                             <Form>
                                 <div className='max-w-[180px]'>
                                     <InputField
                                         iconAfter={<SearchIcon className="h-[14px] 2xl:h-[17px] block md:hidden w-[14px] 2xl:w-[17px]" />}
                                         type="text"
+                                        value={searchTerm}
+                                        onChange={handleSearch}
                                         name="searchTerm"
                                         placeholder="Search"
                                         inputstyle="bg-[#101010] focus-visible:outline-none placeholder:text-[#A6A6A6] md:hidden block max-w-[180px] w-screen text-[12px]  text-[#A6A6A6] rounded-[4px] py-2 px-[10px]"
@@ -70,7 +95,6 @@ export const AdminLayout = ({ children, isLoading }) => {
                             <MobMenu className="text-[#DD69AA]" />
                         </div>
                     </div>
-                    {/* {isLoading ? <Loader /> : children} */}
                     {children}
                 </div>
             </div >

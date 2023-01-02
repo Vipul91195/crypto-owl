@@ -35,9 +35,6 @@ const CommonTable = ({
 
   const dispatch = useDispatch();
 
-  // const [currentPageLocal, setCurrentPageLocal] = useState(1);
-  // const [totalPages, setTotalPages] = useState(20);
-  // const [selectedIds, setSelectedIds] = useState({});
   const [allSelected, setAllSelected] = useState(false);
   const [allCheckSelected, setAllCheckSelected] = useState(false);
 
@@ -45,17 +42,6 @@ const CommonTable = ({
     selectedIds : state.commonSlice.tableData.selectedIds,
     modal : state.commonSlice.modal
   }));
-
-  // const handlePaginationChange = () => {
-  // }
-
-  // const handlePageClick = (page) => {
-    // console.log(page+1)
-    // dispatch(getBusinesses({ page: page + 1 }))
-    // 
-  // }
-  // const nextPage = () => {}
-  // const previousPage = () => { }
 
   const [tableColumns, setTableColumns] = useState([{
     Headers: "Header",
@@ -95,7 +81,6 @@ const CommonTable = ({
   }
 
   useEffect(() => {
-    // data && setSelectedIds(Object.fromEntries(data.map((d) => [d[selectionColumn] , allSelected])));
     data && dispatch(setSelectedIds(Object.fromEntries(data.map((d) => [d[selectionColumn] , allSelected]))));
   }, [allSelected]);
 
@@ -103,11 +88,6 @@ const CommonTable = ({
     !selectedIds && setAllSelected(false);
     showSelectCheck && selectedIds && handleRowSelect(Object.keys(selectedIds).filter(selectedId => selectedIds[selectedId]))
   }, [selectedIds]);
-
-  // useEffect(() => {
-  //   console.log(currentPageLocal, " : page change");
-  //   dispatch(getBusinesses({ page: currentPageLocal, page_size: 1 }))
-  // }, [currentPageLocal])
 
   if (showSelectCheck && !selectionColumn) {
     return <p className='text-white text-xl text-center' >'selectionColumn' is required if 'showSelectCheck' is enabled </p>
@@ -146,8 +126,6 @@ const CommonTable = ({
                         : {}
                     }
                   >
-                    {/* {console.log(headerClasses)}
-                    {console.log(header.id)} */}
                     {filteredColumns.includes(header.id) ? (
                       <>
                         <PopOver
@@ -221,8 +199,6 @@ const CommonTable = ({
                           : {}
                       }
                     >
-                      {console.log(cellClasses)}
-                      {console.log(cell.column.id)}
                       <span
                         className={classNames(
                           "flex items-center w-full justify-center"
@@ -256,9 +232,16 @@ const CommonTable = ({
                   ))}
                 </tr>
               );
-            })}
+
+            })} 
+            
           </tbody>
         </table>
+        {rows.length === 0 &&
+          <div>
+            <p className="text-white text-center pb-5 text-xl">No Record Found</p>
+          </div>
+        }
         {isLoading && 
           <div className='w-full py-10 flex justify-center'>
           <Oval
