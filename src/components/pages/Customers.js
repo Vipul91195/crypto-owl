@@ -50,77 +50,19 @@ const Customers = () => {
   const hideModal = () => setModal(false)
   const { business_id } = useParams();
 
-  // ------------
-  console.log(businessDetails);
   useEffect(() => {
     business_id && dispatch(getBusinessCustomers({ business_id: business_id }));
     business_id && dispatch(getBusiness({ business_id: business_id }));
   }, [business_id])
 
-  // const handlePageClick = (page) => { 
-  //   dispatch(getBusinessCustomers({business_id : business_id, page: page.selected + 1 , page_size: pageSize }))
-  // }
-
-  // ------------
   const handlePageClick = (page) => {
     dispatch(setCurrentPage(page.selected + 1));
   }
 
-  // ------------
   useEffect(() => {
     dispatch(getBusinessCustomers({ business_id: business_id, page: currentPage, filter: selectedFilter }))
   }, [currentTable, currentPage, selectedFilter]);
 
-  // useEffect(() => {
-  //   currentTable === "/customers" && 
-  // dispatch(getBusinessCustomers({ page: 1, page_size: pageSize, filter: selectedFilter }))
-  // }, [currentTable, dispatch, selectedFilter]);
-
-
-  /**   temp code */
-  // const data = React.useMemo(() => [
-  //   {
-  //     name: "@KrisWashington",
-  //     member_id: "MEM0001",
-  //     customer_image: '',
-  //     issue_date: "12/12/1212",
-  //     email_id: "https//fsdvz",
-  //     status: "Active",
-  //     business_points: "1000",
-  //     personal_points: "1000",
-  //   },
-  //   {
-  //     name: "@karl.will02",
-  //     customer_image: '',
-  //     member_id: "7032",
-  //     issue_date: "12/12/1212",
-  //     email_id: "https//fsdvz",
-  //     status: "Inactive",
-  //     business_points: "5500",
-  //     personal_points: "5500",
-  //   },
-  //   {
-  //     name: "@andreea.1z",
-  //     member_id: "5204",
-  //     customer_image: '',
-  //     issue_date: "12/12/1212",
-  //     email_id: "https//fsdvz",
-  //     status: "Active",
-  //     business_points: "10700",
-  //     personal_points: "10700",
-  //   },
-  //   {
-  //     name: "@abraham47.y",
-  //     member_id: "4309",
-  //     customer_image: '',
-  //     issue_date: "12/12/1212",
-  //     email_id: "https//fsdvz",
-  //     status: "Active",
-  //     business_points: "2000",
-  //     personal_points: "2000",
-  //   }
-  // ]);
-  // ------------
   const columns = React.useMemo(() => [
     {
       Header: "Business Id",
@@ -131,7 +73,7 @@ const Customers = () => {
       accessor: (row) => {
         const { customerImage, name, member_id } = row;
         return (
-          <div onClick={() => navigate(`/user-profile/${member_id}`)} className="flex gap-[16px] items-center cursor-pointer">
+          <div onClick={() => navigate(`/profile/${member_id}`)} className="flex gap-[16px] items-center cursor-pointer">
             <div className="w-[30px] h-[30px] 2xl:w-[45.42px] 2xl:h-[45.42px] rounded-[10px] 2xl:rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black">
               {customerImage && customerImage !== "" ? (
                 <img src={customerImage} alt="test" />
@@ -161,7 +103,11 @@ const Customers = () => {
     },
     {
       Header: "Issue Date",
-      accessor: "issue_date",
+      id: "issue_date",
+      accessor: ({issue_date}) => {
+        const issueDate = new Date(issue_date);
+        return issueDate.toLocaleDateString();
+      },
     },
     {
       Header: "Email Id",
@@ -185,23 +131,17 @@ const Customers = () => {
       accessor: "personal_points",
     },
   ]);
-  // ------------
+
   const initialState = { hiddenColumns: ['business_id'] };
-  /**   temp code */
-  // if (isLoading) return <Loader />
+
   return (
     <AdminLayout >
-      {isLoading ? <Loader /> :
         <><AdminHeader type="customer" title="User Management (Customers)" />
           <div className="pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
-            {/* <div className="absolute pt-10 pl-[65px] max-w-[81.39px] max-h-[81.39px] lg:max-w-[142px] xl:max-w-[170px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]">
-          <img src={businessIcon} alt="businessIcon" />
-        </div> */}
             <div className="absolute pt-4 pl-[14px] 2xl:pt-[40px] 2xl:pl-[42px]">
               <div className='relative max-w-[82.39px] max-h-[82.39px]  lg:max-w-[130px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
-                {/* <img src={businessIcon} alt="businessIcon" /> */}
                 <img
-                  src={businessDetails?.business_logo || businessIcon}
+                  src={businessDetails?.business_logo ? process.env.REACT_APP_PUBLIC_MEDIA_URL+businessDetails?.business_logo : businessIcon}
                   alt="businessIcon"
                 />
               </div>
@@ -382,7 +322,7 @@ const Customers = () => {
               </div>
             )}
           </div>
-        </>}
+        </>
     </AdminLayout>
   );
 };

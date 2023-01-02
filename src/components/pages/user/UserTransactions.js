@@ -52,7 +52,6 @@ const UserTransactions = () => {
   const userDetails = (e) => {
     setShowDetails(e.target.id);
   };
-  console.log(transactionData, " transaction Data");
 
   useEffect(() => {
     dispatch(getUserTransactions());
@@ -86,7 +85,6 @@ const UserTransactions = () => {
           <p
             key={i}
             onClick={(e) => {
-              console.log("id :", option);
               // api ....
             }}
             className="text-left py-3 cursor-pointer w-full last:pb-0 last:border-none border-b border-solid pb-3 text-[20px] border-[#545557]"

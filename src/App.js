@@ -28,11 +28,6 @@ import UserSelfProfile from './components/pages/user/UserSelfProfile';
 
 function App() {
   const { is_admin, token } = useSelector(state => state.loginSlice.allData);
-  // const navigate = useNavigate();
-  // if(!token?.access) {
-  //   window.location.replace('/login');
-  // }
-  // console.log(is_admin, "is admin");
   return (
     <div>
       <Toaster />
@@ -51,7 +46,7 @@ function App() {
             <Route path="/customers/:business_id" element={<Customers />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/search-user" element={<SearchUser />} />
-            <Route path="/user-profile/:member_id" element={<UserProfile />} />
+            <Route path="/profile/:member_id" element={<UserProfile />} />
             <Route path="/user/transaction" element={<UserTransactions />} />
             <Route path="/user/profile" element={<UserSelfProfile />} />
             <Route path="/user/support" element={<UserSupport />} />

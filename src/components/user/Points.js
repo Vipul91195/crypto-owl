@@ -60,8 +60,6 @@ const Points = () => {
                               who are you sending reward points to
                             </span>
                           </label>
-                          {/* 
-                                    <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block"> */}
                           <InputField
                             inputstyle="w-full text-[#858383] text-sm xl:text-xl font-normal tracking-[-0.02em] outline-none
                                   py-[8px] xl:py-[10px] 2xl:py-[18px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent  xl:pl-[25px] pl-[15.56px]"
@@ -74,26 +72,11 @@ const Points = () => {
                             placeholder="mail@sample.com"
                           />
                         </div>
-                        {/* <div>
-                                    <label className='text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block'>Message<span className='text-[#DD69AA]'>*</span></label>
-                                    <InputField
-                                        inputstyle='w-full text-[#858383] text-sm xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                        py-[35px] xl:py-[50px] 2xl:py-[90px]  rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent  xl:pl-[25px] pl-[15.56px]'
-                                        borderstyle='w-full text-[#858383] text-sm xl:text-xl font-normal tracking-[-0.02em] outline-none
-                                        py-[35px] xl:py-[50px] 2xl:py-[90px]  rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent  xl:pl-[25px] pl-[15.56px]'
-                                        errorRight={true}
-                                        type='text'
-                                        id='message'
-                                        name='message'
-                                        placeholder='Message' />
-                                </div> */}
                         <div className="flex-1 flex flex-col justify-between max-w-[308px]">
                           <label className="text-[18px] xl:text-[20px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
                             No. of Points
                             <span className="text-[#DD69AA]">*</span>
                           </label>
-                          {/* 
-                                    <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block"> */}
                           <InputField
                             inputstyle="w-full text-[#858383] text-sm xl:text-xl font-normal tracking-[-0.02em] outline-none
                                         py-[8px] xl:py-[10px] 2xl:py-[18px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent  xl:pl-[25px] pl-[15.56px]"
@@ -139,10 +122,6 @@ const Points = () => {
               >
                 {({ values, setFieldValue, handleSubmit }) => (
                   <form onSubmit={handleSubmit}>
-                    {/* <div className="pt-4 xl:pt-5 2xl:pt-[26px] pb-[28px] xl:pb-[36px] px-[19px] xl:px-[25px] 2xl:px-[29px] ">
-                      <p className="text-[32px] text-white mb-5 mt-[15px] leading-[56px] font-[700]">
-                        Redeem Points
-                      </p> */}
                     <div className="pt-3 xl:pt-5 2xl:pt-[26px] pb-[28px] xl:pb-[36px] px-[19px] xl:px-[25px] 2xl:px-[29px] ">
                       <p className="text-white mb-3 2xl:mb-5 mt-[10px] 2xl:mt-[15px] md:text-[20px] lg:text-[28px] 2xl:text-[32px] md:leading-[24px] lg:leading-[30px] 2xl:leading-[56px] font-[700]">
                       Redeem Points

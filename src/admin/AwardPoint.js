@@ -84,7 +84,7 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
                             disabled={type === "customer" || type === "user-profile"}
                             selected={type === "customer" || type === "user-profile" ? selectedOption : null}
                             id="reward_type"
-                            setValues={setFieldValue}
+                            setValues={pointsTypes && setFieldValue}
                             name="reward_type"
                         />
                     </div>

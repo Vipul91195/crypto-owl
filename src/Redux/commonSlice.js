@@ -196,7 +196,6 @@ const commonSlice = createSlice({
     },
     [removeBusiness.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log(payload);
       toast.success(payload?.message || "Success");
       payload?.member_id && window.history.back();
       state.modal = {
@@ -220,7 +219,6 @@ const commonSlice = createSlice({
     },
     [sendMessage.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log("asddfdsfkj send message...");
       toast.success(payload?.message || "Success");
       state.modal = {
         ...state.modal,

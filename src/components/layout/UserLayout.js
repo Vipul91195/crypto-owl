@@ -50,7 +50,7 @@ export const UserLayout = ({ children }) => {
                 </div>
                 <div className='bg-[#171717] min-h-screen px-5 box-border md:max-w-[calc(100vw_-_200px)] 2xl:max-w-[calc(100vw_-_290px)] w-full 2xl:px-11 '>
                     <div className='flex w-full justify-end items-center pt-[30px] pb-[25px] gap-x-5 md:hidden'>
-                        <Formik initialValues={{ searchTerm: "" }} onSubmit={() => console.log(" search term submitted. ")}>
+                        <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
                             <Form>
                                 <div className='max-w-[180px]'>
                                     <InputField

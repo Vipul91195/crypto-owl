@@ -48,7 +48,7 @@ const UserSelfProfile = () => {
             <div className="relative w-screen h-screen max-w-[84.72px] md:max-w-[86px] max-h-[98.39px] lg:max-w-[125px] xl:max-w-[140px] lg:max-h-[140px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]">
               <img
                 className="h-full w-full"
-                src={process.env.REACT_APP_PUBLIC_MEDIA_URL+customerDetails?.profile?.profile_picture || avatar}
+                src={customerDetails?.profile?.profile_picture ? process.env.REACT_APP_PUBLIC_MEDIA_URL+customerDetails?.profile?.profile_picture : avatar}
                 alt="businessIcon"
               />
             </div>

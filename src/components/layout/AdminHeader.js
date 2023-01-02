@@ -92,38 +92,41 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           >
             {type === "business" ? "Add Business" : "Add Customer"}
           </CustomButton>
-          {/* --------------- */}
-          <button
-            className="block md:hidden p-[3px] relative group"
-            onClick={() => dispatch(openModal({ type }))}
-          >
-            {type === "user-profile" ? (
+          {type === "user-profile" ? 
+            <button
+              className="block md:hidden p-[3px] relative group"
+              onClick={() => dispatch(openModal({ type: "message" }))}
+            >
               <Message className="text-[#DD69AA]" />
-            ) : (
+              {/* {type === "user-profile" ? (
+                <Message className="text-[#DD69AA]" />
+              ) : (
+                <UserAdd className="text-[#DD69AA]" />
+              )} */}
+              <div className="bg-[#101010] z-10 md:group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+                <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
+                  {type === "business" ? "Add Business" : "Add Customer"}
+                </span>
+              </div>
+            </button>
+          :
+            <button                           
+              className="block md:hidden p-[3px] relative group"
+              onClick={() => dispatch(openModal({ type }))}
+            >
               <UserAdd className="text-[#DD69AA]" />
-            )}
-            <div className="bg-[#101010] z-10 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
-              <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
-                {type === "business" ? "Add Business" : "Add Customer"}
-              </span>
-            </div>
-          </button>
-          <button
-            className="block md:hidden p-[3px] relative group"
-            onClick={() => dispatch(openModal({ type }))}
-          >
-            {type === "user-profile" ? (
-              <Message className="text-[#DD69AA]" />
-            ) : (
-              <UserAdd className="text-[#DD69AA]" />
-            )}
-            <div className="bg-[#101010] z-10 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
-              <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
-                {type === "business" ? "Add Business" : "Add Customer"}
-              </span>
-            </div>
-          </button>
-          {/* --------------- */}
+              {/* {type === "user-profile" ? (
+                <Message className="text-[#DD69AA]" />
+              ) : (
+                <UserAdd className="text-[#DD69AA]" />
+              )} */}
+              <div className="bg-[#101010] z-10 md:group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+                <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
+                  {type === "business" ? "Add Business" : "Add Customer"}
+                </span>
+              </div>
+            </button>                                   
+          }
           <button
             className="block md:hidden p-[3px] group relative"
             disabled={type !== "user-profile" && !anySelected}
@@ -138,7 +141,7 @@ const AdminHeader = ({ type, title, showControls = true }) => {
                 }
               )}
             />
-            <div className="bg-[#101010] z-10 group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+            <div className="bg-[#101010] z-10 md:group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
               <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
                 Remove
               </span>
@@ -158,7 +161,7 @@ const AdminHeader = ({ type, title, showControls = true }) => {
                 }
               )}
             />
-            <div className="bg-[#101010] z-10 ml-[-40px] group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
+            <div className="bg-[#101010] z-10 ml-[-40px] md:group-hover:block hidden py-[10px] px-3 rounded-[4px] absolute translate-y-full -translate-x-1/2 -bottom-[10px] left-1/2">
               <span className="text-[14px] text-[#979998] whitespace-nowrap leading-[5px]">
                 Award Points
               </span>

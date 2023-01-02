@@ -3,9 +3,7 @@ import { setCurrentPage } from "../../Redux/commonSlice";
 import ApiMiddleware from "../ApiMiddleware";
 
 export const getBusinessesApi = async (params, { rejectWithValue }) => {
-  console.log(params, " business api params");
   try {
-    // ?search=${params?.search}&page_size&page=
     const response = await ApiMiddleware.get(`/admin/get/business/?page=${params?.page || '1'}${params?.search ? '&search='+params?.search : ''}${(params?.filter && params?.filter.value !== "") ? '&status='+params?.filter.value : ''}${params?.page_size ? '&page_size='+params?.page_size : ''}`);
     return response.data;
   } catch (error) {
@@ -42,7 +40,6 @@ export const getBusinessCustomersApi = async (params, { rejectWithValue }) => {
 }
 
 export const addBusinessApi = async (params, { rejectWithValue, dispatch }) => {
-  console.log(params);
   try {
     const response = await ApiMiddleware.post("/admin/add/business/", params, {
       headers: {
