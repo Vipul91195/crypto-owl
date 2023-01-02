@@ -7,7 +7,7 @@ export const addRewardPointsApi = async ({ business_id, member_id, data }, { rej
   try {
     const response = await ApiMiddleware.post(`/admin/add/reward/points/`, data);
     business_id ? dispatch(getBusinessCustomers({ business_id })) : member_id ? dispatch(getCustomerProfile({ member_id })) : dispatch(getBusinesses())
-    member_id && dispatch(getTransactionHistory({member_id}));
+    member_id && dispatch(getTransactionHistory({ member_id }));
     return response.data;
   } catch (error) {
     if (!error.response) {
@@ -29,12 +29,12 @@ export const getPointTypesApi = async (params, { rejectWithValue }) => {
   }
 }
 
-export const removeBusinessApi = async ({business_id, member_id, data}, { rejectWithValue, dispatch }) => {
+export const removeBusinessApi = async ({ business_id, member_id, data }, { rejectWithValue, dispatch }) => {
   try {
     const response = await ApiMiddleware.patch("/admin/remove/user/", data);
     dispatch(setCurrentPage(1));
-    business_id ? dispatch(getBusinessCustomers({business_id})) : dispatch(getBusinesses())
-    return { member_id , ...response.data};
+    business_id ? dispatch(getBusinessCustomers({ business_id })) : dispatch(getBusinesses())
+    return { member_id, ...response.data };
   } catch (error) {
     if (!error.response) {
       throw rejectWithValue(error);
@@ -58,6 +58,30 @@ export const sendMessageApi = async (params, { rejectWithValue }) => {
 export const searchUserApi = async (params, { rejectWithValue }) => {
   try {
     const response = await ApiMiddleware.get(`/search/user/?search=${params?.search}`);
+    return response.data;
+  } catch (error) {
+    if (!error.response) {
+      throw rejectWithValue(error);
+    }
+    throw rejectWithValue(error.response.data.message);
+  }
+}
+
+export const userSendRewardPointsApi = async (params, { rejectWithValue }) => {
+  try {
+    const response = await ApiMiddleware.post(`/business/transfer/points/`, params);
+    return response.data;
+  } catch (error) {
+    if (!error.response) {
+      throw rejectWithValue(error);
+    }
+    throw rejectWithValue(error.response.data.message);
+  }
+}
+
+export const userProfileEditApi = async (params, { rejectWithValue }) => {
+  try {
+    const response = await ApiMiddleware.post(`/user/profile/update/`, params);
     return response.data;
   } catch (error) {
     if (!error.response) {
