@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addRewardPointsApi, getPointTypesApi, removeBusinessApi, searchUserApi, sendMessageApi } from "../utils/apis/admin";
+import { addRewardPointsApi, getPointTypesApi, removeBusinessApi, searchUserApi, sendMessageApi, userSendRewardPointsApi, userProfileEditApi } from "../utils/apis/admin";
 import toast from 'react-hot-toast';
 import { addBusinessApi } from "../utils/apis/businesses";
 import { addBulkCustomerApi, addCustomerApi } from "../utils/apis/customer";
@@ -44,7 +44,8 @@ export const addBulkCustomer = createAsyncThunk('customer/multiple/add', addBulk
 export const removeBusiness = createAsyncThunk('customer/multiple/remove', removeBusinessApi)
 export const sendMessage = createAsyncThunk('user/message', sendMessageApi)
 export const searchUser = createAsyncThunk('user/search', searchUserApi)
-
+export const userSendRewardPoints = createAsyncThunk('business/transfer/points', userSendRewardPointsApi)
+export const userProfileEdit = createAsyncThunk('user/profile/update', userProfileEditApi)
 
 const commonSlice = createSlice({
   name: "loginPage",
@@ -238,8 +239,50 @@ const commonSlice = createSlice({
       state.isLoading = true;
     },
     [searchUser.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;      
-      state.globalSearch = payload?.result[0]?.data;      
+      state.isLoading = false;
+      state.globalSearch = payload?.result[0]?.data;
+    },
+
+    [userSendRewardPoints.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [userSendRewardPoints.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload || "Something went wrong.");
+    },
+    [userSendRewardPoints.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      console.log("asddfdsfkj send message...");
+      toast.success(payload?.message || "Success");
+      state.modal = {
+        ...state.modal,
+        isVisible: false,
+      };
+      state.tableData = {
+        ...state.tableData,
+        selectedIds: false,
+      };
+    },
+
+    [userProfileEdit.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [userProfileEdit.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      console.log("asddfdsfkj send message...");
+      toast.success(payload?.message || "Success");
+      state.modal = {
+        ...state.modal,
+        isVisible: false,
+      };
+      state.tableData = {
+        ...state.tableData,
+        selectedIds: false,
+      };
+    },
+    [userProfileEdit.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload || "Something went wrong.");
     },
   },
 });
