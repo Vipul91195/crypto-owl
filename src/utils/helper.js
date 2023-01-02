@@ -100,3 +100,9 @@ export const SelectColumnFilter = ({
 //     </div>
 //   );
 // }
+
+
+export const handleNumberOnly = (e, setFieldValue) => {
+  const value = e.target.value.replace(/\D/g, "");
+  setFieldValue(e.target.name, value);
+};

@@ -23,8 +23,9 @@ import { Oval } from 'react-loader-spinner';
 import Loader from '../loader/Loader';
 
 const Businesses = () => {
-  const { isLoading, allBusinesses, pageSize, currentPage, pagination, selectedFilter, currentTable } = useSelector(state => ({
+  const { isLoading, allBusinesses, isAdmin, pageSize, currentPage, pagination, selectedFilter, currentTable } = useSelector(state => ({
     isLoading: state.businessSlice.isLoading,
+    isAdmin: state.loginSlice.allData.is_admin,
     allBusinesses: state.businessSlice.allBusinesses,
     pagination: state.businessSlice.pagination,
     pageSize: state.commonSlice.tableData.pageSize,
@@ -46,7 +47,7 @@ const Businesses = () => {
   }
 
   useEffect(() => {
-    dispatch(getBusinesses({ page: currentPage }))
+    isAdmin === "true" && dispatch(getBusinesses({ page: currentPage }))
   }, []);
 
   useEffect(() => {

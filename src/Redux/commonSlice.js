@@ -252,32 +252,17 @@ const commonSlice = createSlice({
     },
     [userSendRewardPoints.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log("asddfdsfkj send message...");
       toast.success(payload?.message || "Success");
-      state.modal = {
-        ...state.modal,
-        isVisible: false,
-      };
-      state.tableData = {
-        ...state.tableData,
-        selectedIds: false,
-      };
     },
-
     [userProfileEdit.pending]: (state) => {
       state.isLoading = true;
     },
     [userProfileEdit.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log("asddfdsfkj send message...");
       toast.success(payload?.message || "Success");
       state.modal = {
         ...state.modal,
         isVisible: false,
-      };
-      state.tableData = {
-        ...state.tableData,
-        selectedIds: false,
       };
     },
     [userProfileEdit.rejected]: (state, { payload }) => {

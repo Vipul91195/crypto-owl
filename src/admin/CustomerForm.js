@@ -2,18 +2,19 @@ import { Formik } from 'formik'
 import React, { useState } from 'react'
 import CustomButton from '../components/forms/CustomButton';
 import { InputField } from '../components/forms/InputField'
-import { BulkUploadValidations, CustomerFormValidationSchema } from '../utils/FormValidations';
+import { BulkUploadValidations, CustomerEditValidationSchema, CustomerFormValidationSchema } from '../utils/FormValidations';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBulkCustomer, addCustomer } from '../Redux/commonSlice';
+import { addBulkCustomer, addCustomer, userProfileEdit } from '../Redux/commonSlice';
 import { getCSVTemplate } from '../Redux/customerSlice';
 import { useParams } from 'react-router-dom';
 
-const CustomerForm = () => {
+const CustomerForm = ({type}) => {
   const dispatch = useDispatch();
   const [bulkUpload, setBulkUpload] = useState(false);
   const [fileError, setFileError] = useState(null);
-  const { isLoading } = useSelector(state => ({
-    isLoading: state.commonSlice.isLoading
+  const { isLoading, useProfile } = useSelector(state => ({
+    isLoading: state.commonSlice.isLoading,
+    useProfile: state.userSlice.userData.profile
   }));
   const { business_id } = useParams();
 
@@ -28,23 +29,20 @@ const CustomerForm = () => {
 
   const handleLoginSubmit = (values) => {
     const formData = new FormData();
-    {/**
-    {
-    "name":"Kartik",
-    "email":"employee1@gmail.com",
-    "phone_no":"1234567890",
-    "address":"abc",
-    "profile_picture": "atew"
-}
-   */}
+    type === "edit-profile" ?
+    formData.append('username', values.username):
     formData.append('name', values.name);
     formData.append('phone_no', values.phone_no);
-    formData.append('email', values.email);
+    type !== "edit-profile" && formData.append('email', values.email);
     formData.append('address', values.address);
     // formData.append('profile_picture', values.profile_picture || '');
+    type === "edit-profile" ?
+    formData.append('profile_picture', values?.user_profile_pic || ''):
     formData.append('user_profile_pic', values.user_profile_pic || '');
     // dispatch(addBusinesses(formData));
-    business_id && dispatch(addCustomer({ business_id: business_id, customer: formData }));
+    console.log("type: ", type, values);
+    // business_id && type === "edit-profile" ? dispatch(userProfileEdit(formData)) : dispatch(addCustomer({ business_id: business_id, customer: formData }));
+    dispatch(userProfileEdit(formData))
   }
   const handleBulkUpload = (values) => {
     const data = new FormData();
@@ -52,12 +50,26 @@ const CustomerForm = () => {
     business_id &&
       dispatch(addBulkCustomer({ business_id: business_id, customers: data }));
   }
-  const initialValues = { user_profile_pic: null, name: "", email: "", phone_no: "", address: "" };
+  const initialValues =
+    type === "edit-profile"
+      ? {
+          user_profile_pic: useProfile?.profile_picture || null,
+          username: useProfile?.name || "",
+          phone_no: useProfile?.phone || "",
+          address: useProfile?.address || "",
+        }
+      : {
+          user_profile_pic: null,
+          name: "",
+          email: "",
+          phone_no: "",
+          address: "",
+        };
   // const initialValues = { profile_picture: null, name: "", email: "", phone_no: "", address: "" };
   return (
     <div className="min-w-[304px] xl:min-w-[597px] w-full">
       <div className="bg-[#101010] pt-1 xl:h-[68px] text-left text-xl leading-9 text-white xl:text-[34px] xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight pl-5 xl:pl-[31px] ">
-        Add Customer
+        {type === "edit-profile" ? "Edit Profile" : "Add Customer"}
       </div>
       {bulkUpload ?
         (<Formik
@@ -111,7 +123,7 @@ const CustomerForm = () => {
         :
         (<Formik
           initialValues={initialValues}
-          validationSchema={CustomerFormValidationSchema}
+          validationSchema={type === "edit-profile" ? CustomerEditValidationSchema : CustomerFormValidationSchema}
           validateOnBlur={false}
           validateOnChange={false}
           onSubmit={handleLoginSubmit}
@@ -137,10 +149,11 @@ const CustomerForm = () => {
                       errorRight={true}
                       type="text"
                       id="name"
-                      name="name"
+                      name={type === "edit-profile" ? "username" :"name"}
                       placeholder="Name of the company"
                     />
                   </div>
+                  {type !== "edit-profile" && 
                   <div>
                     <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
                       Email ID<span className="text-[#DD69AA]">*</span>
@@ -156,7 +169,7 @@ const CustomerForm = () => {
                       name="email"
                       placeholder="mail@simmmple.com"
                     />
-                  </div>
+                  </div>}
                   <div>
                     <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
                       Phone<span className="text-[#DD69AA]">*</span>
@@ -190,6 +203,7 @@ py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-
                       placeholder="Address"
                     />
                   </div>
+                  {type !== "edit-profile" && 
                   <div className="flex gap-[25px] xl:gap-10 mt-[14px] xl:mt-[5px]">
                     <CustomButton
                       type="button"
@@ -205,9 +219,8 @@ py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-
                     >
                       Template
                     </CustomButton>
-                  </div>
+                  </div>}
                 </div>
-
                 <div>
                   <CustomButton
                     className="text "
@@ -217,7 +230,7 @@ py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-
                     loaderSize={20}
                     buttonStyle="w-full py-[7px] md:py-[5px] xl:py-[12px] text-xl xl:text-3xl tracking-tight text-pink-light font-bold rounded-[10px] xl:rounded-2xl bg-[#DD69AA] mt-[15px] xl:mt-7"
                   >
-                    Invite
+                    {type === "edit-profile" ? "Update" : "Invite"}
                   </CustomButton>
                 </div>
               </div>
