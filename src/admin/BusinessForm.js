@@ -5,6 +5,7 @@ import { InputField } from '../components/forms/InputField'
 import { BusinessFormValidationSchema } from '../utils/FormValidations';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBusinesses } from '../Redux/commonSlice';
+import { handleNumberOnly } from '../utils/helper';
 
 const BusinessForm = () => {
     const dispatch = useDispatch();
@@ -71,6 +72,7 @@ const BusinessForm = () => {
                                          py-[8px] md:py-[14px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl  border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]'
                                         errorRight={true}
                                         type='text'
+                                        onChange={(e) => handleNumberOnly(e, setFieldValue)}
                                         id='company_no'
                                         name='company_no'
                                         placeholder='000000000' />

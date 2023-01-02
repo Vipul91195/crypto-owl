@@ -96,6 +96,23 @@ export const CustomerFormValidationSchema = Yup.object({
         .required("Address is required.")
 });
 
+export const CustomerEditValidationSchema = Yup.object({
+    username: Yup.string()
+        .trim()
+        .min(2, "Must be 2 char long.")
+        .max(20, "Maximum 20 char.")
+        .required("Name is required.")
+        .matches(/^\p{L}+$/u, "Special characters not allowed."),
+    phone_no: Yup.string()
+        .trim()
+        .max(10, "Maximum 10 char.")
+        .required("Phone Number is required."),
+    address: Yup.string()
+        .trim()
+        .min(2, "Must be 2 char long.")
+        .required("Address is required.")
+});
+
 export const MessageFormValidationSchema = Yup.object({
     subject: Yup.string()
         .trim()
@@ -105,5 +122,19 @@ export const MessageFormValidationSchema = Yup.object({
         .trim()
         .min(2, "Must be 2 char long.")
         .required("Message is required.")
+});
+
+export const UserSendPointsValidationSchema = Yup.object({
+    to_user: Yup.string()
+        .trim()
+        .email("Invalid email.")
+        .required("Email is required."),
+        sent_amount: Yup.number()
+        .required("Points are required.")
+});
+
+export const UserRedeemPointsValidationSchema = Yup.object({
+    sent_amount: Yup.number()
+        .required("Points are required.")
 });
 

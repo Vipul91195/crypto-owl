@@ -8,8 +8,9 @@ const initialState = {
     allData: {
         token: {
             access: cookies.get('crypt-access'),
-            refresh: cookies.get('crypt-refresh')
-        }
+            refresh: cookies.get('crypt-refresh'),
+        },
+        is_admin: cookies.get('is-admin')
     },
     forgotModal: { email: null, isVisible: false, otpVerified: false },
 };
@@ -83,6 +84,7 @@ const loginSlice = createSlice({
             };
             cookies.remove('crypt-access');
             cookies.remove('crypt-refresh');
+            cookies.remove('is-admin');
         }
     },
     extraReducers: {

@@ -80,6 +80,11 @@ const CommonTable = ({
     useFilters
   );
 
+  const makeForceCenter = (row_id) => {
+    const target_ids = ["fromTo", "emailId", "date", "serial_no"];
+    return target_ids.includes(row_id) ? "absolute top-0 -translate-y-1/2" : "";
+  }
+
   useEffect(() => {
     data && setTableData(data);
     columns && setTableColumns(columns);
@@ -134,13 +139,15 @@ const CommonTable = ({
                 {headerGroup.headers.map((header) => (
                   <th
                     {...header.getHeaderProps()}
-                    className={classNames("", HeadingClasses)}
+                    className={classNames("relative", HeadingClasses)}
                     style={
                       Object.keys(headerClasses || {}).includes(header.id)
                         ? headerClasses[header.id]
                         : {}
                     }
                   >
+                    {/* {console.log(headerClasses)}
+                    {console.log(header.id)} */}
                     {filteredColumns.includes(header.id) ? (
                       <>
                         <PopOver
@@ -154,7 +161,9 @@ const CommonTable = ({
                         </PopOver>
                       </>
                     ) : (
-                      header.render("Header")
+                      // <span className={makeForceCenter(header.id)} >{
+                        header.render("Header")
+                        // }</span>
                     )}
                   </th>
                 ))}
@@ -212,6 +221,8 @@ const CommonTable = ({
                           : {}
                       }
                     >
+                      {console.log(cellClasses)}
+                      {console.log(cell.column.id)}
                       <span
                         className={classNames(
                           "flex items-center w-full justify-center"
@@ -230,6 +241,8 @@ const CommonTable = ({
                           </span>
                         )}
                         <span className="text-center block w-max">
+                        {cell.column.id === "awardBusinessPoints" && "- "}
+                        {cell.column.id === "awardPersonalPoints" && "+ "}
                           {cell.render("Cell")}
                         </span>
                         {heighLightCellPostfix &&

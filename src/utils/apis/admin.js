@@ -1,6 +1,7 @@
 import { getBusinessCustomers, getBusinesses } from "../../Redux/businessSlice";
 import { setCurrentPage } from "../../Redux/commonSlice";
 import { getCustomerProfile, getTransactionHistory } from "../../Redux/customerSlice";
+import { getUserProfile, getUserTransactions } from "../../Redux/userSlice";
 import ApiMiddleware from "../ApiMiddleware";
 
 export const addRewardPointsApi = async ({ business_id, member_id, data }, { rejectWithValue, dispatch }) => {
@@ -67,9 +68,10 @@ export const searchUserApi = async (params, { rejectWithValue }) => {
   }
 }
 
-export const userSendRewardPointsApi = async (params, { rejectWithValue }) => {
+export const userSendRewardPointsApi = async (params, { rejectWithValue, dispatch }) => {
   try {
     const response = await ApiMiddleware.post(`/business/transfer/points/`, params);
+    dispatch(getUserTransactions());
     return response.data;
   } catch (error) {
     if (!error.response) {
@@ -79,9 +81,14 @@ export const userSendRewardPointsApi = async (params, { rejectWithValue }) => {
   }
 }
 
-export const userProfileEditApi = async (params, { rejectWithValue }) => {
+export const userProfileEditApi = async (params, { rejectWithValue, dispatch }) => {
   try {
-    const response = await ApiMiddleware.post(`/user/profile/update/`, params);
+    const response = await ApiMiddleware.put(`/auth/user/profile/update/`, params, {
+      headers: {
+        "Content-Type":'multipart/form-data'
+      }
+    });
+    dispatch(getUserProfile())
     return response.data;
   } catch (error) {
     if (!error.response) {
