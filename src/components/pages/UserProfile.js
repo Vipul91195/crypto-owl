@@ -9,6 +9,7 @@ import CustomButton from "../forms/CustomButton";
 import chat from "../../assets/img/chat.svg";
 import roundedblock from "../../assets/img/roundedblock.svg";
 import profilepic from "../../assets/img/profilepic.svg";
+import avatar from "../../assets/img/avatar.jpg";
 import MessageForm from "../../admin/MessageForm";
 import AwardPoint from "../../admin/AwardPoint";
 import AdminHeader from "../layout/AdminHeader";
@@ -185,9 +186,10 @@ const UserProfile = () => {
                 {/* <div className="pt-[18px] lg:pt-[50.94px] rounded-b-[20px] overflow-hidden relative"> */}
                 <div className="pt-[18px] 2xl:pt-[30px] rounded-b-[20px] overflow-hidden relative">
                     <div className="absolute pt-4 pl-4 md:pt-6 2xl:pt-14 xl:pl-[42px] ">
-                        <div className="relative max-w-[84.72px] md:max-w-[86px] max-h-[98.39px] lg:max-w-[125px] xl:max-w-[140px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]">
+                        <div className="relative w-screen h-screen max-w-[84.72px] md:max-w-[86px] max-h-[98.39px] lg:max-w-[125px] xl:max-w-[140px] lg:max-h-[140px] xl:max-h-[170px] 2xl:max-w-[217px] 2xl:max-h-[252px]">
                             <img
-                                src={customerDetails?.profile?.profile_picture || profilepic}
+                                className="h-full w-full"
+                                src={customerDetails?.profile?.profile_picture ? process.env.REACT_APP_PUBLIC_MEDIA_URL+customerDetails?.profile?.profile_picture : avatar}
                                 alt="businessIcon"
                             />
                         </div>
