@@ -7,21 +7,20 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import RouteMiddleware from '../RouteMiddleware'
 import { Form, Formik } from 'formik'
 import { InputField } from '../forms/InputField'
-import { CloseFilled, MobMenu, SearchIcon } from '../icons'
+import { CloseFilled, MobMenu, SearchIcon, Logout } from '../icons'
 import classNames from 'classnames'
 import { Link } from "react-router-dom";
 import NotifyModal from '../modal/NotifyModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBusinessCustomers, getBusinesses } from '../../Redux/businessSlice'
 import { setCurrentPage } from '../../Redux/commonSlice'
-import _ from 'lodash'
 import { logout } from '../../utils/helper'
 
 const tabs = [
     // { name: 'Admin Info', icon: home, route: "/admin-info" },
     { name: 'User Management', icon: user, route: "/businesses" },
     { name: 'Reports', icon: report, route: "/reports" },
-    { name: 'Search User', icon: searchUser, route: "/search-user" }
+    { name: 'Search User', icon: searchUser, route: "/search-user" },
 ];
 
 export const AdminLayout = ({ children, isLoading }) => {
@@ -73,11 +72,9 @@ export const AdminLayout = ({ children, isLoading }) => {
                                 </div>
                             </Link>
                         ))}
-                    </div>
-                    <div className='pt-7'>
                         <Link to="/login" onClick={() => logout()}>
                             <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
-                                {/* <img src={} alt="i" /> */}
+                                <Logout className="text-[#DD69AA] h-[18px] w-[18px]" />
                                 <p className='text-base leading-7 text-[#DD69AA] font-bold whitespace-nowrap'>Log out</p>
                             </div>
                         </Link>

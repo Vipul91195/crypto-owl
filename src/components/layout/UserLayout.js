@@ -1,11 +1,8 @@
 import React, { Children, useEffect, useState } from 'react'
-import { Home, Blocks, Profile } from '../icons';
-
-
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Form, Formik } from 'formik'
 import { InputField } from '../forms/InputField'
-import { CloseFilled, MobMenu, SearchIcon } from '../icons'
+import { Home, Blocks, Profile, Logout, CloseFilled, MobMenu, SearchIcon } from '../icons'
 import classNames from 'classnames'
 import { Link } from "react-router-dom";
 import NotifyModal from '../modal/NotifyModal'
@@ -66,11 +63,9 @@ export const UserLayout = ({ children }) => {
                                 </div>
                             </Link>
                         ))}
-                    </div>
-                    <div className='pt-7'>
                         <Link to="/login" onClick={() => logout()}>
                             <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
-                                {/* <img src={} alt="i" /> */}
+                                <Logout className="text-[#DD69AA] h-[18px] w-[18px]" />
                                 <p className='text-base leading-7 text-[#DD69AA] font-bold whitespace-nowrap'>Log out</p>
                             </div>
                         </Link>

@@ -35,6 +35,7 @@ const UserProfile = () => {
         currentPage,
         pagination,
         selectedFilter,
+        sortColumns,
         currentTable,
     } = useSelector((state) => ({
         isLoading: state.customerSlice.isLoading,
@@ -45,6 +46,7 @@ const UserProfile = () => {
         currentPage: state.commonSlice.tableData.currentPage,
         selectedFilter: state.commonSlice.tableData.selectedFilter,
         currentTable: state.commonSlice.tableData.currentTable,
+        sortColumns: state.commonSlice.tableData.sortColumns,
     }));
 
     const [selectedIds, setSelectedIds] = useState(null);
@@ -143,10 +145,12 @@ const UserProfile = () => {
                 {
                     Header: "Balance Points",
                     accessor: "business_points",
+                    sortable: true
                 },
                 {
                     Header: "Personal Points",
                     accessor: "personal_points",
+                    sortable: true
                 },
             ],
         },
@@ -176,9 +180,15 @@ const UserProfile = () => {
                 member_id,
                 page: currentPage,
                 filter: selectedFilter,
+                sort_personal_points: Object.keys(sortColumns || {}).includes("personal_points")
+                  ? sortColumns["personal_points"]
+                  : null,
+                sort_business_points: Object.keys(sortColumns || {}).includes("business_points")
+                  ? sortColumns["business_points"]
+                  : null,
             })
         );
-    }, [currentTable, currentPage, dispatch, selectedFilter]);
+    }, [currentTable, currentPage, dispatch, selectedFilter, sortColumns]);
     return (
       <AdminLayout>
         <AdminHeader className="" type="user-profile" title="User Profile" />
@@ -599,14 +609,16 @@ const UserProfile = () => {
           filteredColumns={["transaction_type"]}
           data={tableData}
           HeaderClasses="bg-[#040404] text-[#DD69AA]"
-          HeadingClasses="relative pt-[22px] pb-[16px] md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
-          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal py-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
+          // HeadingClasses="relative pt-[22px] pb-[16px] md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+          HeadingClasses="relative py-2 px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal py-[12px] -tracking-[2%] text-center"
           tableClasses="w-full rounded-[20px] overflow-hidden"
           BodyClasses="text-[#979998] bg-[#101010]"
           containerClasses="h-max overflow-auto"
           headerClasses={{
             "From/To": { textAlign: "left" },
             emailId: { textAlign: "right" },
+            orderNo: { textAlign: "center" },
           }}
           cellTextClassName={{
             "From/To": { justifyContent: "left", width: "100%" },

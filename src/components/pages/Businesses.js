@@ -23,7 +23,7 @@ import { Oval } from 'react-loader-spinner';
 import Loader from '../loader/Loader';
 
 const Businesses = () => {
-  const { isLoading, allBusinesses, isAdmin, pageSize, currentPage, pagination, selectedFilter, currentTable } = useSelector(state => ({
+  const { isLoading, allBusinesses, isAdmin, pageSize, currentPage, pagination, selectedFilter, currentTable, sortColumns } = useSelector(state => ({
     isLoading: state.businessSlice.isLoading,
     isAdmin: state.loginSlice.allData.is_admin,
     allBusinesses: state.businessSlice.allBusinesses,
@@ -31,7 +31,8 @@ const Businesses = () => {
     pageSize: state.commonSlice.tableData.pageSize,
     currentPage: state.commonSlice.tableData.currentPage,
     selectedFilter: state.commonSlice.tableData.selectedFilter,
-    currentTable: state.commonSlice.tableData.currentTable
+    currentTable: state.commonSlice.tableData.currentTable,
+    sortColumns: state.commonSlice?.tableData?.sortColumns
   }))
   const [selectedIds, setSelectedIds] = useState(null);
   const dispatch = useDispatch();
@@ -51,12 +52,56 @@ const Businesses = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getBusinesses({ page: currentPage, filter: selectedFilter }))
-  }, [currentTable, currentPage, dispatch, selectedFilter]);
+    dispatch(
+      getBusinesses({
+        page: currentPage,
+        filter: selectedFilter,
+        order_by_name: Object.keys(sortColumns || {}).includes("Business")
+          ? sortColumns["Business"]
+          : null,
+        sort_personal_points: Object.keys(sortColumns || {}).includes("personal_points")
+          ? sortColumns["personal_points"]
+          : null,
+        sort_business_points: Object.keys(sortColumns || {}).includes("business_points")
+          ? sortColumns["business_points"]
+          : null,
+      })
+    );
+  }, [currentTable, currentPage, dispatch, selectedFilter, sortColumns]);
+
+  const tempData = React.useMemo(() => [
+    {
+      business_id: 1,
+      selected: false,
+      businessImage: "",
+      business: "Verizon",
+      owner_name: "maddison_c21",
+      owner_email: "xyz@gmail.com",
+      member_id: "9821",
+      issue_date: "12/12/1212",
+      business_points: "1000",
+      personal_points: "1000",
+      status: "Inactive",
+    },
+    {
+      business_id: 2,
+      selected: false,
+      businessImage: "",
+      business: "Verizon",
+      owner_name: "maddison_c21",
+      owner_email: "xyz@gmail.com",
+      member_id: "9821",
+      issue_date: "12/12/1212",
+      business_points: "1000",
+      personal_points: "1000",
+      status: "Inactive",
+    }
+  ]);
 
   const columns = React.useMemo(() => [
     {
       Header: "Business",
+      sortable: true,
       accessor: (row) => {
         const { businessImage, business, business_id } = row;
         return (
@@ -115,10 +160,12 @@ const Businesses = () => {
     {
       Header: "Business Points",
       accessor: "business_points",
+      sortable: true,
     },
     {
       Header: "Personal Points",
       accessor: "personal_points",
+      sortable: true,
     },
   ]);
 
@@ -132,6 +179,8 @@ const Businesses = () => {
               selectionColumn="member_id"
               columns={allBusinesses ? columns : [{ Header: "", accessor: "no_data" }]}
               data={allBusinesses || [{ no_data: "No Data" }]}
+              // data={tempData}
+              // columns={columns}
               filteredColumns={["Status"]}
               HeaderClasses="bg-[#040404] text-[#DD69AA]"
               HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
@@ -145,12 +194,12 @@ const Businesses = () => {
                 business_points: {
                   textAlign: "center",
                   whiteSpace: "pre-wrap",
-                  maxWidth: "90px",
+                  // maxWidth: "90px",
                 },
                 personal_points: {
                   textAlign: "center",
                   whiteSpace: "pre-wrap",
-                  maxWidth: "90px",
+                  // maxWidth: "90px",
                 },
               }}
               cellTextClassName={{
@@ -176,7 +225,7 @@ const Businesses = () => {
               handleRowSelect={setSelectedIds}
               isLoading={isLoading}
             />
-            :
+          :
             <CommonTable
               columns={[{ Header: "", accessor: "no_data" }]}
               data={[{ no_data: "No Data" }]}
@@ -188,7 +237,7 @@ const Businesses = () => {
               containerClasses="min-h-[20vh] h-max overflow-x-auto"
               cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
             />
-          }
+          } 
           {pagination &&
             <div className="flex justify-center md:justify-end h-max items-center gap-12">
               <ReactPaginate

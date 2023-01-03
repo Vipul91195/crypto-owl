@@ -70,8 +70,8 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
                         <label className='w-full text-left text-base leading-[10px] text-[#A6A6A6] font-normal tracking-tight xl:text-[24px] 2xl:text-[32px] 2xl:leading-5 xl:text-white'>Points</label>
                         <InputField
                             onChange={(e) => handleChange(e, setFieldValue)}
-                            inputstyle='w-[163px] xl:w-[250px] 2xl:w-[304px] text-white text-base leading-[10px] xl:text-[22px] 2xl:text-2xl outline-none h-[25px] xl:h-[42px] 2xl:h-[48px] xl:rounded-2xl rounded-[5px] bg-[#303030] xl:bg-[#101010] pl-2 xl:pl-5'
-                            borderstyle='w-[163px] xl:w-[250px] 2xl:w-[304px] text-white text-base leading-[10px] xl:text-[22px] 2xl:text-2xl outline-none h-[25px] xl:h-[42px] 2xl:h-[48px] xl:rounded-2xl rounded-[5px] bg-[#101010] pl-2 xl:pl-5 border border-red-800'
+                            inputstyle='w-[163px] xl:w-[250px] 2xl:w-[304px] text-white text-base leading-[10px] xl:text-[22px] 2xl:text-2xl outline-none h-[25px] xl:h-[42px] 2xl:h-[48px] 2xl:rounded-2xl rounded-[5px] bg-[#303030] xl:bg-[#101010] pl-2 xl:pl-5'
+                            borderstyle='w-[163px] xl:w-[250px] 2xl:w-[304px] text-white text-base leading-[10px] xl:text-[22px] 2xl:text-2xl outline-none h-[25px] xl:h-[42px] 2xl:h-[48px] 2xl:rounded-2xl rounded-[5px] bg-[#101010] pl-2 xl:pl-5 border border-red-800'
                             type='text'
                             id='amount'
                             name='amount' />
@@ -79,7 +79,7 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
                     <div className='flex justify-between gap-[60px] 2xl:gap-[77px] items-center pt-[16px] md:pt-[18px] pb-[22px] md:pb-[24px] xl:pt-[30px] xl:pb-[36px]'>
                         <label className='w-full text-left text-base leading-[10px] text-[#A6A6A6] font-normal tracking-tight xl:text-[24px] 2xl:text-[32px] 2xl:leading-5 xl:text-white whitespace-nowrap'>Point type</label>
                         <Dropdown
-                            inputstyle='w-[163px] xl:w-[250px] 2xl:w-[304px] text-white text-base leading-[10px] xl:text-[24px] 2xl:text-2xl outline-none h-[25px] py-[12px] flex items-center xl:h-[42px] 2xl:h-[48px] rounded-[5px] xl:rounded-2xl bg-[#303030] xl:bg-[#101010] pl-2 xl:pl-5'
+                            inputstyle='w-[163px] xl:w-[250px] 2xl:w-[304px] text-white text-base leading-[10px] xl:text-[24px] 2xl:text-2xl outline-none h-[25px] py-[12px] flex items-center xl:h-[42px] 2xl:h-[48px] rounded-[5px] 2xl:rounded-2xl bg-[#303030] xl:bg-[#101010] pl-2 xl:pl-5'
                             options={options}
                             disabled={type === "customer" || type === "user-profile"}
                             selected={type === "customer" || type === "user-profile" ? selectedOption : null}
