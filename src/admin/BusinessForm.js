@@ -4,8 +4,9 @@ import CustomButton from '../components/forms/CustomButton';
 import { InputField } from '../components/forms/InputField'
 import { BusinessFormValidationSchema } from '../utils/FormValidations';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBusinesses } from '../Redux/commonSlice';
+import { addBusinesses, closeModal } from '../Redux/commonSlice';
 import { handleNumberOnly } from '../utils/helper';
+import { CloseFilled } from '../components/icons/CloseFilled';
 
 const BusinessForm = () => {
     const dispatch = useDispatch();
@@ -25,8 +26,9 @@ const BusinessForm = () => {
     const initialValues = { business_logo: null, business_name: "", company_no: "", owner_name: "", owner_email: "", vat_no: "", address: "" };
     return (
         <div className='min-w-[304px] max-w-[597px] 2xl:max-w-[1171px] w-[70vw] 3xl:w-full'>
-            <div className='bg-[#141414] md:bg-[#101010]  pt-1 2xl:pt-2 md:h-[48px]  2xl:h-[68px] text-left text-xl md:text-3xl xl:text-[24px] leading-9 2xl:text-[34px] 2xl:leading-[56px] font-medium text-white xl:text-[#CDBEBE] tracking-tight pl-[20px] xl:pl-[31px]'>
+            <div className='flex justify-between bg-[#101010] md:bg-[#101010]  md:pt-1 2xl:pt-2 h-[40px] md:h-[48px] 2xl:h-[68px] text-left text-xl md:text-3xl xl:text-[24px] leading-9 2xl:text-[34px] 2xl:leading-[56px] font-medium text-white xl:text-[#CDBEBE] tracking-tight px-[20px] xl:px-[31px]'>
                 Add Business
+            <button onClick={() => dispatch(closeModal())} className="cursor-pointer"><CloseFilled className="text-[#DD69AA] h-5 w-5 md:h-6 md:w-6 2xl:h-8 2xl:w-8" /></button>
             </div>
             <Formik
                 initialValues={initialValues}
@@ -40,7 +42,7 @@ const BusinessForm = () => {
                     encType="multipart/form-data"
                 // encType="multipart/form"
                 >
-                    <div className='pt-3 pb-6 xl:pt-[14px] xl:pb-7 bg-black xl:bg-[#1C1C1C] px-5 xl:px-[31.5px] '>
+                    <div className='pt-3 pb-6 xl:pt-[14px] xl:pb-7 bg-[#1C1C1C] xl:bg-[#1C1C1C] px-5 xl:px-[31.5px] '>
                         <div className='flex text-left flex-col gap-[14px] md:gap-[20px] 2xl:gap-[35px]'>
                             {/* <div>
                                 <input id="file" name="business_logo" type="file" onChange={(event) => {
