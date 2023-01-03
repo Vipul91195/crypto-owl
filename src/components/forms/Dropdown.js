@@ -25,9 +25,9 @@ const Dropdown = ({ setValues, cursorNotAllowed, ...props }) => {
                         meta.touched && meta.error && " border border-red-800",
                         meta.touched && meta.error && " text-red-500 "
                     )}>
-                        <span className={classNames("block truncate text-left text-sm xl:text-2xl", { 'text-gray-500': props?.disabled || false })}>{selected?.name}</span>
+                        <span className={classNames("block truncate text-left text-sm  xl:text-[22px] 2xl:text-2xl", { 'text-gray-500': props?.disabled || false })}>{selected?.name}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 xl:pr-4 ">
-                            <img className='w-[9.5px] xl:w-[27px]' src={vector} alt="v" />
+                            <img className='w-[9.5px] xl:w-[20px] 2xl:w-[27px]' src={vector} alt="v" />
                         </span>
                     </Listbox.Button>
                     {meta.touched && meta.error && (

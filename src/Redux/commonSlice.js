@@ -161,7 +161,7 @@ const commonSlice = createSlice({
     [addBulkCustomer.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       toast.success(
-        `${payload?.result[0]?.total_added_employee > 0 ? payload?.result[0]?.total_added_employee : ''} ${payload?.result[0]?.total_added_employee > 0 ? Number(payload?.result[0]?.total_added_employee) > 1
+        `Success \n ${payload?.result[0]?.total_added_employee > 0 ? payload?.result[0]?.total_added_employee : ''} ${payload?.result[0]?.total_added_employee > 0 ? Number(payload?.result[0]?.total_added_employee) > 1
           ? "customers added successfully. \n\n"
           : "customer added successfully. \n\n" : ''
         } ${payload?.result[0]?.not_added_employees.length > 0 ? payload?.result[0]?.not_added_employees.map(customer => customer.index).join() : ""} ${payload?.result[0]?.not_added_employees.length > 0 ? payload?.result[0]?.not_added_employees.length > 1
