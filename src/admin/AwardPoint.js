@@ -5,8 +5,9 @@ import Dropdown from '../components/forms/Dropdown'
 import { InputField } from '../components/forms/InputField'
 import { AwardPointValidationSchema } from '../utils/FormValidations'
 import { useDispatch, useSelector } from 'react-redux'
-import { addRewardPoints, getPointTypes } from '../Redux/commonSlice'
+import { addRewardPoints, closeModal, getPointTypes } from '../Redux/commonSlice'
 import { useParams } from 'react-router-dom'
+import {CloseFilled} from '../components/icons/CloseFilled'
 
 const AwardPoint = ({ type, memberId, onSubmit }) => {
     const { isLoading, selectedIds, pointsTypes } = useSelector(state => ({
