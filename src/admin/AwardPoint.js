@@ -57,7 +57,7 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
     }, [pointsTypes]);
 
     return (
-        <>
+        <div>
         <div className="bg-[#101010] py-8 pt-1 pb-1  px-5 flex items-center justify-between">
             <p className="py-4 text-left text-xl leading-9 text-white xl:text-[24px] 2xl:text-[34px] 2xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight"></p>
             <button onClick={() => dispatch(closeModal())} className="cursor-pointer"><CloseFilled className="text-[#DD69AA] h-5 w-5 md:h-6 md:w-6 2xl:h-8 2xl:w-8" /></button>
@@ -110,7 +110,7 @@ const AwardPoint = ({ type, memberId, onSubmit }) => {
                     </form>)}
                 </Formik>
             </div >
-        </>
+        </div>
     )
 }
 export default AwardPoint
