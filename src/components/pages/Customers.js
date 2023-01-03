@@ -30,6 +30,7 @@ const Customers = () => {
     businessDetails,
     currentPage,
     pageSize,
+    sortColumns,
     pagination,
     currentTable,
     selectedFilter,
@@ -42,6 +43,7 @@ const Customers = () => {
     currentPage: state.commonSlice.tableData.currentPage,
     selectedFilter: state.commonSlice.tableData.selectedFilter,
     currentTable: state.commonSlice.tableData.currentTable,
+    sortColumns: state.commonSlice.tableData.sortColumns,
   }));
 
   const [modal, setModal] = useState(false);
@@ -61,8 +63,18 @@ const Customers = () => {
   }
 
   useEffect(() => {
-    dispatch(getBusinessCustomers({ business_id: business_id, page: currentPage, filter: selectedFilter }))
-  }, [currentTable, currentPage, selectedFilter]);
+    dispatch(getBusinessCustomers({ business_id: business_id, page: currentPage, filter: selectedFilter,
+      order_by_name: Object.keys(sortColumns || {}).includes("Name")
+      ? sortColumns["Name"]
+      : null,
+    sort_personal_points: Object.keys(sortColumns || {}).includes("personal_points")
+      ? sortColumns["personal_points"]
+      : null,
+    sort_business_points: Object.keys(sortColumns || {}).includes("business_points")
+      ? sortColumns["business_points"]
+      : null,
+     }))
+  }, [currentTable, currentPage, selectedFilter, sortColumns]);
 
   const columns = React.useMemo(() => [
     {
@@ -71,6 +83,7 @@ const Customers = () => {
     },
     {
       Header: "Name",
+      sortable: true,
       accessor: (row) => {
         const { customerImage, name, member_id } = row;
         return (
@@ -126,8 +139,10 @@ const Customers = () => {
     {
       Header: "Business Points",
       accessor: "business_points",
+      sortable: true,
     },
     {
+      sortable: true,
       Header: "Personal Points",
       accessor: "personal_points",
     },

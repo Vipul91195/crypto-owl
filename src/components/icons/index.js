@@ -9,4 +9,5 @@ export { Message } from "./Message";
 export { Home } from "./Home";
 export { Profile } from "./Profile";
 export { Blocks } from "./Blocks";
+export { Logout } from "./Logout";
 

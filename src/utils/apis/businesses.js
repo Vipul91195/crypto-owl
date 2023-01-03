@@ -4,7 +4,21 @@ import ApiMiddleware from "../ApiMiddleware";
 
 export const getBusinessesApi = async (params, { rejectWithValue }) => {
   try {
-    const response = await ApiMiddleware.get(`/admin/get/business/?page=${params?.page || '1'}${params?.search ? '&search='+params?.search : ''}${(params?.filter && params?.filter.value !== "") ? '&status='+params?.filter.value : ''}${params?.page_size ? '&page_size='+params?.page_size : ''}`);
+    const response = await ApiMiddleware.get(
+      `/admin/get/business/?page=${params?.page || "1"}${
+        params?.search ? "&search=" + params?.search : ""
+      }${
+        params?.filter && params?.filter.value !== ""
+          ? "&status=" + params?.filter.value
+          : ""
+      }${params?.page_size ? "&page_size=" + params?.page_size : ""}${
+        params?.order_by_name ? "&order_by_name=" + params?.order_by_name : ""
+      }${
+        params?.sort_personal_points ? "&sort_personal_points=" + params?.sort_personal_points : ""
+      }${
+        params?.sort_business_points ? "&sort_business_points=" + params?.sort_business_points : ""
+      }`
+    );
     return response.data;
   } catch (error) {
     if (!error.response) {
@@ -28,8 +42,21 @@ export const getBusinessApi = async (params, { rejectWithValue }) => {
 
 export const getBusinessCustomersApi = async (params, { rejectWithValue }) => {
   try {
-    // const response = await ApiMiddleware.get(`/admin/get/customer/${params?.business_id}/${params?.search ? '?search='+params?.search : ''}`);
-    const response = await ApiMiddleware.get(`/admin/get/customer/${params?.business_id}/?page=${params?.page || '1'}${params?.search ? '&search='+params?.search : ''}${(params?.filter && params?.filter.value !== "") ? '&status='+params?.filter.value : ''}${params?.page_size ? '&page_size='+params?.page_size : ''}`);
+    const response = await ApiMiddleware.get(
+      `/admin/get/customer/${params?.business_id}/?page=${params?.page || "1"}${
+        params?.search ? "&search=" + params?.search : ""
+      }${
+        params?.filter && params?.filter.value !== ""
+          ? "&status=" + params?.filter.value
+          : ""
+      }${params?.page_size ? "&page_size=" + params?.page_size : ""}${
+        params?.order_by_name ? "&order_by_name=" + params?.order_by_name : ""
+      }${
+        params?.sort_personal_points ? "&sort_personal_points=" + params?.sort_personal_points : ""
+      }${
+        params?.sort_business_points ? "&sort_business_points=" + params?.sort_business_points : ""
+      }`
+    );
     return {...response.data, business_id: params?.business_id};
   } catch (error) {
     if (!error.response) {

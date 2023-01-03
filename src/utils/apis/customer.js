@@ -33,7 +33,17 @@ export const getCustomerProfileApi = async (params, { rejectWithValue }) => {
 
 export const getTransactionHistoryApi = async (params, { rejectWithValue }) => {
   try {
-    const response = await ApiMiddleware.get(`/transaction/history/?member_id=${params?.member_id}&page=${params?.page || '1'}${params?.search ? '&search='+params?.search : ''}${params?.page_size ? '&page_size='+params?.page_size : '&page_size=10'}`);
+    const response = await ApiMiddleware.get(
+      `/transaction/history/?member_id=${params?.member_id}&page=${
+        params?.page || "1"
+      }${params?.search ? "&search=" + params?.search : ""}${
+        params?.page_size ? "&page_size=" + params?.page_size : "&page_size=10"
+      }${
+        params?.sort_personal_points ? "&sort_personal_points=" + params?.sort_personal_points : ""
+      }${
+        params?.sort_business_points ? "&sort_business_points=" + params?.sort_business_points : ""
+      }`
+    );
     return response.data;
   } catch (error) {
     if (!error.response) {

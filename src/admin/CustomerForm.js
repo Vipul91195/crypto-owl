@@ -4,9 +4,10 @@ import CustomButton from '../components/forms/CustomButton';
 import { InputField } from '../components/forms/InputField'
 import { BulkUploadValidations, CustomerEditValidationSchema, CustomerFormValidationSchema } from '../utils/FormValidations';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBulkCustomer, addCustomer, userProfileEdit } from '../Redux/commonSlice';
+import { addBulkCustomer, addCustomer, closeModal, userProfileEdit } from '../Redux/commonSlice';
 import { getCSVTemplate } from '../Redux/customerSlice';
 import { useParams } from 'react-router-dom';
+import { CloseFilled } from '../components/icons';
 
 const CustomerForm = ({type}) => {
   const dispatch = useDispatch();
@@ -35,7 +36,8 @@ const CustomerForm = ({type}) => {
     formData.append('phone_no', values.phone_no);
     type !== "edit-profile" && formData.append('email', values.email);
     formData.append('address', values.address);
-    formData.append('profile_picture', values?.user_profile_pic || '')
+    typeof values?.user_profile_pic !== 'string' &&
+      formData.append('profile_picture', values?.user_profile_pic || '')
     if(type === "edit-profile") {
       dispatch(userProfileEdit(formData))
     }else {
@@ -66,8 +68,9 @@ const CustomerForm = ({type}) => {
   // const initialValues = { profile_picture: null, name: "", email: "", phone_no: "", address: "" };
   return (
     <div className="min-w-[304px] xl:min-w-[450px] 2xl:min-w-[597px] w-full">
-      <div className="bg-[#101010] pt-1 pb-1 2xl:h-[68px] text-left text-xl leading-9 text-white xl:text-[24px] 2xl:text-[34px] 2xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight pl-5 xl:pl-[31px] ">
-        {type === "edit-profile" ? "Edit Profile" : "Add Customer"}
+      <div className="bg-[#101010] pt-1 pb-1 2xl:h-[68px] px-5 xl:px-[31px] flex items-center justify-between">
+        <p className="text-left text-xl leading-9 text-white xl:text-[24px] 2xl:text-[34px] 2xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight">{type === "edit-profile" ? "Edit Profile" : "Add Customer"}</p>
+        <button onClick={() => dispatch(closeModal())} className="cursor-pointer"><CloseFilled className="text-[#DD69AA] h-5 w-5 md:h-6 md:w-6 2xl:h-8 2xl:w-8" /></button>
       </div>
       {bulkUpload ?
         (<Formik

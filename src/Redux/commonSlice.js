@@ -16,6 +16,7 @@ const initialState = {
     filters: null,
     pointsTypes: null,
     currentTable: null,
+    sortColumns: null
   },
   notifyModal: {
     isVisible: false,
@@ -96,6 +97,9 @@ const commonSlice = createSlice({
     },
     setCurrentPage: (state, { payload }) => {
       state.tableData.currentPage = payload;
+    },
+    setColumnSort: (state, { payload }) => {
+      state.tableData.sortColumns = payload;
     },
     clearFilter: (state) => {
       state.tableData.filters = null;
@@ -279,6 +283,7 @@ export const {
   clearFilter,
   setTableFilter,
   closeModal,
+  setColumnSort,
   setCurrentPage,
   openModal,
   clearGlobalSearch,
