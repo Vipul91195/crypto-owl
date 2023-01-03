@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearFilter, getRewardTypes, setCurrentPage, setTableFilter } from '../Redux/commonSlice';
-import { useLocation } from 'react-router-dom';
+import { redirect, useLocation } from 'react-router-dom';
 import { getBusinesses } from '../Redux/businessSlice';
 
 export const getAccessToken = () => {
@@ -15,6 +15,12 @@ export const setAccessToken = (token) => {
 
 export const removeAccessToken = (token) => {
   return Cookies.remove("crypt-access");
+}
+
+export const logout = () => {
+  Cookies.remove("crypt-access");
+  Cookies.remove("crypt-refresh");
+  Cookies.remove("is-admin");
 }
 
 export const capitalize = (value) =>  {

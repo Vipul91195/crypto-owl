@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getBusinessCustomers, getBusinesses } from '../../Redux/businessSlice'
 import { setCurrentPage } from '../../Redux/commonSlice'
 import _ from 'lodash'
+import { logout } from '../../utils/helper'
 
 const tabs = [
     // { name: 'Admin Info', icon: home, route: "/admin-info" },
@@ -73,8 +74,16 @@ export const AdminLayout = ({ children, isLoading }) => {
                             </Link>
                         ))}
                     </div>
+                    <div className='pt-7'>
+                        <Link to="/login" onClick={() => logout()}>
+                            <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
+                                {/* <img src={} alt="i" /> */}
+                                <p className='text-base leading-7 text-[#DD69AA] font-bold whitespace-nowrap'>Log out</p>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
-                <div className='bg-[#171717] min-h-screen px-5 box-border md:max-w-[calc(100vw_-_200px)] 2xl:max-w-[calc(100vw_-_290px)] w-full 2xl:px-11 '>
+                <div className=' bg-[#171717] min-h-screen px-5 box-border md:max-w-[calc(100vw_-_200px)] 2xl:max-w-[calc(100vw_-_290px)] w-full 2xl:px-11 '>
                     <div className='flex w-full justify-end items-center pt-[30px] pb-[25px] gap-x-5 md:hidden'>
                         <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
                             <Form>
@@ -82,7 +91,7 @@ export const AdminLayout = ({ children, isLoading }) => {
                                     <InputField
                                         iconAfter={<SearchIcon className="h-[14px] 2xl:h-[17px] block md:hidden w-[14px] 2xl:w-[17px]" />}
                                         type="text"
-                                        value={searchTerm}
+                                        value={searchTerm || ""}
                                         onChange={handleSearch}
                                         name="searchTerm"
                                         placeholder="Search"
