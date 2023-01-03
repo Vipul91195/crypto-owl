@@ -65,8 +65,8 @@ const CustomerForm = ({type}) => {
         };
   // const initialValues = { profile_picture: null, name: "", email: "", phone_no: "", address: "" };
   return (
-    <div className="min-w-[304px] xl:min-w-[597px] w-full">
-      <div className="bg-[#101010] pt-1 xl:h-[68px] text-left text-xl leading-9 text-white xl:text-[34px] xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight pl-5 xl:pl-[31px] ">
+    <div className="min-w-[304px] xl:min-w-[450px] 2xl:min-w-[597px] w-full">
+      <div className="bg-[#101010] pt-1 pb-1 2xl:h-[68px] text-left text-xl leading-9 text-white xl:text-[24px] 2xl:text-[34px] 2xl:leading-[56px] font-bold xl:font-medium xl:text-[#CDBEBE] tracking-tight pl-5 xl:pl-[31px] ">
         {type === "edit-profile" ? "Edit Profile" : "Add Customer"}
       </div>
       {bulkUpload ?
@@ -79,7 +79,7 @@ const CustomerForm = ({type}) => {
             <form onSubmit={handleSubmit} encType="multipart/form-data">
               <div className="pt-[13px] pb-[25px] xl:pt-6 xl:pb-6 bg-[#1C1C1C] px-5 xl:px-[31.5px]">
                 <div className="flex text-left flex-col gap-[14px] xl:gap-[30px] 2xl:gap-[35px]">
-                  <label className="w-full cursor-pointer flex items-center justify-center border-[5px] border-dashed border-gray-500 p-6 min-h-[150px] text-white  text-sm xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight pb-2 xl:pb-[20px]">
+                  <label className="w-full cursor-pointer flex items-center justify-center border-[5px] border-dashed border-gray-500 p-6 min-h-[150px] text-white  text-sm xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight pb-2 lg:pb-2 2xl:pb-[20px]">
                     {values.csv_file ?
                       <span>{values.csv_file.name}</span>
                       :
@@ -129,21 +129,21 @@ const CustomerForm = ({type}) => {
           {({ values, setFieldValue, handleSubmit }) => (
             <form onSubmit={handleSubmit} encType="multipart/form-data">
               <div className="pt-[13px] pb-[25px] xl:pt-6 xl:pb-6 bg-[#1C1C1C] px-5 xl:px-[31.5px]">
-                <div className="flex text-left flex-col gap-[14px] md:gap-3 xl:gap-[30px] 2xl:gap-[35px]">
+                <div className="flex text-left flex-col gap-[14px] md:gap-3 xl:gap-[20px] 2xl:gap-[35px]">
                   <div>
-                          <input id="file" name="user_profile_pic" type="file" onChange={(event) => {
+                          <input id="file" className="appearance-none text-white" name="user_profile_pic" type="file" onChange={(event) => {
                               setFieldValue("user_profile_pic", event.currentTarget.files[0]);
                           }} />
                       </div>
                   <div>
-                    <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
+                    <label className="text-base md:text-[18px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 lg:pb-2 2xl:pb-[20px] block">
                       Name<span className="text-[#DD69AA]">*</span>
                     </label>
-                    <InputField
-                      inputstyle="w-full text-[#858383] text-sm  xl:text-xl font-normal tracking-[-0.02em] outline-none
-                             py-[8px] xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]"
-                      borderstyle="w-full text-[#858383] text-sm  xl:text-xl font-normal tracking-[-0.02em] outline-none
-                      py-[8px] xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]"
+                    <InputField className=""
+                      inputstyle="w-full text-[#858383] text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                             py-[8px] lg:md:py-[10px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent 2xl:pl-[25px] pl-[15.56px]"
+                             borderstyle="w-full text-[#858383] text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                             py-[8px] lg:md:py-[10px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]"
                       errorRight={true}
                       type="text"
                       id="name"
@@ -153,14 +153,14 @@ const CustomerForm = ({type}) => {
                   </div>
                   {type !== "edit-profile" && 
                   <div>
-                    <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
+                    <label className="text-base md:text-[18px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 lg:pb-2 2xl:pb-[20px] block">
                       Email ID<span className="text-[#DD69AA]">*</span>
                     </label>
                     <InputField
-                      inputstyle="w-full text-[#858383] text-sm  xl:text-xl font-normal tracking-[-0.02em] outline-none
-                  py-[8px] xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]"
-                      borderstyle="w-full text-[#858383] text-sm  xl:text-xl font-normal tracking-[-0.02em] outline-none
-           py-[8px] xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]"
+                     inputstyle="w-full text-[#858383] text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                     py-[8px] lg:md:py-[10px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent 2xl:pl-[25px] pl-[15.56px]"
+                     borderstyle="w-full text-[#858383] text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                     py-[8px] lg:md:py-[10px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]"
                       errorRight={true}
                       type="text"
                       id="email"
@@ -169,15 +169,15 @@ const CustomerForm = ({type}) => {
                     />
                   </div>}
                   <div>
-                    <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
+                    <label className="text-base md:text-[18px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 lg:pb-2 2xl:pb-[20px] block">
                       Phone<span className="text-[#DD69AA]">*</span>
                     </label>
                     <InputField
                       onChange={(e) => handleChange(e, setFieldValue)}
-                      inputstyle="w-full text-[#858383] text-sm  xl:text-xl font-normal tracking-[-0.02em] outline-none
-                      py-[8px] xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]"
-                      borderstyle="w-full text-[#858383] text-sm  xl:text-xl font-normal tracking-[-0.02em] outline-none
-               py-[8px] xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]"
+                      inputstyle="w-full text-[#858383] text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                      py-[8px] lg:md:py-[10px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent 2xl:pl-[25px] pl-[15.56px]"
+                      borderstyle="w-full text-[#858383] text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                      py-[8px] lg:md:py-[10px] 2xl:py-[15px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]"
                       errorRight={true}
                       type="text"
                       id="phone_no"
@@ -186,14 +186,14 @@ const CustomerForm = ({type}) => {
                     />
                   </div>
                   <div>
-                    <label className="text-base md:text-[18px] xl:text-[28px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
+                    <label className="text-base md:text-[18px] 2xl:text-[32px] font-medium tracking-tight text-pink-light pb-2 lg:pb-2 2xl:pb-[20px] block">
                       Address<span className="text-[#DD69AA]">*</span>
                     </label>
                     <InputField
-                      inputstyle="w-full text-[#858383] text-sm  xl:text-xl font-normal tracking-[-0.02em] outline-none
- py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent xl:pl-[25px] pl-[15.56px]"
-                      borderstyle="w-full text-[#858383] text-sm  xl:text-xl font-normal tracking-[-0.02em] outline-none
-py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]"
+                       inputstyle="w-full text-[#858383] text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                       py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent 2xl:pl-[25px] pl-[15.56px]"
+                       borderstyle="w-full text-[#858383] text-sm 2xl:text-xl font-normal tracking-[-0.02em] outline-none
+                       py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent xl:pl-[25px] pl-[15.56px]"
                       errorRight={true}
                       type="text"
                       id="address"
@@ -206,14 +206,14 @@ py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-
                     <CustomButton
                       type="button"
                       onClick={() => setBulkUpload(true)}
-                      buttonStyle="w-full py-[3px] xl:h-[44.83px] text-sm leading-6 tracking-tight font-medium text-[#DD69AA] border border-[#DD69AA] rounded-[10px] xl:rounded-2xl"
+                      buttonStyle="w-full py-[3px] xl:h-[40px] 2xl:h-[44.83px] text-sm leading-6 tracking-tight font-medium text-[#DD69AA] border border-[#DD69AA] rounded-[10px] xl:rounded-2xl"
                     >
                       Bulk Upload
                     </CustomButton>
                     <CustomButton
                       onClick={handleTemplateDownload}
                       type="button"
-                      buttonStyle="w-full py-[3px] xl:h-[44.83px] text-sm leading-6 tracking-tight font-medium text-[#DD69AA] border border-[#DD69AA] rounded-[10px] xl:rounded-2xl"
+                      buttonStyle="w-full py-[3px]  xl:h-[40px] 2xl:h-[44.83px] text-sm leading-6 tracking-tight font-medium text-[#DD69AA] border border-[#DD69AA] rounded-[10px] xl:rounded-2xl"
                     >
                       Template
                     </CustomButton>
@@ -226,7 +226,7 @@ py-[26px] 2xl:py-[35px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-
                     showLoader={isLoading}
                     disabled={isLoading}
                     loaderSize={20}
-                    buttonStyle="w-full py-[7px] md:py-[5px] xl:py-[12px] text-xl xl:text-3xl tracking-tight text-pink-light font-bold rounded-[10px] xl:rounded-2xl bg-[#DD69AA] mt-[15px] xl:mt-7"
+                    buttonStyle="w-full py-[7px] md:py-[5px] xl:py-[10px] text-xl xl:text-[24px] 2xl:text-3xl tracking-tight text-pink-light font-bold rounded-[10px] xl:rounded-2xl bg-[#DD69AA] mt-[15px] xl:mt-7"
                   >
                     {type === "edit-profile" ? "Update" : "Invite"}
                   </CustomButton>

@@ -72,10 +72,10 @@ const Login = () => {
                                 id='password'
                                 name='password'
                                 placeholder='Min. 8 characters' />
-                            <div className='flex py-7 lg:py-6 2xl:py-9 justify-between'>
-                                <div className='flex gap-2 sm:gap-3'>
+                            <div className='flex items-center py-7 lg:py-6 2xl:py-9 justify-between'>
+                                <div className='flex items-center gap-2 sm:gap-3'>
                                     <InputField
-                                        inputstyle='h-[14px] w-[14px] sm:h-[18px] sm:w-[18px] 2xl:h-[20px] 2xl:w-[20px] rounded-sm outline-none'
+                                        inputstyle='flex h-[14px] w-[14px] sm:h-[18px] sm:w-[18px] 2xl:h-[20px] 2xl:w-[20px] rounded-sm outline-none'
                                         type='checkbox'
                                         id='keepMeLogin'
                                         name='keepMeLogin' />
