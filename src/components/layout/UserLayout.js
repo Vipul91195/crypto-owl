@@ -1,8 +1,8 @@
-import React, { Children, useState } from 'react'
+import React, { Children, useEffect, useState } from 'react'
 import { Home, Blocks, Profile } from '../icons';
 
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Form, Formik } from 'formik'
 import { InputField } from '../forms/InputField'
 import { CloseFilled, MobMenu, SearchIcon } from '../icons'
@@ -12,6 +12,10 @@ import NotifyModal from '../modal/NotifyModal'
 import ConfirmationModal from '../modal/ConfirmationModal'
 import UserRouteMiddleware from '../UserRouteMiddleware';
 import RouteMiddleware from '../RouteMiddleware';
+import { logout } from '../../utils/helper';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserTransactions } from '../../Redux/userSlice';
+import { setCurrentPage } from '../../Redux/commonSlice';
 
 const tabs = [
     { name: 'Transaction', icon: Home, route: "/user/transaction" },
@@ -21,11 +25,27 @@ const tabs = [
 
 export const UserLayout = ({ children }) => {
     const route = useLocation();
-    const navigate = useNavigate();
+    const { pageSize } = useSelector(state => ({
+        pageSize: state.commonSlice.tableData.pageSize,
+    }));
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const handleMobileMenu = () => {
         setShowMobileMenu(!showMobileMenu);
     }
+    const [searchTerm, setSearchTerm] = useState(null);
+    const dispatch = useDispatch();
+
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value)
+    }
+
+    useEffect(() => {
+        if (searchTerm !== null) {
+            dispatch(getUserTransactions({ page: 1, search: searchTerm, page_size: pageSize }));
+            searchTerm === "" && setSearchTerm(null);
+        }
+        dispatch(setCurrentPage(1));
+    }, [searchTerm]);
     return (
         <RouteMiddleware>
             <div className='md:grid md:grid-cols-[200px,auto] 2xl:grid-cols-[290px,auto] font-Sans overflow-hidden relative'>
@@ -47,22 +67,32 @@ export const UserLayout = ({ children }) => {
                             </Link>
                         ))}
                     </div>
+                    <div className='pt-7'>
+                        <Link to="/login" onClick={() => logout()}>
+                            <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
+                                {/* <img src={} alt="i" /> */}
+                                <p className='text-base leading-7 text-[#DD69AA] font-bold whitespace-nowrap'>Log out</p>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
                 <div className='bg-[#171717] min-h-screen px-5 box-border md:max-w-[calc(100vw_-_200px)] 2xl:max-w-[calc(100vw_-_290px)] w-full 2xl:px-11 '>
                     <div className='flex w-full justify-end items-center pt-[30px] pb-[25px] gap-x-5 md:hidden'>
-                        <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
+                        {/* <Formik initialValues={{ searchTerm: "" }} onSubmit={() => {}}>
                             <Form>
                                 <div className='max-w-[180px]'>
                                     <InputField
                                         iconAfter={<SearchIcon className="h-[14px] 2xl:h-[17px] block md:hidden w-[14px] 2xl:w-[17px]" />}
                                         type="text"
+                                        value={searchTerm || ""}
+                                        onChange={handleSearch}
                                         name="searchTerm"
                                         placeholder="Search"
                                         inputstyle="bg-[#101010] focus-visible:outline-none placeholder:text-[#A6A6A6] md:hidden block max-w-[180px] w-screen text-[12px]  text-[#A6A6A6] rounded-[4px] py-2 px-[10px]"
                                     />
                                 </div>
                             </Form>
-                        </Formik>
+                        </Formik> */}
                         <div className='cursor-pointer' onClick={handleMobileMenu}>
                             <MobMenu className="text-[#DD69AA]" />
                         </div>

@@ -20,6 +20,7 @@ import { SelectColumnFilter } from "../../utils/helper";
 import { getBusiness, getBusinessCustomers } from "../../Redux/businessSlice";
 import ReactPaginate from "react-paginate";
 import Loader from "../loader/Loader";
+import DataLoader from "../loader/DataLoader";
 
 const Customers = () => {
   const dispatch = useDispatch();
@@ -137,7 +138,7 @@ const Customers = () => {
   return (
     <AdminLayout >
         <><AdminHeader type="customer" title="User Management (Customers)" />
-          <div className="pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
+          <div className="pt-[2px] 2xl:pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
             <div className="absolute pt-4 pl-[14px] 2xl:pt-[40px] 2xl:pl-[42px]">
               <div className='relative max-w-[82.39px] max-h-[82.39px]  lg:max-w-[130px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
                 <img
@@ -147,10 +148,25 @@ const Customers = () => {
               </div>
             </div>
             <div className="text-2xl leading-4 tracking-tight font-bold text-white pt-[17.9px] pb-[7.91px] pl-[109px] lg:pl-[170px] lg:text-4xl 2xl:text-5xl 2xl:leading-9  2xl:text-[#CDBEBE] 2xl:pt-10 2xl:pb-[18px] bg-[#040404] 2xl:pl-[279px] rounded-t-[20px]">
-              {businessDetails?.business_name}
-            </div>
+              {isLoading ?
+                <DataLoader
+                  lines={1}
+                  lineClassName="h-4 bg-gray-500"
+                  containerClassName="max-w-[100px] sm:max-w-[140px] md:max-w-[200px] xl:max-w-[250px] flex-col gap-2"
+                />
+              :
+                businessDetails?.business_name
+              }
+              </div>
             <div className="flex flex-col lg:flex lg:flex-row 2xl:items-center pt-[3px] 2xl:pl-[279px] lg:pr-[30px] 2xl:pt-2 2xl:pb-[18px] bg-[#101010]">
               <div className="text-sm pl-[109px] lg:pl-[170px] lg:text-lg 2xl:pl-0 pr-[15px] 2xl:pr-0 pb-[12.11px] 2xl:pb-0 leading-4 tracking-tight 2xl:text-xl 2xl:leading-9 font-normal text-[#979998] flex flex-col gap-[4px] lg:gap-0 2xl:gap-[6px] justify-between grow">
+              {isLoading ?
+                <DataLoader
+                  lines={3}
+                  lineClassName="h-4 bg-gray-500"
+                  containerClassName="flex-col gap-2"
+                />
+                :<>
                 <div className="flex justify-between">
                   <p > Company No.</p>
                   <p className="text-[#DD69AA]">{businessDetails?.company_no}</p>
@@ -163,9 +179,17 @@ const Customers = () => {
                   <p>Member ID</p>
                   <p className="text-[#DD69AA]">{businessDetails?.member_id}</p>
                 </div>
+                </>}
               </div>
               <span className="hidden lg:flex lg:h-[70px] mt-[7px] 2xl:h-[100px] w-[1px] lg:mx-[20px] xl:mx-[40px] 2xl:mx-[55px] bg-[#979998] lg:text-center"></span>
               <div className="hidden lg:flex text-xl leading-9 font-normal text-[#979998] lg:text-lg 2xl:text-xl 2xl:leading-9  2xl:flex flex-col gap-[6px] lg:gap-0 2xl:gap-[6px] justify-between grow pb-[12.11px]">
+              {isLoading ?
+                <DataLoader
+                  lines={3}
+                  lineClassName="h-4 bg-gray-500"
+                  containerClassName="flex-col gap-2"
+                />
+                :<>
                 <div className="flex justify-between">
                   <p >
                     Owner
@@ -182,6 +206,7 @@ const Customers = () => {
                   <p>Address</p>
                   <p className="text-[#DD69AA]">{businessDetails?.address}</p>
                 </div>
+                </>}
               </div>
             </div>
           </div>
@@ -190,18 +215,26 @@ const Customers = () => {
               <span className="text-base leading-9 font-medium tracking-tight text-[#979998]">Details</span>
               <div className="h-[2px] w-full bg-[#979998] mt-[23px]"></div>
             </div>
-            <div className="flex justify-between ">
-              <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Owner</span>
-              <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">Kris Washington</span>
-            </div>
-            <div className="flex justify-between py-2">
-              <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Owner&apos;s Email ID</span>
-              <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">xyz@gmail.com</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Address</span>
-              <span className="text-sm leading-4 tracking-tight font-medium text-[#CDBEBE] w-[172px] text-end">Khandala, behind hanging garden, India</span>
-            </div>
+            {isLoading ? <>
+              <DataLoader
+                  lines={3}
+                  lineClassName="h-5 bg-gray-500"
+                  containerClassName="flex-col gap-2"
+                />
+              </>:<>
+                <div className="flex justify-between ">
+                  <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Owner</span>
+                  <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">Kris Washington</span>
+                </div>
+                <div className="flex justify-between py-2">
+                  <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Owner&apos;s Email ID</span>
+                  <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">xyz@gmail.com</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Address</span>
+                  <span className="text-sm leading-4 tracking-tight font-medium text-[#CDBEBE] w-[172px] text-end">Khandala, behind hanging garden, India</span>
+                </div>
+            </>}
           </div>
           <div className="mt-3 md:mt-[38px] 2xl:mt-[20px]">
             {Array.isArray(businessCustomers) ? (

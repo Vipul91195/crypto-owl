@@ -108,15 +108,12 @@ const UserTransactions = () => {
         },
         {
           Header: "Date & Time",
-          // accessor: "date",
           accessor: (row) => {
             const date = new Date();
-            // return date.toLocaleTimeString(row['Date & Time']);
             return date.toLocaleDateString(row['Date & Time']) + ", " + date.toLocaleTimeString(row['Date & Time'], {
               hour: '2-digit',
               minute:'2-digit'
             });
-            // return date.toUTCString(row['Date & Time']);
           },
           id: "date",
         },
@@ -132,32 +129,6 @@ const UserTransactions = () => {
         }
       ],
     },
-    // {
-    //   Header: "Date & Time",
-    //   accessor: "date_",
-    //   columns: [
-        // {
-        //   Header: "Date & Time",
-        //   accessor: "date",
-        // },
-    //   ]
-    // },
-    // {
-    //   Header: "From/To",
-    //   accessor: "fromTo_",
-    //   columns: [ {
-    //     Header: "From/To",
-    //     accessor: "From/To",
-    //   }]
-    // },
-    // {
-    //   Header: "Email ID",
-    //   accessor: "email_",
-    //   columns: [ {
-    //     Header: "Email ID",
-    //     accessor: "EmailID",
-    //   }]
-    // },
     {
       Header: "Awarded",
       columns: [

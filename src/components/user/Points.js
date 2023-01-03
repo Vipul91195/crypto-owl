@@ -54,7 +54,7 @@ const Points = () => {
                       </p>
                       <div className="flex flex-col xl:flex-row text-left gap-[14px] xl:gap-[30px] 2xl:gap-[35px]">
                         <div className="flex-1 max-w-[308px] xl:max-w-none flex flex-col justify-between">
-                          <label className="text-[18px] xl:text-[20px] font-medium flex items-start tracking-tight text-pink-light pb-2 xl:pb-[20px]">
+                          <label className="text-[18px] whitespace-nowrap xl:text-[20px] font-medium flex items-start tracking-tight text-pink-light pb-2 xl:pb-[20px]">
                             Email ID<span className="text-[#DD69AA]">*</span>
                             <span className="text-[#A6A6A6] text-[10px] pl-1 block whitespace-nowrap 2xl:text-[14px]">
                               who are you sending reward points to
@@ -219,7 +219,7 @@ const Points = () => {
                       <div className="">
                         <div className="flex flex-col sm:flex-row text-left gap-[15px]">
                           <div className="flex-1 max-w-[308px] xl:max-w-none flex flex-col justify-between">
-                            <label className="text-[14px] font-medium leading-[14px] tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
+                            <label className="text-[14px] whitespace-nowrap font-medium leading-[14px] tracking-tight text-pink-light pb-2 xl:pb-[20px] block">
                               Email ID<span className="text-[#DD69AA]">*</span>
                               <sup className="text-[#A6A6A6] text-[12px] top-0">
                                 who are you sending reward points to
