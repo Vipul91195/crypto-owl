@@ -108,7 +108,7 @@ const CommonTable = ({
                       <input
                         type="checkbox"
                         checked={allSelected}
-                        className="bg-checkFalse md:mt-[6px] 2xl:mt-[3px] bg-no-repeat bg-contain checked:bg-checkTrue appearance-none pl-[23px] h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px]"
+                        className="bg-checkFalse cursor-pointer md:mt-[6px] 2xl:mt-[3px] bg-no-repeat bg-contain checked:bg-checkTrue appearance-none pl-[23px] h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px]"
                         onChange={(e) =>
                           setAllSelected(!allSelected && !allCheckSelected)
                         }
@@ -168,7 +168,7 @@ const CommonTable = ({
                           type="checkbox"
                           checked={selectedIds[row.values[selectionColumn]]}
                           className={classNames(
-                            "bg-checkFalse bg-no-repeat bg-contain checked:bg-checkTrue appearance-none h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px] group-last:mb-5 2xl:group-last:mb-0"
+                            "bg-checkFalse cursor-pointer bg-no-repeat bg-contain checked:bg-checkTrue appearance-none h-[14px] w-[14px] 2xl:h-[18px] 2xl:w-[18px] group-last:mb-5 2xl:group-last:mb-0"
                           )}
                           onChange={(e) => {
                             dispatch(
