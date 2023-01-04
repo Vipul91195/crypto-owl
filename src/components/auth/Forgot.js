@@ -34,7 +34,7 @@ const Forgot = () => {
     useEffect(() => {
         forgotModal.otpVerified && navigate('/reset-password');
     }, [forgotModal.otpVerified, navigate]);
-    if (isLoading) return <Loader />
+    // if (isLoading) return <Loader />
     return (
         <AuthMiddleware >
             <div className='bg-[#171717] flex flex-col items-center h-screen py-[100px] sm:justify-center font-Sans w-screen px-5'>

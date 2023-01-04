@@ -119,8 +119,8 @@ const Customers = () => {
       Header: "Issue Date",
       id: "issue_date",
       accessor: ({issue_date}) => {
-        const issueDate = new Date(issue_date);
-        return issueDate.toLocaleDateString();
+        const issueDate = new Date(issue_date)
+        return (issueDate.toLocaleDateString('en-GB'))
       },
     },
     {
@@ -155,12 +155,16 @@ const Customers = () => {
         <><AdminHeader type="customer" title="User Management (Customers)" />
           <div className="pt-[2px] 2xl:pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
             <div className="absolute pt-4 pl-[14px] 2xl:pt-[40px] 2xl:pl-[42px]">
-              <div className='relative max-w-[82.39px] max-h-[82.39px]  lg:max-w-[130px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
-                <img
-                  src={businessDetails?.business_logo ? process.env.REACT_APP_PUBLIC_MEDIA_URL+businessDetails?.business_logo : businessIcon}
-                  alt="businessIcon"
-                />
-              </div>
+              {isLoading ? 
+                <DataLoader lines={1}  lineClassName="bg-gray-500 relative w-screen h-screen max-w-[84.72px] md:max-w-[86px] max-h-[98.39px] lg:max-w-[125px] xl:max-w-[140px] lg:max-h-[140px] xl:max-h-[160px] 2xl:max-w-[217px] 2xl:max-h-[200px] 4xl:max-h-[252px] " />
+              :
+                <div className='relative max-w-[82.39px] max-h-[82.39px]  lg:max-w-[130px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
+                  <img
+                    src={businessDetails?.business_logo ? process.env.REACT_APP_PUBLIC_MEDIA_URL+businessDetails?.business_logo : businessIcon}
+                    alt="businessIcon"
+                  />
+                </div>
+              }
             </div>
             <div className="text-2xl leading-4 tracking-tight font-bold text-white pt-[17.9px] pb-[7.91px] pl-[109px] lg:pl-[170px] lg:text-4xl 2xl:text-5xl 2xl:leading-9  2xl:text-[#CDBEBE] 2xl:pt-10 2xl:pb-[18px] bg-[#040404] 2xl:pl-[279px] rounded-t-[20px]">
               {isLoading ?

@@ -134,7 +134,6 @@ const CommonTable = ({
                     }
                     onClick={header.sortable ? () => handleSortingChange(header.id) : null}
                   >
-                    {console.log(header.id, " header id ")}
                     {filteredColumns.includes(header.id) ? (
                       <>
                         <PopOver
