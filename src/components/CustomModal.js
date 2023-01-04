@@ -6,7 +6,9 @@ const CustomModal = ({ children, modal, setModal, onClose }) => {
   return (
     <>
       <Transition appear show={modal?.isVisible || false} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => onClose}>
+        <Dialog as="div" className="relative z-10" 
+          onClose={() => onClose}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -16,14 +18,14 @@ const CustomModal = ({ children, modal, setModal, onClose }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 backdrop-blur-[10px] bg-[rgba(0,0,0,0.21)]" />
+            <div className="fixed inset-0 backdrop-blur-[10px] bg-[rgba(0,0,0,0.21)] pointer-events-none" />
           </Transition.Child>
           <div
             className="fixed z-50 inset-0 bg-[#0009] overflow-y-auto"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClose && onClose();
-            }}
+            // onClick={(e) => {
+            //   e.stopPropagation();
+            //   onClose && onClose();
+            // }}
           >
             <div className="flex min-h-full items-center justify-center text-center">
               <Transition.Child

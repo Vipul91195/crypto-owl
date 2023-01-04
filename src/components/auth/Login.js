@@ -24,7 +24,7 @@ const Login = () => {
     // useEffect(() => {
     //     token && navigate('/');
     // }, [navigate, token])
-    if (isLoading) return <Loader />
+    // if (isLoading) return <Loader />
 
     return (
         <AuthMiddleware >

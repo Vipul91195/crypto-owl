@@ -225,7 +225,7 @@ const UserProfile = () => {
                 </p>
                 <div className="flex flex-row justify-between">
                 <p className="text-xs leading-5 lg:text-2xl 2xl:text-[31.5066px] tracking-tight 2xl:leading-[54px] font-normal text-[#DD69AA]">
-                    General Manager
+                    {/* General Manager */} {''}
                 </p>
                 </div>
             </div>

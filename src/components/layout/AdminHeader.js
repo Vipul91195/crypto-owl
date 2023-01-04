@@ -15,6 +15,7 @@ import { getBusinessCustomers, getBusinesses } from '../../Redux/businessSlice'
 import { useParams } from 'react-router-dom'
 import ConfirmationModal from '../modal/ConfirmationModal'
 import MessageForm from '../../admin/MessageForm'
+import { toast } from 'react-hot-toast'
 
 const AdminHeader = ({ type, title, showControls = true }) => {
   const { selectedIds, modal, pageSize } = useSelector(state => ({
@@ -71,18 +72,21 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           />
           <CustomButton
             type="submit"
-            disabled={type !== "user-profile" && !anySelected}
-            onClick={() => dispatch(openModal({ type: "confirm" }))}
-            buttonStyle={classNames("hidden md:block lg:leading-[16px] 2xl:leading-6 4xl:w-screen w-full 4xl:max-w-[200px] px-3 2xl:px-6 4xl:px-0 py-[6px] lg:py-2 xl:py-3 lg:text-sm h-max 4xl:h-[51px] text-[12px] 2xl:text-sm  border border-[#DD69AA] font-medium rounded-[12px] 2xl:rounded-2xl text-[#DD69AA]", { "md:hidden": (type === "user-profile") })}
+            // disabled={type !== "user-profile" && !anySelected}
+            // onClick={() => dispatch(openModal({ type: "confirm" }))}
+            onClick={() => type !== "user-profile" && !anySelected ? toast.error("Please select any record.") : dispatch(openModal({ type: "confirm" }))}
+            buttonStyle={classNames("hidden md:block lg:leading-[16px] 2xl:leading-6 4xl:w-screen w-full 4xl:max-w-[200px] px-3 2xl:px-6 4xl:px-0 py-[6px] lg:py-2 xl:py-3 lg:text-sm h-max 4xl:h-[51px] text-[12px] 2xl:text-sm  border border-[#DD69AA] font-medium rounded-[12px] 2xl:rounded-2xl text-[#DD69AA]", { "md:hidden": (type === "user-profile") }, { "!text-white bg-[#6B7280] border-none cursor-not-allowed": type !== "user-profile" && !anySelected })}
           >
             Remove
           </CustomButton>
           <CustomButton
-            disabled={type !== "user-profile" && !anySelected}
+            // disabled={type !== "user-profile" && !anySelected}
             onClick={() => {
-              dispatch(openModal({ type: "award" }));
+              type !== "user-profile" && !anySelected ?
+              toast.error("Please select any record.") :
+              dispatch(openModal({ type: "award" }))
             }}
-            buttonStyle={classNames("hidden md:block lg:leading-[16px] 2xl:leading-6 4xl:w-screen w-full 4xl:max-w-[200px] px-3 2xl:px-6 4xl:px-0 py-[6px] lg:py-2 xl:py-3 lg:text-sm h-max 4xl:h-[51px] text-[12px] 2xl:text-sm border border-[#DD69AA] font-medium rounded-[12px] 2xl:rounded-2xl text-[#DD69AA] whitespace-nowrap", { "md:hidden": (type === "user-profile") })}
+            buttonStyle={classNames("hidden md:block lg:leading-[16px] 2xl:leading-6 4xl:w-screen w-full 4xl:max-w-[200px] px-3 2xl:px-6 4xl:px-0 py-[6px] lg:py-2 xl:py-3 lg:text-sm h-max 4xl:h-[51px] text-[12px] 2xl:text-sm border border-[#DD69AA] font-medium rounded-[12px] 2xl:rounded-2xl text-[#DD69AA] whitespace-nowrap", { "md:hidden": (type === "user-profile") }, { "!text-white bg-[#6B7280] border-none cursor-not-allowed": type !== "user-profile" && !anySelected })}
           >
             Award Point
           </CustomButton>
@@ -129,8 +133,8 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           }
           <button
             className="block md:hidden p-[3px] group relative"
-            disabled={type !== "user-profile" && !anySelected}
-            onClick={() => dispatch(openModal({ type: "confirm" }))}
+            // disabled={type !== "user-profile" && !anySelected}
+            onClick={() => type !== "user-profile" && !anySelected ? toast.error("Please select any record.") : dispatch(openModal({ type: "confirm" }))}
           >
             <CloseFilled
               className={classNames(
@@ -149,8 +153,8 @@ const AdminHeader = ({ type, title, showControls = true }) => {
           </button>
           <button
             className="block md:hidden p-[3px] group relative"
-            disabled={type !== "user-profile" && !anySelected}
-            onClick={() => dispatch(openModal({ type: "award" }))}
+            // disabled={type !== "user-profile" && !anySelected}
+            onClick={() => type !== "user-profile" && !anySelected ? toast.error("Please select any record.") : dispatch(openModal({ type: "award" }))}
           >
             <StarFilled
               className={classNames(

@@ -49,8 +49,8 @@ export const BusinessFormValidationSchema = Yup.object({
         .trim()
         .min(2, "Must be 2 char long.")
         .max(20, "Maximum 20 char.")
-        .required("Name of the company is required.")
-        .matches(/^\p{L}+$/u, "Special characters not allowed."),
+        .required("Name of the company is required."),
+        // .matches(/^\p{L}+$/u, "Special characters not allowed."),
     company_no: Yup.string()
         .trim()
         .max(10, "Maximum 10 char.")
@@ -71,7 +71,6 @@ export const BusinessFormValidationSchema = Yup.object({
     address: Yup.string()
         .trim()
         .min(2, "Must be 2 char long.")
-        .max(20, "Maximum 20 char.")
         .required("Address is required.")
 });
 
@@ -81,8 +80,8 @@ export const CustomerFormValidationSchema = Yup.object({
         .trim()
         .min(2, "Must be 2 char long.")
         .max(20, "Maximum 20 char.")
-        .required("Name is required.")
-        .matches(/^\p{L}+$/u, "Special characters not allowed."),
+        .required("Name is required."),
+        // .matches(/^\p{L}+$/u, "Special characters not allowed."),
     email: Yup.string()
         .email("Invalid email address.")
         .required("E-mail is required."),
@@ -101,8 +100,8 @@ export const CustomerEditValidationSchema = Yup.object({
         .trim()
         .min(2, "Must be 2 char long.")
         .max(20, "Maximum 20 char.")
-        .required("Name is required.")
-        .matches(/^\p{L}+$/u, "Special characters not allowed."),
+        .required("Name is required."),
+        // .matches(/^\p{L}+$/u, "Special characters not allowed."),
     phone_no: Yup.string()
         .trim()
         .max(10, "Maximum 10 char.")

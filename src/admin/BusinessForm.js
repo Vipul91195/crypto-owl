@@ -45,7 +45,7 @@ const BusinessForm = () => {
                     <div className='pt-3 pb-6 xl:pt-[14px] xl:pb-7 bg-[#1C1C1C] xl:bg-[#1C1C1C] px-5 xl:px-[31.5px] '>
                         <div className='flex text-left flex-col gap-[14px] md:gap-[20px] 2xl:gap-[35px]'>
                             <div>
-                                <input id="file" name="business_logo" type="file" onChange={(event) => {
+                                <input id="file" name="business_logo" className="appearance-none text-white" type="file" onChange={(event) => {
                                     setFieldValue("business_logo", event.currentTarget.files[0]);
                                 }} />
                             </div>

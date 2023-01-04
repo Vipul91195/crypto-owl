@@ -69,34 +69,34 @@ const Businesses = () => {
     );
   }, [currentTable, currentPage, dispatch, selectedFilter, sortColumns]);
 
-  const tempData = React.useMemo(() => [
-    {
-      business_id: 1,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      owner_name: "maddison_c21",
-      owner_email: "xyz@gmail.com",
-      member_id: "9821",
-      issue_date: "12/12/1212",
-      business_points: "1000",
-      personal_points: "1000",
-      status: "Inactive",
-    },
-    {
-      business_id: 2,
-      selected: false,
-      businessImage: "",
-      business: "Verizon",
-      owner_name: "maddison_c21",
-      owner_email: "xyz@gmail.com",
-      member_id: "9821",
-      issue_date: "12/12/1212",
-      business_points: "1000",
-      personal_points: "1000",
-      status: "Inactive",
-    }
-  ]);
+  // const tempData = React.useMemo(() => [
+  //   {
+  //     business_id: 1,
+  //     selected: false,
+  //     businessImage: "",
+  //     business: "Verizon",
+  //     owner_name: "maddison_c21",
+  //     owner_email: "xyz@gmail.com",
+  //     member_id: "9821",
+  //     issue_date: "12/12/1212",
+  //     business_points: "1000",
+  //     personal_points: "1000",
+  //     status: "Inactive",
+  //   },
+  //   {
+  //     business_id: 2,
+  //     selected: false,
+  //     businessImage: "",
+  //     business: "Verizon",
+  //     owner_name: "maddison_c21",
+  //     owner_email: "xyz@gmail.com",
+  //     member_id: "9821",
+  //     issue_date: "12/12/1212",
+  //     business_points: "1000",
+  //     personal_points: "1000",
+  //     status: "Inactive",
+  //   }
+  // ]);
 
   const columns = React.useMemo(() => [
     {
@@ -146,7 +146,7 @@ const Businesses = () => {
       id: "issue_date",
       accessor: ({issue_date}) => {
         const issueDate = new Date(issue_date);
-        return issueDate.toLocaleDateString();
+        return (issueDate.toLocaleDateString('en-GB'))
       },
     },
     {

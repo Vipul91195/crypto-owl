@@ -31,6 +31,7 @@ ApiMiddleware.interceptors.response.use(
         if (response.code === 401) {
             Cookies.remove('crypt-access', { path: '' })
             Cookies.remove('crypt-refresh', { path: '' })
+            Cookies.remove('is-admin', { path: '' })
         }
         return response;
     },
@@ -38,6 +39,7 @@ ApiMiddleware.interceptors.response.use(
         if(error.response.status === 401) {
             Cookies.remove('crypt-access', { path: '' })
             Cookies.remove('crypt-refresh', { path: '' })
+            Cookies.remove('is-admin', { path: '' })
         }
         return Promise.reject(error);
     }
