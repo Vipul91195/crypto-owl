@@ -63,45 +63,7 @@ const UserProfile = () => {
         member_id && dispatch(getCustomerProfile({ member_id }));
         member_id && dispatch(getTransactionHistory({ member_id }));
     }, [member_id]);
-
-    function SelectColumnFilter({
-        column: { filterValue, setFilter, preFilteredRows, id },
-    }) {
-        const options = React.useMemo(() => {
-            const options = new Set();
-            preFilteredRows.forEach((row) => {
-                options.add(
-                    typeof row.values[id] === "string"
-                        ? row.values[id]
-                        : row.values[id].props.children
-                );
-            });
-            return [...options.values()];
-        }, [id, preFilteredRows]);
-        return (
-            <div className="bg-[#303030] px-[20px] py-[25px] rounded-[10px] text-white min-w-[240px]">
-                <p
-                    className="border-b w-full cursor-pointer border-solid pb-3 text-left border-[#545557] text-[20px]"
-                    onClick={() => {
-                        // api ....
-                    }}
-                >
-                    All
-                </p>
-                {options.map((option, i) => (
-                    <p
-                        key={i}
-                        onClick={(e) => {
-                            // api ....
-                        }}
-                        className="text-left py-3 cursor-pointer w-full last:pb-0 last:border-none border-b border-solid pb-3 text-[20px] border-[#545557]"
-                    >
-                        {option}
-                    </p>
-                ))}
-            </div>
-        );
-    }
+    
     const columns = React.useMemo(() => [
         {
             // Header: "Serial  No",
@@ -145,12 +107,10 @@ const UserProfile = () => {
                 {
                     Header: "Balance Points",
                     accessor: "business_points",
-                    sortable: true
                 },
                 {
                     Header: "Personal Points",
                     accessor: "personal_points",
-                    sortable: true
                 },
             ],
         },
@@ -179,16 +139,10 @@ const UserProfile = () => {
             getTransactionHistory({
                 member_id,
                 page: currentPage,
-                filter: selectedFilter,
-                sort_personal_points: Object.keys(sortColumns || {}).includes("personal_points")
-                  ? sortColumns["personal_points"]
-                  : null,
-                sort_business_points: Object.keys(sortColumns || {}).includes("business_points")
-                  ? sortColumns["business_points"]
-                  : null,
+                filter: selectedFilter
             })
         );
-    }, [currentTable, currentPage, dispatch, selectedFilter, sortColumns]);
+    }, [currentTable, currentPage, dispatch, selectedFilter]);
     return (
       <AdminLayout>
         <AdminHeader className="" type="user-profile" title="User Profile" />
@@ -604,7 +558,7 @@ const UserProfile = () => {
             <div className="h-[1.5px] md:h-[2.7px] bg-[#DD69AA] w-full"></div>
           </div>
         </div>
-        <CommonTable
+        {/* <CommonTable
           columns={columns}
           filteredColumns={["transaction_type"]}
           data={tableData}
@@ -632,7 +586,51 @@ const UserProfile = () => {
             transaction_type: { color: "#6D737A" },
           }}
           isLoading={isLoading}
-        />
+        /> */}
+        <CommonTable
+        columns={columns}
+        // handleRowSelect= {() => {}}
+        filteredColumns={["transaction_type"]}
+        data={tableData}
+        // headingProps={
+        //   { "Serial No": {
+        //     'rowspan' : "2"
+        //   } }
+        // }
+        // headerRowSpan={
+        //   {
+        //     "no_show" : "2"
+        //   }
+        // }
+        HeaderClasses="bg-[#040404] text-[#DD69AA]"
+        // HeadingClasses="relative pt-[34px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 pb-[28px] whitespace-nowrap text-[20px] font-[500] leading-[24px] -tracking-[0.02em]"
+        // cellDefaultStyle="text-xl px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal leading-[36.33px] py-[22px] -tracking-[2%] text-center"
+        // HeadingClasses="relative pt-[22px] pb-[16px] md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+        HeadingClasses="relative pt-[9px] pb-[7px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+        cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal py-[18px] 2xl:py-[9px] -tracking-[2%] text-center"
+        tableClasses="w-full rounded-[20px] overflow-hidden"
+        BodyClasses="text-[#A6A6A6] bg-[#101010]"
+        containerClasses="h-max overflow-auto"
+        headerClasses={{
+          "fromTo": { textAlign: "left" },
+          "emailId": { textAlign: "right", paddingLeft: "0px" },
+          serial_no: { paddingLeft: "8px" },
+        }}
+        cellTextClassName={{
+          "fromTo": { justifyContent: "left", width: "100%" },
+          "emailId": { justifyContent: "right", width: "100%" },
+        }}
+        cellClasses={{
+          "fromTo": { textAlign: "left", color: "#CDBEBE" },
+          "emailId": { textAlign: "right", color: "#DD69AA", paddingLeft: "0px" },
+          date: { color: "#A6A6A6" },
+          serial_no: { color: "#A6A6A6", minWidth: "94px" },
+          awardBusinessPoints: { color: "#EA7070" },
+          awardPersonalPoints: { color: "#26CE7A" },
+        }}
+        isLoading={isLoading}
+      />
+    
         {pagination && (
           <div className="flex justify-center md:justify-end h-max items-center gap-12">
             <ReactPaginate

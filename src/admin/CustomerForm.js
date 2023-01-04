@@ -36,8 +36,12 @@ const CustomerForm = ({type}) => {
     formData.append('phone_no', values.phone_no);
     type !== "edit-profile" && formData.append('email', values.email);
     formData.append('address', values.address);
-    typeof values?.user_profile_pic !== 'string' &&
-      formData.append('profile_picture', values?.user_profile_pic || '')
+    type === "edit-profile"
+      ? typeof values?.user_profile_pic !== "string" &&
+        formData.append("profile_picture", values?.user_profile_pic || "")
+      : 
+        formData.append("profile_pic", values?.user_profile_pic || "")
+      ;
     if(type === "edit-profile") {
       dispatch(userProfileEdit(formData))
     }else {
@@ -222,7 +226,7 @@ const CustomerForm = ({type}) => {
                     </CustomButton>
                   </div>}
                 </div>
-                <div>
+                <div className="mt-6">
                   <CustomButton
                     className="text "
                     type="submit"

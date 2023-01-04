@@ -56,7 +56,7 @@ const Businesses = () => {
       getBusinesses({
         page: currentPage,
         filter: selectedFilter,
-        order_by_name: Object.keys(sortColumns || {}).includes("Business")
+        order_by: Object.keys(sortColumns || {}).includes("Business")
           ? sortColumns["Business"]
           : null,
         sort_personal_points: Object.keys(sortColumns || {}).includes("personal_points")
@@ -103,12 +103,12 @@ const Businesses = () => {
       Header: "Business",
       sortable: true,
       accessor: (row) => {
-        const { businessImage, business, business_id } = row;
+        const { business_logo, business, business_id } = row;
         return (
           <div onClick={() => navigate(`/customers/${business_id}`)} className="flex gap-[16px] items-center cursor-pointer">
             <div className="w-[30px] h-[30px] 2xl:w-[45.42px] 2xl:h-[45.42px] rounded-[10px] 2xl:rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black ">
-              {businessImage && businessImage !== "" ? (
-                <img src={businessImage} alt="test" />
+              {business_logo && business_logo !== "" ? (
+                <img src={process.env.REACT_APP_PUBLIC_MEDIA_URL+business_logo} alt="test" />
               ) : (
                 <svg
                   stroke="currentColor"

@@ -35,13 +35,14 @@ export const SelectColumnFilter = ({
 }) => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const options = React.useMemo(() => {
-    const options = new Set();
-    preFilteredRows.forEach((row) => {
-      options.add(typeof row.values[id] === 'string' ? row.values[id] : row.values[id].props.children);
-    });
-    return [...options.values()];
-  }, [id, preFilteredRows]);
+  const options = ['Active', 'Inactive'];
+  // const options = React.useMemo(() => {
+  //   const options = new Set();
+  //   preFilteredRows.forEach((row) => {
+  //     options.add(typeof row.values[id] === 'string' ? row.values[id] : row.values[id].props.children);
+  //   });
+  //   return [...options.values()];
+  // }, [id, preFilteredRows]);
 
   const handleOptionSelect = e => {
     dispatch(setCurrentPage(1));
@@ -59,7 +60,7 @@ export const SelectColumnFilter = ({
       {options.map((option, i) => (
         <p
           key={i}
-          id={options}
+          id={option}
           onClick={handleOptionSelect}
           className="text-left px-[18px] md:px-5 py-2 md:py-[17px] hover:bg-[#DD69AA] cursor-pointer w-full last:border-none border-b border-solid tex-sm md:text-[20px] border-[#545557]"
         >

@@ -131,21 +131,42 @@ const UserTransactions = () => {
     },
     {
       Header: "Awarded",
+      id: "awarded",
       columns: [
         {
           Header: "Business Points",
-          accessor: "points.business_points",
+          // accessor: "points.business_points",
+          accessor: ({points, transaction_type}) => {
+            return (
+              points?.business_points === 0
+                  ? "-"
+                  : transaction_type === "recieved"
+                  ? <span
+                  className="text-[#26CE7A]">{"+" + points?.business_points}</span>
+                  : <span
+                  className="text-[#EA7070]">{"-" + points?.business_points}</span>
+            );
+          },
           id: "awardBusinessPoints"
         },
         {
           Header: "Personal Points",
-          accessor: "points.personal_points",
+          accessor: ({points, transaction_type}) => {
+            return points?.personal_points === 0
+                  ? "-"
+                  : transaction_type === "recieved"
+                  ? <span
+                  className="text-[#26CE7A]">{"+" + points?.personal_points}</span>
+                  : <span
+                  className="text-[#EA7070]">{"-" + points?.personal_points}</span>;
+          },
           id: "awardPersonalPoints"
         },
       ],
     },
     {
       Header: "Balance",
+      id: 'balance',
       columns: [
         {
           Header: "Balance Points",
@@ -209,6 +230,12 @@ const UserTransactions = () => {
             "fromTo": { textAlign: "left" },
             "emailId": { textAlign: "right", paddingLeft: "0px" },
             serial_no: { paddingLeft: "8px" },
+            // awarded_4: {
+            //   borderBottom: "1px solid",
+            // },
+            // balance_6: {
+            //   borderBottom: "1px solid",
+            // }
           }}
           cellTextClassName={{
             "fromTo": { justifyContent: "left", width: "100%" },
@@ -219,8 +246,8 @@ const UserTransactions = () => {
             "emailId": { textAlign: "right", color: "#DD69AA", paddingLeft: "0px" },
             date: { color: "#A6A6A6" },
             serial_no: { color: "#A6A6A6", minWidth: "94px" },
-            awardBusinessPoints: { color: "#EA7070" },
-            awardPersonalPoints: { color: "#26CE7A" },
+            // awardBusinessPoints: { color: "#26CE7A" },
+            // awardPersonalPoints: { color: "#EA7070" },
           }}
           isLoading={isLoading}
         />

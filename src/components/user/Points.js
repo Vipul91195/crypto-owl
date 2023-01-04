@@ -150,8 +150,8 @@ const Points = () => {
                         <CustomButton
                           className=""
                           type="submit"
-                          showLoader={isLoading}
-                          disabled={isLoading}
+                          // showLoader={isLoading}
+                          // disabled={isLoading}
                           loaderSize={20}
                           buttonStyle="w-full max-w-[120px] lg:max-w-[150px] 2xl:max-w-[250px] py-[7.5px] xl:py-3 text-sm lg:text-lg 2xl:text-xl 2xl:tracking-tight text-white font-bold rounded-[10px] lg:rounded-[16px] bg-[#DD69AA] mt-6 xl:mt-8 2xl:mt-9 "
                         >
@@ -229,7 +229,7 @@ const Points = () => {
                               inputstyle="w-full text-[#858383] text-[12px] font-normal tracking-[-0.02em] outline-none
                                 py-[10px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent px-[13px]"
                               borderstyle="w-full text-[#858383] text-[12px] font-normal tracking-[-0.02em] outline-none
-                            py-[10px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent px-[13px]"
+                            py-[10px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent px-[13px]"
                               errorRight={true}
                               type="text"
                               id="to_user"
@@ -246,7 +246,7 @@ const Points = () => {
                               inputstyle="w-full text-[#858383] text-[12px] font-normal tracking-[-0.02em] outline-none
                             py-[10px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent px-[13px]"
                               borderstyle="w-full text-[#858383] text-[12px] font-normal tracking-[-0.02em] outline-none
-                            py-[10px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent px-[13px]"
+                            py-[10px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent px-[13px]"
                               errorRight={true}
                               type="text"
                               id="sent_amount"
@@ -306,7 +306,7 @@ const Points = () => {
                               inputstyle="w-full text-[#858383] text-[12px] font-normal tracking-[-0.02em] outline-none
                             py-[10px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent px-[13px]"
                               borderstyle="w-full text-[#858383] text-[12px] font-normal tracking-[-0.02em] outline-none
-                            py-[10px] rounded-[10px] 2xl:rounded-2xl border border-[#FFFFFF]/[10%] bg-transparent px-[13px]"
+                            py-[10px] rounded-[10px] 2xl:rounded-2xl border border-red-800 bg-transparent px-[13px]"
                               errorRight={true}
                               type="text"
                               id="sent_amount"
@@ -327,7 +327,7 @@ const Points = () => {
                             loaderSize={20}
                             buttonStyle="w-full max-w-[100px] py-[6px] text-sm tracking-tight text-white font-bold rounded-[7px] bg-[#DD69AA] mt-[15px]"
                           >
-                            Send
+                            Redeem
                           </CustomButton>
                         </div>
                       </div>
