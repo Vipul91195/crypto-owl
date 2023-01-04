@@ -304,7 +304,7 @@ const UserProfile = () => {
               </div>
             </div>
             <div className=" bg-[#040404] pl-[126px] lg:pl-[180px] xl:pl-[220px] 2xl:pl-[328px] pr-[24.42px] rounded-t-[20px] pt-[23px] 2xl:pt-[61px]">
-                <p className="text-2xl leading-[24px] tracking-tight text-white md:text-lg lg:text-4xl lg:leading-10 2xl:text-[64px] 2xl:leading-[64px] 2xl:font-bold lg:text-pink-light 2xl:mb-2">
+                <p className="text-2xl xl:pb-[36px] pb-[22px] 2xl:pb-10 leading-[24px] tracking-tight text-white md:text-lg lg:text-4xl lg:leading-10 2xl:text-[64px] 2xl:leading-[64px] 2xl:font-bold lg:text-pink-light 2xl:mb-2">
                     {customerDetails?.profile?.name}
                 </p>
                 <div className="flex flex-row justify-between">
