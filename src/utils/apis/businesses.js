@@ -9,10 +9,10 @@ export const getBusinessesApi = async (params, { rejectWithValue }) => {
         params?.search ? "&search=" + params?.search : ""
       }${
         params?.filter && params?.filter.value !== ""
-          ? "&status=" + params?.filter.value
+          ? "&status=" + (params?.filter.value).toLowerCase()
           : ""
       }${params?.page_size ? "&page_size=" + params?.page_size : ""}${
-        params?.order_by_name ? "&order_by_name=" + params?.order_by_name : ""
+        params?.order_by ? "&order_by=" + params?.order_by : ""
       }${
         params?.sort_personal_points ? "&sort_personal_points=" + params?.sort_personal_points : ""
       }${
@@ -47,10 +47,10 @@ export const getBusinessCustomersApi = async (params, { rejectWithValue }) => {
         params?.search ? "&search=" + params?.search : ""
       }${
         params?.filter && params?.filter.value !== ""
-          ? "&status=" + params?.filter.value
+          ? "&status=" + (params?.filter.value).toLowerCase()
           : ""
       }${params?.page_size ? "&page_size=" + params?.page_size : ""}${
-        params?.order_by_name ? "&order_by_name=" + params?.order_by_name : ""
+        params?.order_by ? "&order_by=" + params?.order_by : ""
       }${
         params?.sort_personal_points ? "&sort_personal_points=" + params?.sort_personal_points : ""
       }${

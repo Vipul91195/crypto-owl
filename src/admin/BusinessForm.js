@@ -44,11 +44,11 @@ const BusinessForm = () => {
                 >
                     <div className='pt-3 pb-6 xl:pt-[14px] xl:pb-7 bg-[#1C1C1C] xl:bg-[#1C1C1C] px-5 xl:px-[31.5px] '>
                         <div className='flex text-left flex-col gap-[14px] md:gap-[20px] 2xl:gap-[35px]'>
-                            {/* <div>
+                            <div>
                                 <input id="file" name="business_logo" type="file" onChange={(event) => {
                                     setFieldValue("business_logo", event.currentTarget.files[0]);
                                 }} />
-                            </div> */}
+                            </div>
                             <div>
                                 <label className='whitespace-nowrap text-base font-medium tracking-tight text-pink-light 
                                 pb-[8.47px] 2xl:text-[32px] xl:font-normal 2xl:pb-[20px] block'>Business<span className='text-[#DD69AA]'>*</span></label>

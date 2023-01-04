@@ -134,6 +134,7 @@ const CommonTable = ({
                     }
                     onClick={header.sortable ? () => handleSortingChange(header.id) : null}
                   >
+                    {console.log(header.id, " header id ")}
                     {filteredColumns.includes(header.id) ? (
                       <>
                         <PopOver
@@ -231,8 +232,8 @@ const CommonTable = ({
                           </span>
                         )}
                         <span className="text-center block w-max">
-                        {cell.column.id === "awardBusinessPoints" && "- "}
-                        {cell.column.id === "awardPersonalPoints" && "+ "}
+                        {/* {cell.column.id === "awardPersonalPoints" && cell.value !== '-' && "- "}
+                        {cell.column.id === "awardBusinessPoints" && cell.value !== '-' && "+ "} */}
                           {cell.render("Cell")}
                         </span>
                         {heighLightCellPostfix &&

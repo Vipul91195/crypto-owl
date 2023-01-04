@@ -64,7 +64,7 @@ const Customers = () => {
 
   useEffect(() => {
     dispatch(getBusinessCustomers({ business_id: business_id, page: currentPage, filter: selectedFilter,
-      order_by_name: Object.keys(sortColumns || {}).includes("Name")
+      order_by: Object.keys(sortColumns || {}).includes("Name")
       ? sortColumns["Name"]
       : null,
     sort_personal_points: Object.keys(sortColumns || {}).includes("personal_points")
@@ -85,12 +85,12 @@ const Customers = () => {
       Header: "Name",
       sortable: true,
       accessor: (row) => {
-        const { customerImage, name, member_id } = row;
+        const { user_profile_pic, name, member_id } = row;
         return (
           <div onClick={() => navigate(`/profile/${member_id}`)} className="flex gap-[16px] items-center cursor-pointer">
             <div className="w-[30px] h-[30px] 2xl:w-[45.42px] 2xl:h-[45.42px] rounded-[10px] 2xl:rounded-[18.1674px] overflow-hidden flex items-center justify-center bg-black">
-              {customerImage && customerImage !== "" ? (
-                <img src={customerImage} alt="test" />
+              {user_profile_pic && user_profile_pic !== "" ? (
+                <img src={process.env.REACT_APP_PUBLIC_MEDIA_URL+user_profile_pic} alt="test" />
               ) : (
                 <svg
                   stroke="currentColor"
@@ -239,15 +239,15 @@ const Customers = () => {
               </>:<>
                 <div className="flex justify-between ">
                   <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Owner</span>
-                  <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">Kris Washington</span>
+                  <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">{businessDetails?.owner}</span>
                 </div>
                 <div className="flex justify-between py-2">
                   <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Owner&apos;s Email ID</span>
-                  <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">xyz@gmail.com</span>
+                  <span className="text-sm leading-3 tracking-tight font-medium text-[#CDBEBE]">{businessDetails?.owner_email_id}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm leading-3 tracking-tight font-normal text-[#979998]">Address</span>
-                  <span className="text-sm leading-4 tracking-tight font-medium text-[#CDBEBE] w-[172px] text-end">Khandala, behind hanging garden, India</span>
+                  <span className="text-sm leading-4 tracking-tight font-medium text-[#CDBEBE] w-[172px] text-end">{businessDetails?.address}</span>
                 </div>
             </>}
           </div>

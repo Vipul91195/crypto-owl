@@ -64,7 +64,10 @@ export const AdminLayout = ({ children, isLoading }) => {
                         {tabs.map((tab, i) => (
                             <Link key={i} to={tab.route}>
                                 <div className='flex items-center gap-[14px] py-3 px-9 md:pr-0 sm:pl-5 2xl:pl-9 relative'>
-                                    {tab.route === route.pathname || (route.pathname === "/" && tab.name === 'User Management') &&
+                                    {tab.route === route.pathname &&
+                                        <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>
+                                    }
+                                    {(route.pathname === "/" && tab.name === 'User Management') &&
                                         <div className='text-white h-9 w-1 bg-[#DD69AA] absolute right-0'></div>
                                     }
                                     <img src={tab.icon} alt="i" />
