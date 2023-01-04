@@ -64,57 +64,141 @@ const UserProfile = () => {
         member_id && dispatch(getTransactionHistory({ member_id }));
     }, [member_id]);
     
-    const columns = React.useMemo(() => [
-        {
-            // Header: "Serial  No",
-            // columns: [
-            //   {
-            Header: "Serial  No",
-            accessor: "serial_no",
-            //   },
-            // ],
+    // const columns = React.useMemo(() => [
+    //     {
+    //         // Header: "Serial  No",
+    //         // columns: [
+    //         //   {
+    //         Header: "Serial  No",
+    //         accessor: "serial_no",
+    //         //   },
+    //         // ],
 
-        },
-        {
-            Header: "Date & Time",
-            accessor: "date",
-        },
+    //     },
+    //     {
+    //         Header: "Date & Time",
+    //         accessor: "date",
+    //     },
 
+    //     {
+    //         Header: "From/To",
+    //         accessor: "From/To",
+    //     },
+    //     {
+    //         Header: "Email ID",
+    //         accessor: "EmailID",
+    //     },
+    //     {
+    //         Header: "Awarded",
+    //         columns: [
+    //             {
+    //                 Header: "Business Points",
+    //                 accessor: "points.business_points",
+    //             },
+    //             {
+    //                 Header: "Personal Points",
+    //                 accessor: "points.personal_points",
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         Header: "Balance",
+    //         columns: [
+    //             {
+    //                 Header: "Balance Points",
+    //                 accessor: "business_points",
+    //             },
+    //             {
+    //                 Header: "Personal Points",
+    //                 accessor: "personal_points",
+    //             },
+    //         ],
+    //     },
+    // ]);
+     const columns = React.useMemo(() => [
+    {
+      Header: "",
+      accessor: "no_show",
+      id: "no_show",
+      columns: [
         {
-            Header: "From/To",
-            accessor: "From/To",
+          Header: "Serial No",
+          accessor: "serial_no",
+          id: "serial_no",
         },
         {
-            Header: "Email ID",
-            accessor: "EmailID",
+          Header: "Date & Time",
+          accessor: (row) => {
+            const date = new Date();
+            return date.toLocaleDateString(row['Date & Time']) + ", " + date.toLocaleTimeString(row['Date & Time'], {
+              hour: '2-digit',
+              minute:'2-digit'
+            });
+          },
+          id: "date",
         },
         {
-            Header: "Awarded",
-            columns: [
-                {
-                    Header: "Business Points",
-                    accessor: "points.business_points",
-                },
-                {
-                    Header: "Personal Points",
-                    accessor: "points.personal_points",
-                },
-            ],
+          Header: "From/To",
+          accessor: "From/To",
+          id: "fromTo",
         },
         {
-            Header: "Balance",
-            columns: [
-                {
-                    Header: "Balance Points",
-                    accessor: "business_points",
-                },
-                {
-                    Header: "Personal Points",
-                    accessor: "personal_points",
-                },
-            ],
+          Header: "Email ID",
+          accessor: "EmailID",
+          id: "emailId",
+        }
+      ],
+    },
+    {
+      Header: "Awarded",
+      id: "awarded",
+      columns: [
+        {
+          Header: "Business Points",
+          // accessor: "points.business_points",
+          accessor: ({points, transaction_type}) => {
+            return (
+              points?.business_points === 0
+                  ? "-"
+                  : transaction_type === "recieved"
+                  ? <span
+                  className="text-[#26CE7A]">{"+" + points?.business_points}</span>
+                  : <span
+                  className="text-[#EA7070]">{"-" + points?.business_points}</span>
+            );
+          },
+          id: "awardBusinessPoints"
         },
-    ]);
+        {
+          Header: "Personal Points",
+          accessor: ({points, transaction_type}) => {
+            return points?.personal_points === 0
+                  ? "-"
+                  : transaction_type === "recieved"
+                  ? <span
+                  className="text-[#26CE7A]">{"+" + points?.personal_points}</span>
+                  : <span
+                  className="text-[#EA7070]">{"-" + points?.personal_points}</span>;
+          },
+          id: "awardPersonalPoints"
+        },
+      ],
+    },
+    {
+      Header: "Balance",
+      id: 'balance',
+      columns: [
+        {
+          Header: "Balance Points",
+          accessor: "business_points",
+        },
+        {
+          Header: "Personal Points",
+          accessor: "personal_points",
+        },
+      ],
+    },
+  ]);
 
     const handlePageClick = (page) => {
         dispatch(setCurrentPage(page.selected + 1));
@@ -587,7 +671,7 @@ const UserProfile = () => {
           }}
           isLoading={isLoading}
         /> */}
-        <CommonTable
+        {/* <CommonTable
         columns={columns}
         // handleRowSelect= {() => {}}
         filteredColumns={["transaction_type"]}
@@ -629,8 +713,56 @@ const UserProfile = () => {
           awardPersonalPoints: { color: "#26CE7A" },
         }}
         isLoading={isLoading}
-      />
-    
+      /> */}
+    {transactionData ? 
+        <CommonTable
+          columns={columns}
+          filteredColumns={["transaction_type"]}
+          data={tableData}
+          HeaderClasses="bg-[#040404] text-[#DD69AA]"
+          HeadingClasses="relative pt-[9px] pb-[7px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal py-[18px] 2xl:py-[9px] -tracking-[2%] text-center"
+          tableClasses="w-full rounded-[20px] overflow-hidden"
+          BodyClasses="text-[#A6A6A6] bg-[#101010]"
+          containerClasses="h-max overflow-auto"
+          headerClasses={{
+            "fromTo": { textAlign: "left" },
+            "emailId": { textAlign: "right", paddingLeft: "0px" },
+            serial_no: { paddingLeft: "8px" },
+            // awarded_4: {
+            //   borderBottom: "1px solid",
+            // },
+            // balance_6: {
+            //   borderBottom: "1px solid",
+            // }
+          }}
+          cellTextClassName={{
+            "fromTo": { justifyContent: "left", width: "100%" },
+            "emailId": { justifyContent: "right", width: "100%" },
+          }}
+          cellClasses={{
+            "fromTo": { textAlign: "left", color: "#CDBEBE" },
+            "emailId": { textAlign: "right", color: "#DD69AA", paddingLeft: "0px" },
+            date: { color: "#A6A6A6" },
+            serial_no: { color: "#A6A6A6", minWidth: "94px" },
+            // awardBusinessPoints: { color: "#26CE7A" },
+            // awardPersonalPoints: { color: "#EA7070" },
+          }}
+          isLoading={isLoading}
+        />
+      :
+      <CommonTable
+          columns={[{Header: "", accessor: "no_data" }]}
+          data={[{no_data: "No Data"}] }
+          filteredColumns={["Status"]}
+          HeaderClasses="bg-[#040404] text-[#DD69AA]"
+          HeadingClasses="relative py-2 md:pt-[26px] md:pb-[20px] 2xl:pt-[30px] 2xl:pb-[24px] 4xl:pt-[34px] 4xl:pb-[28px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 whitespace-nowrap text-[16px] 2xl:text-[20px] leading-[16px] 2xl:leading-[24px] font-[500]  -tracking-[0.02em]"
+          tableClasses="w-full rounded-[20px] overflow-hidden"
+          BodyClasses="text-white bg-[#101010]"
+          containerClasses="min-h-[20vh] h-max overflow-x-auto"
+          cellDefaultStyle="text-[16px] 2xl:text-xl leading-[16px] 2xl:leading-[36.33px] px-[15px] 2xl:pr-[30px] 2xl:pl-0 font-normal pt-[18px] 2xl:py-[22px] -tracking-[2%] text-center"
+        />
+      }
         {pagination && (
           <div className="flex justify-center md:justify-end h-max items-center gap-12">
             <ReactPaginate
