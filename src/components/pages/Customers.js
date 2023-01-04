@@ -154,11 +154,11 @@ const Customers = () => {
     <AdminLayout >
         <><AdminHeader type="customer" title="User Management (Customers)" />
           <div className="pt-[2px] 2xl:pt-[50.94px] rounded-b-[20px] overflow-hidden relative">
-            <div className="absolute pt-4 pl-[14px] 2xl:pt-[40px] 2xl:pl-[42px]">
+            <div className="absolute pt-4 pl-[14px] 2xl:pt-[40px] 2xl:pl-[65px]">
               {isLoading ? 
                 <DataLoader lines={1}  lineClassName="bg-gray-500 relative w-screen h-screen max-w-[84.72px] md:max-w-[86px] max-h-[98.39px] lg:max-w-[125px] xl:max-w-[140px] lg:max-h-[140px] xl:max-h-[160px] 2xl:max-w-[217px] 2xl:max-h-[200px] 4xl:max-h-[252px] " />
               :
-                <div className='relative max-w-[82.39px] max-h-[82.39px]  lg:max-w-[130px] 2xl:max-w-[217px] 2xl:max-h-[252px]'>
+                <div className='relative max-w-[82.39px] max-h-[82.39px]  lg:max-w-[130px] 2xl:max-w-[160px] 2xl:max-h-[252px]'>
                   <img
                     src={businessDetails?.business_logo ? process.env.REACT_APP_PUBLIC_MEDIA_URL+businessDetails?.business_logo : businessIcon}
                     alt="businessIcon"
